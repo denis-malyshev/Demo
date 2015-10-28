@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="Cp1251" standalone="yes"?>
+<wrapper>
+    <categories>
+        <name>first category</name>
+        <examples>
+            <name>FirstExampleForFirstCategory</name>
+            <description>description for first example in first category</description>
+        </examples>
+    </categories>
+    <categories>
+        <name>second category</name>
+        <examples>
+            <name>FirstExampleForSecondCategory</name>
+            <description>description for first example in second category</description>
+        </examples>
+        <name>third category</name>
+        <examples>
+            <name>SecondExampleForSecondCategory</name>
+            <description>description for second example in second category</description>
+        </examples>
+        <name>fourth category</name>
+        <examples>
+            <name>ThirdExampleForSecondCategory</name>
+            <description>description for third example in second category</description>
+        </examples>
+    </categories>
+</wrapper>
