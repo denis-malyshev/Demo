@@ -23,14 +23,12 @@ public final class DemoFrame {
     private final JTabbedPane tabbedPane = new JTabbedPane();
     private final JScrollPane leftScrollPane = new JScrollPane(leftPanel);
     private final JPanel preview=new JPanel();
-    private final JEditorPane source;
-    private final JScrollPane sourceContainer;
+    private final JTextPane source=new JTextPane();;
+    private final JScrollPane sourceContainer=new JScrollPane(source);;
     private final JTree treeOfExample;
 
     public DemoFrame(DefaultMutableTreeNode tree) {
-        source=new JEditorPane();
-        sourceContainer=new JScrollPane(source);
-        source.setContentType("text/java");
+        final JavaHighlighter javaHighlighter=new JavaHighlighter(source);
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         frame = new JFrame();
         frame.setSize(800, 500);
@@ -73,6 +71,7 @@ public final class DemoFrame {
                             DataProvider.createInstanceByClassName(example.getName(),preview);
                             String text=DataProvider.getSourceCodeFromTxt(example.getName());
                             source.setText(text);
+                            javaHighlighter.changeColor();
                         }
                     }
                 }
