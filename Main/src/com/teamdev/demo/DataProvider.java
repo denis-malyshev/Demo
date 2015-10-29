@@ -6,6 +6,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import java.awt.*;
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -43,10 +44,10 @@ public final class DataProvider {
         return treeRoot;
     }
 
-    public static void createInstanceByClassName(String className,JComponent container) {
+    public static void createInstanceByClassName(String className,JPanel container) {
         try {
             Class test=Class.forName("com.teamdev.demo."+className);
-            Method method=test.getDeclaredMethod("run",JComponent.class);
+            Method method=test.getDeclaredMethod("run",JPanel.class);
             method.setAccessible(true);
             method.invoke(test.newInstance(), container);
         } catch (ClassNotFoundException e) {

@@ -1,13 +1,13 @@
 package com.teamdev.demo;
 
 
+
+import sun.swing.plaf.synth.DefaultSynthStyle;
+
 import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyleContext;
+import javax.swing.text.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 import java.awt.*;
@@ -23,11 +23,14 @@ public final class DemoFrame {
     private final JTabbedPane tabbedPane = new JTabbedPane();
     private final JScrollPane leftScrollPane = new JScrollPane(leftPanel);
     private final JPanel preview=new JPanel();
-    private final JTextPane source=new JTextPane();
-    private final JScrollPane sourceContainer=new JScrollPane(source);
+    private final JEditorPane source;
+    private final JScrollPane sourceContainer;
     private final JTree treeOfExample;
 
     public DemoFrame(DefaultMutableTreeNode tree) {
+        source=new JEditorPane();
+        sourceContainer=new JScrollPane(source);
+        source.setContentType("text/java");
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         frame = new JFrame();
         frame.setSize(800, 500);
@@ -70,7 +73,6 @@ public final class DemoFrame {
                             DataProvider.createInstanceByClassName(example.getName(),preview);
                             String text=DataProvider.getSourceCodeFromTxt(example.getName());
                             source.setText(text);
-                            appendToTextArea(source,"void",Color.CYAN);
                         }
                     }
                 }
