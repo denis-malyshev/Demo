@@ -2,8 +2,6 @@ package com.teamdev.demo;
 
 
 
-import sun.swing.plaf.synth.DefaultSynthStyle;
-
 import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
@@ -23,8 +21,8 @@ public final class DemoFrame {
     private final JTabbedPane tabbedPane = new JTabbedPane();
     private final JScrollPane leftScrollPane = new JScrollPane(leftPanel);
     private final JPanel preview=new JPanel();
-    private final JTextPane source=new JTextPane();;
-    private final JScrollPane sourceContainer=new JScrollPane(source);;
+    private final JTextPane source=new JTextPane();
+    private final JScrollPane sourceContainer=new JScrollPane(source);
     private final JTree treeOfExample;
 
     public DemoFrame(DefaultMutableTreeNode tree) {
@@ -69,9 +67,10 @@ public final class DemoFrame {
                             setLabelAboutExample(example.getDescription());
                             preview.removeAll();
                             DataProvider.createInstanceByClassName(example.getName(),preview);
-                            String text=DataProvider.getSourceCodeFromTxt(example.getName());
-                            source.setText(text);
-                            javaHighlighter.changeColor();
+                            source.setText(DataProvider.getSourceCodeFromTxt(example.getName()));
+                            source.getDocument().putProperty(DefaultEditorKit.EndOfLineStringProperty,"\n");
+                            //javaHighlighter.highlightKeyWords();
+                            javaHighlighter.highlightFunctions();
                         }
                     }
                 }
@@ -81,16 +80,5 @@ public final class DemoFrame {
 
     private void setLabelAboutExample(String text) {
         labelAboutExample.setText(text);
-    }
-
-    private void appendToTextArea(JTextPane textArea, String text, Color color) {
-        StyleContext styleContext= StyleContext.getDefaultStyleContext();
-        AttributeSet attributeSet=styleContext.addAttribute(SimpleAttributeSet.EMPTY,StyleConstants.Foreground, color);
-        attributeSet=styleContext.addAttribute(attributeSet,StyleConstants.FontFamily,"Lucida  Console");
-        attributeSet=styleContext.addAttribute(attributeSet,StyleConstants.Alignment,StyleConstants.ALIGN_JUSTIFIED);
-        int len=textArea.getDocument().getLength();
-        textArea.setCaretPosition(len);
-        textArea.setCharacterAttributes(attributeSet,false);
-        textArea.replaceSelection(text);
     }
 }
