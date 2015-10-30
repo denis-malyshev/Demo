@@ -8,7 +8,7 @@ public class Main {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                final DemoFrame demoFrame = new DemoFrame(DataProvider.createTree(DataProvider.getCategoriesFromXMl()));
+                final DemoFrame demoFrame = new DemoFrame();
             }
         });
     }

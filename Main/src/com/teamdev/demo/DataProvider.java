@@ -3,40 +3,43 @@ package com.teamdev.demo;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.nio.file.Path;
 import java.util.ArrayList;
 
 public final class DataProvider {
 
-    public static ArrayList<Category> getCategoriesFromXMl() {
-
-        File sourceFile = new File("data.xml");
-        JAXBContext jaxbContext;
-        if (sourceFile.exists()) {
-            try {
-                jaxbContext = JAXBContext.newInstance(Wrapper.class);
-                Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-                Wrapper.wrapper = (Wrapper) unmarshaller.unmarshal(sourceFile);
-            } catch (JAXBException e) {
-                e.printStackTrace();
-            }
-        }
-        return Wrapper.wrapper.getCategories();
-    }
-
-    public static void getCategotyFromFolders() {
-        File file=new File("");
+    private static String fromTxt(File file){
+        StringBuilder buff=new StringBuilder("");
         try {
             FileReader fileReader=new FileReader(file);
+            int ch;
+            while ((ch=fileReader.read())!=-1) {
+                buff.append((char)ch);
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return buff.toString();
+    }
+
+    public static ArrayList<Category> getCategoryFromFolders() {
+        ArrayList<Category> categories=new ArrayList<Category>();
+        File root = new File("Examples");
+        File[] files = root.listFiles();
+        for (int i = 0; i < files.length; i++) {
+            File[] temp=files[i].listFiles();
+            ArrayList<Example> examples=new ArrayList<Example>();
+            for(int j=0;j<temp.length;j++) {
+                StringBuilder name=new StringBuilder(temp[j].getName().replace(".txt",""));
+                examples.add(new Example(name.toString(),fromTxt(temp[i])));
+            }
+            categories.add(new Category(files[i].getName(),examples));
+        }
+        return categories;
     }
 
     public static DefaultMutableTreeNode createTree(ArrayList<Category> categories) {
@@ -53,10 +56,10 @@ public final class DataProvider {
         return treeRoot;
     }
 
-    public static void createInstanceByClassName(String className,JPanel container) {
+    public static void createInstanceByClassName(String className, JPanel container) {
         try {
-            Class test=Class.forName("com.teamdev.demo."+className);
-            Method method=test.getDeclaredMethod("run",JPanel.class);
+            Class test = Class.forName("com.teamdev.demo." + className);
+            Method method = test.getDeclaredMethod("run", JPanel.class);
             method.setAccessible(true);
             method.invoke(test.newInstance(), container);
         } catch (ClassNotFoundException e) {
@@ -73,12 +76,12 @@ public final class DataProvider {
     }
 
     public static String getSourceCodeFromTxt(String exampleName) {
-        String result="";
+        String result = "";
         try {
-            FileReader fileReader=new FileReader(exampleName+".txt");
+            FileReader fileReader = new FileReader(exampleName + ".txt");
             int ch;
-            while ((ch=fileReader.read())!=-1) {
-                result+=(char)ch;
+            while ((ch = fileReader.read()) != -1) {
+                result += (char) ch;
             }
             fileReader.close();
         } catch (FileNotFoundException e) {

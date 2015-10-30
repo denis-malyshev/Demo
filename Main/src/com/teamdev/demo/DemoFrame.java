@@ -24,7 +24,7 @@ public final class DemoFrame {
     private final JScrollPane sourceContainer = new JScrollPane(source);
     private final JTree treeOfExample;
 
-    public DemoFrame(DefaultMutableTreeNode tree) {
+    public DemoFrame(/*DefaultMutableTreeNode tree*/) {
         final JavaHighlighter javaHighlighter = new JavaHighlighter(source,sourceContainer);
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         frame = new JFrame();
@@ -53,9 +53,10 @@ public final class DemoFrame {
 
         frame.add(mainContainer);
 
+        final ArrayList<Category> categories =DataProvider.getCategoryFromFolders();
+        DefaultMutableTreeNode tree=DataProvider.createTree(categories);
         treeOfExample = new JTree(tree);
         leftPanel.add(treeOfExample);
-        final ArrayList<Category> categories = Wrapper.wrapper.getCategories();
         treeOfExample.addTreeSelectionListener(new TreeSelectionListener() {
             @Override
             public void valueChanged(TreeSelectionEvent e) {
