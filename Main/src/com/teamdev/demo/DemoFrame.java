@@ -5,7 +5,6 @@ import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.text.*;
-import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 import java.awt.*;
 import java.util.ArrayList;
@@ -15,7 +14,7 @@ public final class DemoFrame {
     private final JPanel leftPanel = new JPanel();
     private final JPanel rightContainer = new JPanel();
     private final JPanel rightDownSubContainer = new JPanel();
-    private final JLabel labelAboutExample = new JLabel();
+    private final JLabel labelAboutExample = new JLabel("Click on example for showing");
     private final JSplitPane mainContainer = new JSplitPane();
     private final JTabbedPane tabbedPane = new JTabbedPane();
     private final JScrollPane leftScrollPane = new JScrollPane(leftPanel);
@@ -24,8 +23,8 @@ public final class DemoFrame {
     private final JScrollPane sourceContainer = new JScrollPane(source);
     private final JTree treeOfExample;
 
-    public DemoFrame(/*DefaultMutableTreeNode tree*/) {
-        final JavaHighlighter javaHighlighter = new JavaHighlighter(source,sourceContainer);
+    public DemoFrame() {
+        final JavaHighlighter javaHighlighter = new JavaHighlighter(source, sourceContainer);
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         frame = new JFrame();
         frame.setSize(800, 500);
@@ -36,26 +35,26 @@ public final class DemoFrame {
 
         leftPanel.setMinimumSize(new Dimension(100, frame.getHeight()));
 
+        rightContainer.setLayout(new BoxLayout(rightContainer, BoxLayout.Y_AXIS));
+        rightContainer.add(labelAboutExample);
+        rightContainer.add(rightDownSubContainer);
+
         rightDownSubContainer.add(tabbedPane);
         rightDownSubContainer.setLayout(new BoxLayout(rightDownSubContainer, BoxLayout.Y_AXIS));
 
-        source.setEditable(false);
         tabbedPane.addTab("Preview", preview);
         tabbedPane.addTab("Source", sourceContainer);
-
-        rightContainer.setLayout(new BoxLayout(rightContainer, BoxLayout.Y_AXIS));
-
-        rightContainer.add(labelAboutExample);
-        rightContainer.add(rightDownSubContainer);
+        tabbedPane.setVisible(false);
 
         mainContainer.setLeftComponent(leftScrollPane);
         mainContainer.setRightComponent(rightContainer);
 
         frame.add(mainContainer);
 
-        final ArrayList<Category> categories =DataProvider.getCategoryFromFolders();
-        DefaultMutableTreeNode tree=DataProvider.createTree(categories);
-        treeOfExample = new JTree(tree);
+        final ArrayList<Category> categories = DataProvider.getCategoryFromFolders();
+        treeOfExample = new JTree(DataProvider.createTree(categories));
+        treeOfExample.setRootVisible(false);
+        treeOfExample.expandRow(0);
         leftPanel.add(treeOfExample);
         treeOfExample.addTreeSelectionListener(new TreeSelectionListener() {
             @Override
@@ -64,9 +63,12 @@ public final class DemoFrame {
                 for (Category category : categories) {
                     for (Example example : category.getExamples()) {
                         if (example.getName().toString() == treePath.getLastPathComponent().toString()) {
-                            setLabelAboutExample(example.getDescription());
+                            labelAboutExample.setText(example.getDescription());
                             preview.removeAll();
+                            preview.revalidate();
                             DataProvider.createInstanceByClassName(example.getName(), preview);
+                            tabbedPane.setSelectedIndex(0);
+                            tabbedPane.setVisible(true);
                             source.setText(DataProvider.getSourceCodeFromTxt(example.getName()));
                             source.getDocument().putProperty(DefaultEditorKit.EndOfLineStringProperty, "\n");
                             javaHighlighter.highlightCode();
@@ -77,7 +79,12 @@ public final class DemoFrame {
         });
     }
 
-    private void setLabelAboutExample(String text) {
-        labelAboutExample.setText(text);
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new DemoFrame();
+            }
+        });
     }
 }

@@ -10,13 +10,16 @@ import java.util.ArrayList;
 
 public final class DataProvider {
 
-    private static String fromTxt(File file){
-        StringBuilder buff=new StringBuilder("");
+    private static Class currentInstance;
+    private static boolean is;
+
+    private static String fromTxt(File file) {
+        StringBuilder buff = new StringBuilder("");
         try {
-            FileReader fileReader=new FileReader(file);
+            FileReader fileReader = new FileReader(file);
             int ch;
-            while ((ch=fileReader.read())!=-1) {
-                buff.append((char)ch);
+            while ((ch = fileReader.read()) != -1) {
+                buff.append((char) ch);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -27,17 +30,17 @@ public final class DataProvider {
     }
 
     public static ArrayList<Category> getCategoryFromFolders() {
-        ArrayList<Category> categories=new ArrayList<Category>();
+        ArrayList<Category> categories = new ArrayList<Category>();
         File root = new File("Examples");
         File[] files = root.listFiles();
         for (int i = 0; i < files.length; i++) {
-            File[] temp=files[i].listFiles();
-            ArrayList<Example> examples=new ArrayList<Example>();
-            for(int j=0;j<temp.length;j++) {
-                StringBuilder name=new StringBuilder(temp[j].getName().replace(".txt",""));
-                examples.add(new Example(name.toString(),fromTxt(temp[i])));
+            File[] temp = files[i].listFiles();
+            ArrayList<Example> examples = new ArrayList<Example>();
+            for (int j = 0; j < temp.length; j++) {
+                StringBuilder name = new StringBuilder(temp[j].getName().replace(".txt", ""));
+                examples.add(new Example(name.toString(), fromTxt(temp[i])));
             }
-            categories.add(new Category(files[i].getName(),examples));
+            categories.add(new Category(files[i].getName(), examples));
         }
         return categories;
     }
@@ -58,10 +61,11 @@ public final class DataProvider {
 
     public static void createInstanceByClassName(String className, JPanel container) {
         try {
-            Class test = Class.forName("com.teamdev.demo." + className);
-            Method method = test.getDeclaredMethod("run", JPanel.class);
+            currentInstance = Class.forName("com.teamdev.demo." + className);
+            Method method = currentInstance.getDeclaredMethod("run", JPanel.class);
+            is = true;
             method.setAccessible(true);
-            method.invoke(test.newInstance(), container);
+            method.invoke(currentInstance.newInstance(), container);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {

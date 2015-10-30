@@ -69,6 +69,7 @@ public class JavaHighlighter {
     public JavaHighlighter(JTextPane jTextPane, JScrollPane jScrollPane) {
         this.jTextPane = jTextPane;
         this.jScrollPane=jScrollPane;
+        this.jTextPane.setEditable(false);
         lines.setBackground(Color.lightGray);
         lines.setEditable(false);
         lines.setFont(jTextPane.getFont());
