@@ -3,13 +3,18 @@ package com.teamdev.demo;
 
 import javax.swing.*;
 import javax.swing.text.*;
-import java.awt.*;
+import java.awt.Color;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class JavaHighlighter {
     private static final Color DEFAULT_KEYWORD_COLOR = Color.blue;
     private static final Color FUNCTIONS_NAME_COLOR = Color.orange;
+    private static final Color PARAMS_COLOR =Color.magenta;
+    private static final Color TEXT_FIELDS_COLOR =Color.green;
+    private static final Color NUMBERS_COLOR =Color.cyan;
+    private static final Color CONSTANTS_COLOR=Color.pink;
+    private static final Color CHARACTERS_COLOR =Color.orange;
     private JTextPane jTextPane;
     private static final String[] JAVA_KEYWORDS = new String[]{"abstract",
             "assert", "boolean", "break", "byte", "case", "catch", "char",
@@ -23,20 +28,38 @@ public class JavaHighlighter {
 
     private static String JAVA_KEYWORDS_REGEX;
     private static String FUNCTIONS_NAMES_REGEX;
+    private static String PARAMS_REGEX;
+    private static String TEXT_FIELDS_REGEX;
+    private static String NUMBERS_COLOR_REGEX;
+    private static String CONSTANTS_COLOR_REGEX;
+    private static String CHARACTERS_COLOR_REGEX;
 
     static {
-        StringBuilder buff = new StringBuilder("");
-        StringBuilder buff1 = new StringBuilder("");
-        buff1.append("(");
+        StringBuilder keyWordsBuff = new StringBuilder("");
+        StringBuilder functionsBuff = new StringBuilder("");
+        StringBuilder paramsBuff = new StringBuilder("");
+        StringBuilder textFieldsBuff = new StringBuilder("");
+        StringBuilder numbersBuff = new StringBuilder("");
+        StringBuilder constantsBuff = new StringBuilder("");
+        StringBuilder charactersBuff = new StringBuilder("");
         for (String keyword : JAVA_KEYWORDS) {
-            buff.append(keyword).append("|");
-            buff1.append(keyword).append(" ?(|");
+            keyWordsBuff.append(keyword+"\\W").append("|");
+            functionsBuff.append(" [a-z]+\\(|");
         }
-        buff.deleteCharAt(buff.length() - 1);
-        buff1.deleteCharAt(buff1.length() - 1);
-        buff1.append(")");
-        JAVA_KEYWORDS_REGEX = buff.toString();
-        FUNCTIONS_NAMES_REGEX = buff1.toString();
+        keyWordsBuff.deleteCharAt(keyWordsBuff.length() - 1);
+        functionsBuff.deleteCharAt(functionsBuff.length() - 1);
+        paramsBuff.append("\\([A-Za-z]+\\)");
+        textFieldsBuff.append("\\(\".+\"\\)");
+        numbersBuff.append("[0-9]");
+        constantsBuff.append("[^a-z]+[A-Z]{3,}|_[A-Z]+_");
+        charactersBuff.append(";|,");
+        JAVA_KEYWORDS_REGEX = keyWordsBuff.toString();
+        FUNCTIONS_NAMES_REGEX = functionsBuff.toString();
+        PARAMS_REGEX = paramsBuff.toString();
+        TEXT_FIELDS_REGEX =textFieldsBuff.toString();
+        NUMBERS_COLOR_REGEX =numbersBuff.toString();
+        CONSTANTS_COLOR_REGEX=constantsBuff.toString();
+        CHARACTERS_COLOR_REGEX = charactersBuff.toString();
     }
 
     public JavaHighlighter(JTextPane jTextPane) {
@@ -50,19 +73,61 @@ public class JavaHighlighter {
         jTextPane.getStyledDocument().setCharacterAttributes(offset, length, attributeSet, true);
     }
 
-    public void highlightKeyWords() {
+    public void highlightCode() {
+        highlightFields();
+        highlightParams();
+        highlightFunctions();
+        highlightConstants();
+        highlightKeyWords();
+        highlightNumbers();
+        highlightCharacters();
+    }
+
+    private void highlightKeyWords() {
         Pattern pattern = Pattern.compile(JAVA_KEYWORDS_REGEX);
         Matcher match = pattern.matcher(this.jTextPane.getText());
         while (match.find())
             updateTextColor(match.start(), match.end() - match.start(), DEFAULT_KEYWORD_COLOR);
     }
 
-    public void highlightFunctions() {
+    private void highlightFunctions() {
         Pattern pattern = Pattern.compile(FUNCTIONS_NAMES_REGEX);
-        System.out.println(pattern.pattern());
         Matcher match = pattern.matcher(this.jTextPane.getText());
         while (match.find())
-            updateTextColor(match.start(), match.end() - match.start(), FUNCTIONS_NAME_COLOR);
+            updateTextColor(match.start(), match.end() - match.start()-1, FUNCTIONS_NAME_COLOR);
+    }
+
+    private void highlightParams() {
+        Pattern pattern = Pattern.compile(PARAMS_REGEX);
+        Matcher match = pattern.matcher(this.jTextPane.getText());
+        while (match.find())
+            updateTextColor(match.start()+1, match.end() - match.start()-2, PARAMS_COLOR);
+    }
+
+    private void highlightFields() {
+        Pattern pattern = Pattern.compile(TEXT_FIELDS_REGEX);
+        Matcher match = pattern.matcher(this.jTextPane.getText());
+        while (match.find())
+            updateTextColor(match.start()+1, match.end() - match.start()-2, TEXT_FIELDS_COLOR);
+    }
+
+    private void highlightNumbers() {
+        Pattern pattern = Pattern.compile(NUMBERS_COLOR_REGEX);
+        Matcher match = pattern.matcher(this.jTextPane.getText());
+        while (match.find())
+            updateTextColor(match.start(), match.end() - match.start(), NUMBERS_COLOR);
+    }
+    private void highlightConstants() {
+        Pattern pattern = Pattern.compile(CONSTANTS_COLOR_REGEX);
+        Matcher match = pattern.matcher(this.jTextPane.getText());
+        while (match.find())
+            updateTextColor(match.start(), match.end() - match.start(), CONSTANTS_COLOR);
+    }
+    private void highlightCharacters() {
+        Pattern pattern = Pattern.compile(CHARACTERS_COLOR_REGEX);
+        Matcher match = pattern.matcher(this.jTextPane.getText());
+        while (match.find())
+            updateTextColor(match.start(), match.end() - match.start(), CHARACTERS_COLOR);
     }
 }
 

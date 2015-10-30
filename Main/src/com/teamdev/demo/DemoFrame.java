@@ -2,6 +2,8 @@ package com.teamdev.demo;
 
 
 
+import jsyntaxpane.DefaultSyntaxKit;
+
 import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
@@ -69,8 +71,7 @@ public final class DemoFrame {
                             DataProvider.createInstanceByClassName(example.getName(),preview);
                             source.setText(DataProvider.getSourceCodeFromTxt(example.getName()));
                             source.getDocument().putProperty(DefaultEditorKit.EndOfLineStringProperty,"\n");
-                            //javaHighlighter.highlightKeyWords();
-                            javaHighlighter.highlightFunctions();
+                            javaHighlighter.highlightCode();
                         }
                     }
                 }
