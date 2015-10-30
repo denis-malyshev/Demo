@@ -9,6 +9,7 @@ import javax.xml.bind.Unmarshaller;
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 public final class DataProvider {
@@ -27,6 +28,15 @@ public final class DataProvider {
             }
         }
         return Wrapper.wrapper.getCategories();
+    }
+
+    public static void getCategotyFromFolders() {
+        File file=new File("");
+        try {
+            FileReader fileReader=new FileReader(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public static DefaultMutableTreeNode createTree(ArrayList<Category> categories) {

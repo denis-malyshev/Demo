@@ -2,6 +2,8 @@ package com.teamdev.demo;
 
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.text.*;
 import java.awt.Color;
 import java.util.regex.Matcher;
@@ -16,6 +18,8 @@ public class JavaHighlighter {
     private static final Color CONSTANTS_COLOR=Color.pink;
     private static final Color CHARACTERS_COLOR =Color.orange;
     private JTextPane jTextPane;
+    private JScrollPane jScrollPane;
+    private JTextPane lines=new JTextPane();
     private static final String[] JAVA_KEYWORDS = new String[]{"abstract",
             "assert", "boolean", "break", "byte", "case", "catch", "char",
             "class", "const", "continue", "default", "do", "double", "else",
@@ -62,8 +66,24 @@ public class JavaHighlighter {
         CHARACTERS_COLOR_REGEX = charactersBuff.toString();
     }
 
-    public JavaHighlighter(JTextPane jTextPane) {
+    public JavaHighlighter(JTextPane jTextPane, JScrollPane jScrollPane) {
         this.jTextPane = jTextPane;
+        this.jScrollPane=jScrollPane;
+        lines.setBackground(Color.lightGray);
+        lines.setEditable(false);
+        lines.setFont(jTextPane.getFont());
+    }
+
+    private void setLineNumbering() {
+        int caretPosition=jTextPane.getCaretPosition()+1;
+        Element root=jTextPane.getDocument().getDefaultRootElement();
+        String text="";
+        for(int i=1;i<=root.getElementIndex(caretPosition);i++) {
+            text+=(i + System.getProperty("line.separator"));
+        }
+        lines.setText(text);
+        jScrollPane.getViewport().add(jTextPane);
+        jScrollPane.setRowHeaderView(lines);
     }
 
     private void updateTextColor(int offset, int length, Color color) {
@@ -74,13 +94,14 @@ public class JavaHighlighter {
     }
 
     public void highlightCode() {
+        setLineNumbering();
         highlightFields();
-        highlightParams();
+        //highlightParams();
         highlightFunctions();
         highlightConstants();
         highlightKeyWords();
         highlightNumbers();
-        highlightCharacters();
+        //highlightCharacters();
     }
 
     private void highlightKeyWords() {

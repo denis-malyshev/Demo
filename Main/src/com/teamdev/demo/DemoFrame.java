@@ -1,9 +1,6 @@
 package com.teamdev.demo;
 
 
-
-import jsyntaxpane.DefaultSyntaxKit;
-
 import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
@@ -22,13 +19,13 @@ public final class DemoFrame {
     private final JSplitPane mainContainer = new JSplitPane();
     private final JTabbedPane tabbedPane = new JTabbedPane();
     private final JScrollPane leftScrollPane = new JScrollPane(leftPanel);
-    private final JPanel preview=new JPanel();
-    private final JTextPane source=new JTextPane();
-    private final JScrollPane sourceContainer=new JScrollPane(source);
+    private final JPanel preview = new JPanel();
+    private final JTextPane source = new JTextPane();
+    private final JScrollPane sourceContainer = new JScrollPane(source);
     private final JTree treeOfExample;
 
     public DemoFrame(DefaultMutableTreeNode tree) {
-        final JavaHighlighter javaHighlighter=new JavaHighlighter(source);
+        final JavaHighlighter javaHighlighter = new JavaHighlighter(source,sourceContainer);
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         frame = new JFrame();
         frame.setSize(800, 500);
@@ -68,9 +65,9 @@ public final class DemoFrame {
                         if (example.getName().toString() == treePath.getLastPathComponent().toString()) {
                             setLabelAboutExample(example.getDescription());
                             preview.removeAll();
-                            DataProvider.createInstanceByClassName(example.getName(),preview);
+                            DataProvider.createInstanceByClassName(example.getName(), preview);
                             source.setText(DataProvider.getSourceCodeFromTxt(example.getName()));
-                            source.getDocument().putProperty(DefaultEditorKit.EndOfLineStringProperty,"\n");
+                            source.getDocument().putProperty(DefaultEditorKit.EndOfLineStringProperty, "\n");
                             javaHighlighter.highlightCode();
                         }
                     }
