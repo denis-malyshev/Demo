@@ -9,4 +9,8 @@ public class SecondExampleForSecondCategory {
     private void run(JPanel container) {
         container.add(label);
     }
+
+    private void dispose() {
+
+    }
 }

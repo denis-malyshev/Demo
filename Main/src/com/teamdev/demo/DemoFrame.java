@@ -1,6 +1,7 @@
 package com.teamdev.demo;
 
 
+
 import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
@@ -63,20 +64,24 @@ public final class DemoFrame {
                 for (Category category : categories) {
                     for (Example example : category.getExamples()) {
                         if (example.getName().toString() == treePath.getLastPathComponent().toString()) {
-                            labelAboutExample.setText(example.getDescription());
                             preview.removeAll();
                             preview.revalidate();
+                            labelAboutExample.setText(example.getDescription());
                             DataProvider.createInstanceByClassName(example.getName(), preview);
+                            setSourceText(DataProvider.getSourceCodeFromTxt(example.getName()));
+                            javaHighlighter.highlightCode();
                             tabbedPane.setSelectedIndex(0);
                             tabbedPane.setVisible(true);
-                            source.setText(DataProvider.getSourceCodeFromTxt(example.getName()));
-                            source.getDocument().putProperty(DefaultEditorKit.EndOfLineStringProperty, "\n");
-                            javaHighlighter.highlightCode();
                         }
                     }
                 }
             }
         });
+    }
+
+    private void setSourceText(String text) {
+        source.setText(text);
+        source.getDocument().putProperty(DefaultEditorKit.EndOfLineStringProperty, "\n");
     }
 
     public static void main(String[] args) {

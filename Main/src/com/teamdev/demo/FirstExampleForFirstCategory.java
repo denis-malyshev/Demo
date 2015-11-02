@@ -17,4 +17,9 @@ public class FirstExampleForFirstCategory {
         container.setLayout(new BorderLayout());
         container.add(browserView);
     }
+
+    private void dispose() {
+        browser.stop();
+        browser.dispose();
+    }
 }

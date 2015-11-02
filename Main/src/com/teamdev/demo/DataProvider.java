@@ -11,7 +11,6 @@ import java.util.ArrayList;
 public final class DataProvider {
 
     private static Class currentInstance;
-    private static boolean is;
 
     private static String fromTxt(File file) {
         StringBuilder buff = new StringBuilder("");
@@ -61,9 +60,10 @@ public final class DataProvider {
 
     public static void createInstanceByClassName(String className, JPanel container) {
         try {
+            if(currentInstance!=null)
+                dispose();
             currentInstance = Class.forName("com.teamdev.demo." + className);
             Method method = currentInstance.getDeclaredMethod("run", JPanel.class);
-            is = true;
             method.setAccessible(true);
             method.invoke(currentInstance.newInstance(), container);
         } catch (ClassNotFoundException e) {
@@ -77,6 +77,23 @@ public final class DataProvider {
         } catch (InstantiationException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void dispose() {
+        try {
+            Method method = currentInstance.getDeclaredMethod("dispose");
+            method.setAccessible(true);
+            method.invoke(currentInstance.newInstance());
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public static String getSourceCodeFromTxt(String exampleName) {

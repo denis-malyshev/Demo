@@ -8,5 +8,10 @@ public class FirstExampleForSecondCategory {
 
     private void run(JPanel container) {
         container.add(label);
+        System.out.println("Hello");
+    }
+
+    private void dispose() {
+
     }
 }

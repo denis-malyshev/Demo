@@ -2,8 +2,6 @@ package com.teamdev.demo;
 
 
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.text.*;
 import java.awt.Color;
 import java.util.regex.Matcher;
