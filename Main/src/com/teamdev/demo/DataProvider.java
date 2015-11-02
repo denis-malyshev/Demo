@@ -99,7 +99,7 @@ public final class DataProvider {
     public static String getSourceCodeFromTxt(String exampleName) {
         String result = "";
         try {
-            FileReader fileReader = new FileReader(exampleName + ".txt");
+            FileReader fileReader = new FileReader("Samples\\"+exampleName + ".txt");
             int ch;
             while ((ch = fileReader.read()) != -1) {
                 result += (char) ch;
