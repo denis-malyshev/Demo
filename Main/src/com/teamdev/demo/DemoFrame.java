@@ -8,6 +8,9 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.text.*;
 import javax.swing.tree.TreePath;
 import java.awt.*;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 public final class DemoFrame {
@@ -72,6 +75,8 @@ public final class DemoFrame {
                             javaHighlighter.highlightCode();
                             tabbedPane.setSelectedIndex(0);
                             tabbedPane.setVisible(true);
+                            OutputStreamWriter outputStreamWriter=new OutputStreamWriter(System.out);
+                            frame.setTitle(outputStreamWriter.getEncoding());
                         }
                     }
                 }
