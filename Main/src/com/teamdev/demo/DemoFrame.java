@@ -8,9 +8,7 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.text.*;
 import javax.swing.tree.TreePath;
 import java.awt.*;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.util.ArrayList;
 
 public final class DemoFrame {
@@ -28,6 +26,7 @@ public final class DemoFrame {
     private final JTree treeOfExample;
 
     public DemoFrame() {
+        StreamProvider streamProvider=new StreamProvider();
         final JavaHighlighter javaHighlighter = new JavaHighlighter(source, sourceContainer);
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         frame = new JFrame();
@@ -75,8 +74,6 @@ public final class DemoFrame {
                             javaHighlighter.highlightCode();
                             tabbedPane.setSelectedIndex(0);
                             tabbedPane.setVisible(true);
-                            OutputStreamWriter outputStreamWriter=new OutputStreamWriter(System.out);
-                            frame.setTitle(outputStreamWriter.getEncoding());
                         }
                     }
                 }
@@ -96,5 +93,15 @@ public final class DemoFrame {
                 new DemoFrame();
             }
         });
+    }
+
+    public  static void printOutStream() {
+        File tempFile=new File("temp.txt");
+        try {
+            final PrintStream printStream=new PrintStream(tempFile);
+            System.setOut(printStream);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }
