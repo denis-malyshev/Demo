@@ -1,0 +1,31 @@
+<project name="build" default="compile">
+  <property name="dir.build" value=".build"/>
+  <property name="dir.classes" value="${dir.build}/classes"/>
+  <property name="dir.src" value="Main/src/com/teamdev/demo"/>
+  <property name="dir.lib" value="lib"/>
+
+  <path id="libs">
+    <fileset dir="${dir.lib}" includes="*.jar"/>
+  </path>
+
+  <target name="clean">
+    <delete dir="${dir.build}"/>
+  </target>
+
+  <target name="mkdirs">
+    <mkdir dir="${dir.build}"/>
+    <mkdir dir="${dir.classes}"/>
+  </target>
+
+  <target name="compile" depends="mkdirs">
+    <javac destdir="${dir.classes}">
+      <src path="${dir.src}"/>
+      <classpath refid="libs"/>
+    </javac>
+  </target>
+
+  <target name="build.jar" depends="compile">
+    
+  </target>
+
+</project>
