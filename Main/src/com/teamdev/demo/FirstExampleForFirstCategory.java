@@ -7,18 +7,18 @@ import com.teamdev.jxbrowser.chromium.swing.BrowserView;
 import javax.swing.*;
 import java.awt.*;
 
-public class FirstExampleForFirstCategory {
+public class FirstExampleForFirstCategory implements Sample {
 
     private final Browser browser = new Browser();
     private final BrowserView browserView = new BrowserView(browser);
 
-    private void run(JPanel container) {
+    public void run(JPanel container) {
         browser.loadURL("http://www.google.com");
         container.setLayout(new BorderLayout());
         container.add(browserView);
     }
 
-    private void dispose() {
+    public void dispose() {
         browser.stop();
         browser.dispose();
     }

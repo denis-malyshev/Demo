@@ -1,7 +1,6 @@
 package com.teamdev.demo;
 
 
-
 import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
@@ -26,7 +25,7 @@ public final class DemoFrame {
     private final JTree treeOfExample;
 
     public DemoFrame() {
-        StreamProvider streamProvider=new StreamProvider();
+        //StreamProvider streamProvider=new StreamProvider();
         final JavaHighlighter javaHighlighter = new JavaHighlighter(source, sourceContainer);
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         frame = new JFrame();
@@ -95,13 +94,10 @@ public final class DemoFrame {
         });
     }
 
-    public  static void printOutStream() {
-        File tempFile=new File("temp.txt");
-        try {
-            final PrintStream printStream=new PrintStream(tempFile);
-            System.setOut(printStream);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+    public static void printOutStream(JTextArea textArea) {
+        ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
+        final PrintStream printStream = new PrintStream(byteArray);
+        System.setOut(printStream);
+        textArea.append(byteArray.toString());
     }
 }
