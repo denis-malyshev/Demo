@@ -25,7 +25,6 @@ public final class DemoFrame {
     private final JTree treeOfExample;
 
     public DemoFrame() {
-        //StreamProvider streamProvider=new StreamProvider();
         final JavaHighlighter javaHighlighter = new JavaHighlighter(source, sourceContainer);
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         frame = new JFrame();
@@ -36,14 +35,16 @@ public final class DemoFrame {
         frame.setTitle("Demo");
 
         leftPanel.setMinimumSize(new Dimension(100, frame.getHeight()));
+        leftPanel.setBackground(Color.white);
 
         rightContainer.setLayout(new BoxLayout(rightContainer, BoxLayout.Y_AXIS));
         rightContainer.add(labelAboutExample);
         rightContainer.add(rightDownSubContainer);
 
+        rightDownSubContainer.setLayout(new GridLayout());
         rightDownSubContainer.add(tabbedPane);
-        rightDownSubContainer.setLayout(new BoxLayout(rightDownSubContainer, BoxLayout.Y_AXIS));
 
+        preview.setLayout(new BorderLayout());
         tabbedPane.addTab("Preview", preview);
         tabbedPane.addTab("Source", sourceContainer);
         tabbedPane.setVisible(false);
@@ -68,7 +69,7 @@ public final class DemoFrame {
                             preview.removeAll();
                             preview.revalidate();
                             labelAboutExample.setText(sample.getDescription());
-                            DataProvider.createInstanceByClassName(sample.getName(), preview);
+                            SampleProvider.createInstanceByClassName(sample.getName(), preview);
                             setSourceText(DataProvider.getSourceCodeFromTxt(sample.getName()));
                             javaHighlighter.highlightCode();
                             tabbedPane.setSelectedIndex(0);

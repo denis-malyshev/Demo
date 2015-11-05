@@ -1,22 +1,20 @@
 package com.teamdev.demo;
 
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+import javax.swing.*;
+import java.io.IOException;
+import java.io.OutputStream;
 
-public class StreamProvider {
+public class StreamProvider extends OutputStream {
 
-    private  PrintStream printStream;
+    private JTextArea jTextArea;
 
-    public StreamProvider() {
-        ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
-        final PrintStream printStream = new PrintStream(byteArray);
-        System.setOut(printStream);
-        //textArea.append(byteArray.toString());
-
+    public StreamProvider(JTextArea jTextArea) {
+        this.jTextArea = jTextArea;
     }
 
-    public  void closeStream() {
-        printStream.close();
+    @Override
+    public void write(int b) throws IOException {
+        jTextArea.append(String.valueOf((char)b));
     }
 }

@@ -1,16 +1,11 @@
 package com.teamdev.demo;
 
 
-import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.*;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 public final class DataProvider {
-
-    private static Class currentInstance;
 
     private static String fromTxt(File file) {
         StringBuilder buff = new StringBuilder("");
@@ -56,44 +51,6 @@ public final class DataProvider {
             treeRoot.add(treeNode);
         }
         return treeRoot;
-    }
-
-    public static void createInstanceByClassName(String className, JPanel container) {
-        try {
-            if(currentInstance!=null)
-                dispose();
-            currentInstance = Class.forName("com.teamdev.samples." + className);
-            Method method = currentInstance.getDeclaredMethod("run", JPanel.class);
-            method.setAccessible(true);
-            method.invoke(currentInstance.newInstance(), container);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void dispose() {
-        try {
-            Method method = currentInstance.getDeclaredMethod("dispose");
-            method.setAccessible(true);
-            method.invoke(currentInstance.newInstance());
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        }
-
     }
 
     public static String getSourceCodeFromTxt(String exampleName) {

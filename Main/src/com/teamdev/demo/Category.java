@@ -5,8 +5,8 @@ package com.teamdev.demo;
 import java.util.ArrayList;
 
 public class Category {
-    private String name;
-    private ArrayList<Sample> samples;
+    private final String name;
+    private final ArrayList<Sample> samples;
 
     public Category(String name, ArrayList<Sample> samples) {
         this.name = name;
