@@ -20,9 +20,11 @@ public class SampleProvider {
             method.invoke(currentInstance.newInstance(), container);
             if (currentInstance.getInterfaces()[0] == RunConsoleSample.class) {
                 textArea=new JTextArea();
-                PrintStream printStream=new PrintStream(new StreamProvider(textArea));
-                System.setOut(printStream);
+                textArea.setBackground(Color.lightGray);
+                System.setOut(new PrintStream(new StreamProvider(textArea)));
+                System.out.println("1");
                 container.add(textArea, BorderLayout.AFTER_LAST_LINE);
+                System.out.println("2");
             }
 
         } catch (ClassNotFoundException e) {
