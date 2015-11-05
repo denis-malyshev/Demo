@@ -1,4 +1,4 @@
 out/
 *.idea/
-Main/*.iml
+*.iml
 target/

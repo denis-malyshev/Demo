@@ -63,13 +63,13 @@ public final class DemoFrame {
             public void valueChanged(TreeSelectionEvent e) {
                 TreePath treePath = e.getPath();
                 for (Category category : categories) {
-                    for (Example example : category.getExamples()) {
-                        if (example.getName().toString() == treePath.getLastPathComponent().toString()) {
+                    for (Sample sample : category.getSamples()) {
+                        if (sample.getName().toString() == treePath.getLastPathComponent().toString()) {
                             preview.removeAll();
                             preview.revalidate();
-                            labelAboutExample.setText(example.getDescription());
-                            DataProvider.createInstanceByClassName(example.getName(), preview);
-                            setSourceText(DataProvider.getSourceCodeFromTxt(example.getName()));
+                            labelAboutExample.setText(sample.getDescription());
+                            DataProvider.createInstanceByClassName(sample.getName(), preview);
+                            setSourceText(DataProvider.getSourceCodeFromTxt(sample.getName()));
                             javaHighlighter.highlightCode();
                             tabbedPane.setSelectedIndex(0);
                             tabbedPane.setVisible(true);

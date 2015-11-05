@@ -1,10 +1,19 @@
 package com.teamdev.demo;
 
+public class Sample {
+    private String name;
+    private String description;
 
-import javax.swing.*;
+    public Sample(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
 
-public interface Sample {
-    void run(JPanel container);
+    public String getName() {
+        return name;
+    }
 
-    void dispose();
+    public String getDescription() {
+        return description;
+    }
 }

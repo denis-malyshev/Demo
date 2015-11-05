@@ -1,9 +1,10 @@
-package com.teamdev.demo;
+package com.teamdev.samples;
 
+import com.teamdev.demo.RunSample;
 
 import javax.swing.*;
 
-public class SecondExampleForSecondCategory implements Sample{
+public class SecondSampleForSecondCategory implements RunSample {
     private JLabel label = new JLabel(this.getClass().getName().toString());
 
     public void run(JPanel container) {

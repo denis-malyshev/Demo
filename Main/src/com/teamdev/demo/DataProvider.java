@@ -29,17 +29,17 @@ public final class DataProvider {
     }
 
     public static ArrayList<Category> getCategoryFromFolders() {
-        ArrayList<Category> categories = new ArrayList<Category>();
-        File root = new File("Examples");
+        ArrayList<Category> categories = new ArrayList<>();
+        File root = new File("Samples/Categories");
         File[] files = root.listFiles();
         for (int i = 0; i < files.length; i++) {
             File[] temp = files[i].listFiles();
-            ArrayList<Example> examples = new ArrayList<Example>();
+            ArrayList<Sample> samples = new ArrayList<>();
             for (int j = 0; j < temp.length; j++) {
                 StringBuilder name = new StringBuilder(temp[j].getName().replace(".txt", ""));
-                examples.add(new Example(name.toString(), fromTxt(temp[i])));
+                samples.add(new Sample(name.toString(), fromTxt(temp[i])));
             }
-            categories.add(new Category(files[i].getName(), examples));
+            categories.add(new Category(files[i].getName(), samples));
         }
         return categories;
     }
@@ -49,8 +49,8 @@ public final class DataProvider {
         for (int i = 0; i < categories.size(); i++) {
             Category category = categories.get(i);
             DefaultMutableTreeNode treeNode = new DefaultMutableTreeNode(category.getName());
-            for (int j = 0; j < category.getExamples().size(); j++) {
-                DefaultMutableTreeNode node = new DefaultMutableTreeNode(category.getExamples().get(j).getName());
+            for (int j = 0; j < category.getSamples().size(); j++) {
+                DefaultMutableTreeNode node = new DefaultMutableTreeNode(category.getSamples().get(j).getName());
                 treeNode.add(node);
             }
             treeRoot.add(treeNode);
@@ -62,7 +62,7 @@ public final class DataProvider {
         try {
             if(currentInstance!=null)
                 dispose();
-            currentInstance = Class.forName("com.teamdev.demo." + className);
+            currentInstance = Class.forName("com.teamdev.samples." + className);
             Method method = currentInstance.getDeclaredMethod("run", JPanel.class);
             method.setAccessible(true);
             method.invoke(currentInstance.newInstance(), container);
@@ -99,7 +99,7 @@ public final class DataProvider {
     public static String getSourceCodeFromTxt(String exampleName) {
         String result = "";
         try {
-            FileReader fileReader = new FileReader("Samples\\"+exampleName + ".txt");
+            FileReader fileReader = new FileReader("Samples\\source code\\"+exampleName + ".txt");
             int ch;
             while ((ch = fileReader.read()) != -1) {
                 result += (char) ch;

@@ -3,7 +3,7 @@ package com.teamdev.demo;
 
 import javax.swing.*;
 
-public class SecondExampleForSecondCategory {
+public class com.teamdev.samples.SecondSampleForSecondCategory {
     private JLabel label = new JLabel(this.getClass().getName().toString());
 
     private void run(JPanel container) {
