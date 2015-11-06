@@ -23,8 +23,10 @@ public final class DemoFrame {
     private final JTextPane source = new JTextPane();
     private final JScrollPane sourceContainer = new JScrollPane(source);
     private final JTree treeOfExample;
+    private final SampleProvider sampleProvider;
 
     public DemoFrame() {
+        sampleProvider=new SampleProvider(preview);
         final JavaHighlighter javaHighlighter = new JavaHighlighter(source, sourceContainer);
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         frame = new JFrame();
@@ -55,7 +57,7 @@ public final class DemoFrame {
         frame.add(mainContainer);
 
         final ArrayList<Category> categories = DataProvider.getCategoryFromFolders();
-        treeOfExample = new JTree(DataProvider.createTree(categories));
+        treeOfExample = new JTree(DataProvider.createRootTreeNode(categories));
         treeOfExample.setRootVisible(false);
         treeOfExample.expandRow(0);
         leftPanel.add(treeOfExample);
@@ -64,13 +66,13 @@ public final class DemoFrame {
             public void valueChanged(TreeSelectionEvent e) {
                 TreePath treePath = e.getPath();
                 for (Category category : categories) {
-                    for (Sample sample : category.getSamples()) {
-                        if (sample.getName().toString() == treePath.getLastPathComponent().toString()) {
+                    for (SampleInfo sampleInfo : category.getSampleInfos()) {
+                        if (sampleInfo.getName().toString() == treePath.getLastPathComponent().toString()) {
                             preview.removeAll();
                             preview.revalidate();
-                            labelAboutExample.setText(sample.getDescription());
-                            SampleProvider.createInstanceByClassName(sample.getName(), preview);
-                            setSourceText(DataProvider.getSourceCodeFromTxt(sample.getName()));
+                            labelAboutExample.setText(sampleInfo.getDescription());
+                            sampleProvider.invokeInstance(sampleInfo.getName());
+                            setSourceText(DataProvider.getSourceCodeFromTxt(sampleInfo.getName()));
                             javaHighlighter.highlightCode();
                             tabbedPane.setSelectedIndex(0);
                             tabbedPane.setVisible(true);

@@ -1,7 +1,7 @@
 package com.teamdev.samples;
 
 
-import com.teamdev.demo.RunConsoleSample;
+import com.teamdev.demo.ConsoleDemoSample;
 import com.teamdev.jxbrowser.chromium.Browser;
 import com.teamdev.jxbrowser.chromium.Cookie;
 import com.teamdev.jxbrowser.chromium.CookieStorage;
@@ -9,13 +9,15 @@ import com.teamdev.jxbrowser.chromium.swing.BrowserView;
 
 import javax.swing.*;
 
-public class CookieSample implements RunConsoleSample {
+public class CookieSample extends ConsoleDemoSample {
 
-    private final Browser browser = new Browser();
-    private final BrowserView browserView = new BrowserView(browser);
+    private Browser browser;
+    private BrowserView browserView;
 
     @Override
     public void run(JPanel container) {
+        browser = new Browser();
+        browserView = new BrowserView(browser);
         container.add(browserView);
         CookieStorage cookieStorage = browser.getCookieStorage();
         // Create and add new cookie
@@ -28,14 +30,19 @@ public class CookieSample implements RunConsoleSample {
                 ".google.com", "/", expirationTimeInMicroseconds, false, false);
 
         java.util.List<Cookie> cookies = cookieStorage.getAllCookies();
+        redirectOutPutStream(container);
         for (Cookie cookie : cookies) {
             System.out.println("cookie = " + cookie);
         }
     }
 
     @Override
-    public void dispose() {
-        browser.stop();
+    public void disposeInstance() {
         browser.dispose();
+    }
+
+    @Override
+    public void redirectOutPutStream(JPanel container) {
+        super.redirectOutPutStream(container);
     }
 }

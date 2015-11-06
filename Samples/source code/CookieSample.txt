@@ -14,7 +14,7 @@ import java.awt.*;
 import java.util.List;
 
 /**
- * The sample demonstrates how to access CookieStorage instance to
+ * The sampleInfo demonstrates how to access CookieStorage instance to
  * read all the available cookies.
  */
 public class CookieSample {

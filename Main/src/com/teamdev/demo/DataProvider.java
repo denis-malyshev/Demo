@@ -1,16 +1,18 @@
 package com.teamdev.demo;
 
 
+
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.*;
 import java.util.ArrayList;
 
 public final class DataProvider {
 
-    private static String fromTxt(File file) {
+
+    private static String getSampleDescription(File sample) {
         StringBuilder buff = new StringBuilder("");
         try {
-            FileReader fileReader = new FileReader(file);
+            FileReader fileReader = new FileReader(sample);
             int ch;
             while ((ch = fileReader.read()) != -1) {
                 buff.append((char) ch);
@@ -29,23 +31,23 @@ public final class DataProvider {
         File[] files = root.listFiles();
         for (int i = 0; i < files.length; i++) {
             File[] temp = files[i].listFiles();
-            ArrayList<Sample> samples = new ArrayList<>();
+            ArrayList<SampleInfo> sampleInfos = new ArrayList<>();
             for (int j = 0; j < temp.length; j++) {
                 StringBuilder name = new StringBuilder(temp[j].getName().replace(".txt", ""));
-                samples.add(new Sample(name.toString(), fromTxt(temp[i])));
+                sampleInfos.add(new SampleInfo(name.toString(), getSampleDescription(temp[i])));
             }
-            categories.add(new Category(files[i].getName(), samples));
+            categories.add(new Category(files[i].getName(), sampleInfos));
         }
         return categories;
     }
 
-    public static DefaultMutableTreeNode createTree(ArrayList<Category> categories) {
+    public static DefaultMutableTreeNode createRootTreeNode(ArrayList<Category> categories) {
         DefaultMutableTreeNode treeRoot = new DefaultMutableTreeNode("Categories");
         for (int i = 0; i < categories.size(); i++) {
             Category category = categories.get(i);
             DefaultMutableTreeNode treeNode = new DefaultMutableTreeNode(category.getName());
-            for (int j = 0; j < category.getSamples().size(); j++) {
-                DefaultMutableTreeNode node = new DefaultMutableTreeNode(category.getSamples().get(j).getName());
+            for (int j = 0; j < category.getSampleInfos().size(); j++) {
+                DefaultMutableTreeNode node = new DefaultMutableTreeNode(category.getSampleInfos().get(j).getName());
                 treeNode.add(node);
             }
             treeRoot.add(treeNode);
@@ -53,20 +55,32 @@ public final class DataProvider {
         return treeRoot;
     }
 
+    private ArrayList<DefaultMutableTreeNode> createTreeNodesFromCategories(ArrayList<Category> categories) {
+        final ArrayList<DefaultMutableTreeNode> categoriesNodes=new ArrayList<>();
+        for (Category category : categories) {
+           categoriesNodes.add(new DefaultMutableTreeNode(category.getName()));
+        }
+        return categoriesNodes;
+    }
+
+    /*private DefaultMutableTreeNode createRootTreeNode(ArrayList<DefaultMutableTreeNode> treeNodes) {
+        final DefaultMutableTreeNode rootTreeNode=new DefaultMutableTreeNode("rootTreeNode");
+        treeNodes.forEach(rootTreeNode::add);
+        return rootTreeNode;
+    }*/
+
     public static String getSourceCodeFromTxt(String exampleName) {
-        String result = "";
+        StringBuilder result =new StringBuilder("");
         try {
-            FileReader fileReader = new FileReader("Samples\\source code\\"+exampleName + ".txt");
+            FileReader fileReader = new FileReader("Samples\\source code\\" + exampleName + ".txt");
             int ch;
             while ((ch = fileReader.read()) != -1) {
-                result += (char) ch;
+                result.append((char) ch);
             }
             fileReader.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            throw new IllegalArgumentException("No such example: "+e);
         }
-        return result;
+        return result.toString();
     }
 }

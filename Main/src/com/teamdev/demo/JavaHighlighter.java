@@ -3,7 +3,7 @@ package com.teamdev.demo;
 
 import javax.swing.*;
 import javax.swing.text.*;
-import java.awt.Color;
+import java.awt.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -56,7 +56,8 @@ public class JavaHighlighter {
         paramsBuff.append("\\([A-Za-z]+\\)");
         textFieldsBuff.append("\\(\".+\"\\)");
         numbersBuff.append("[0-9]");
-        constantsBuff.append("[^a-z]+[A-Z]{3,}|_[A-Z]+_");
+        //constantsBuff.append("([^a-z]+[A-Z]{3,}|_[A-Z]+_)");
+        constantsBuff.append("([^a-z]+[A-Z]{3,}[^a-z]+)|_[A-Z]+_");
         charactersBuff.append(";|,");
         commentsBuff.append("//.+");
         JAVA_KEYWORDS_REGEX = keyWordsBuff.toString();

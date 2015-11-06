@@ -1,59 +1,55 @@
 package com.teamdev.demo;
+
+
 import javax.swing.*;
-import java.awt.*;
-import java.io.PrintStream;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class SampleProvider {
 
-    private static Class currentInstance;
-    private static JTextArea textArea;
+    private Class currentInstance;
+    private final JPanel container;
+    private boolean isExist;
 
-    public static void createInstanceByClassName(String className, JPanel container) {
+    public SampleProvider(JPanel container) {
+        this.container = container;
+    }
+
+    private Class createInstanceByClassName(String className) {
         try {
-            if (currentInstance != null)
-                dispose();
-            currentInstance = Class.forName("com.teamdev.samples." + className);
-            Method method = currentInstance.getDeclaredMethod("run", JPanel.class);
-            method.setAccessible(true);
-            method.invoke(currentInstance.newInstance(), container);
-            if (currentInstance.getInterfaces()[0] == RunConsoleSample.class) {
-                textArea=new JTextArea();
-                textArea.setBackground(Color.lightGray);
-                System.setOut(new PrintStream(new StreamProvider(textArea)));
-                System.out.println("1");
-                container.add(textArea, BorderLayout.AFTER_LAST_LINE);
-                System.out.println("2");
-            }
-
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
+            return Class.forName("com.teamdev.samples." + className);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("No such class");
         }
     }
 
-    public static void dispose() {
+    private void runInstance() {
         try {
-            Method method = currentInstance.getDeclaredMethod("dispose");
+            Method method = currentInstance.getDeclaredMethod("run", JPanel.class);
+            method.setAccessible(true);
+            method.invoke(currentInstance.newInstance(), container);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("No such method");
+        }
+    }
+
+    public void invokeInstance(String instanceName) {
+        if(!isExist) {
+            currentInstance = createInstanceByClassName(instanceName);
+            isExist = true;
+            runInstance();
+        }
+        else
+            disposeInstance();
+    }
+
+    public void disposeInstance() {
+        try {
+            Method method = currentInstance.getDeclaredMethod("disposeInstance");
             method.setAccessible(true);
             method.invoke(currentInstance.newInstance());
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
+            isExist=false;
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 }

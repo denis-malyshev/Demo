@@ -6,18 +6,18 @@ import java.util.ArrayList;
 
 public class Category {
     private final String name;
-    private final ArrayList<Sample> samples;
+    private final ArrayList<SampleInfo> sampleInfos;
 
-    public Category(String name, ArrayList<Sample> samples) {
+    public Category(String name, ArrayList<SampleInfo> sampleInfos) {
         this.name = name;
-        this.samples = samples;
+        this.sampleInfos = sampleInfos;
     }
 
     public String getName() {
         return name;
     }
 
-    public ArrayList<Sample> getSamples() {
-        return samples;
+    public ArrayList<SampleInfo> getSampleInfos() {
+        return sampleInfos;
     }
 }

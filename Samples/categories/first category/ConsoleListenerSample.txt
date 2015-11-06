@@ -1,1 +1,1 @@
-The sample demonstrates how to listen to console messages including JavaScript errors.
+The sampleInfo demonstrates how to listen to console messages including JavaScript errors.

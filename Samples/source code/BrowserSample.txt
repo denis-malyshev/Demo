@@ -6,7 +6,7 @@ import com.teamdev.jxbrowser.chromium.swing.BrowserView;
 
 import java.awt.*;
 
-public class com.teamdev.samples.BrowserSample {
+public class com.teamdev.sampleInfos.BrowserSample {
 
     private void run(Container container) {
         Browser browser=new Browser();

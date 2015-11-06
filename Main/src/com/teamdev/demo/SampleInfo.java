@@ -1,10 +1,10 @@
 package com.teamdev.demo;
 
-public class Sample {
+public class SampleInfo {
     private String name;
     private String description;
 
-    public Sample(String name, String description) {
+    public SampleInfo(String name, String description) {
         this.name = name;
         this.description = description;
     }

@@ -1,1 +1,1 @@
-The sample demonstrates how to access CookieStorage instance to read all the available cookies.
+The sampleInfo demonstrates how to access CookieStorage instance to read all the available cookies.

@@ -1,24 +1,24 @@
 package com.teamdev.samples;
 
-import com.teamdev.demo.RunSample;
+import com.teamdev.demo.DemoSample;
 import com.teamdev.jxbrowser.chromium.Browser;
 import com.teamdev.jxbrowser.chromium.swing.BrowserView;
 
 import javax.swing.*;
-import java.awt.*;
 
-public class BrowserSample implements RunSample {
+public class BrowserSample implements DemoSample {
 
-    private final Browser browser = new Browser();
-    private final BrowserView browserView = new BrowserView(browser);
+    private  Browser browser;
+    private  BrowserView browserView;
 
     public void run(JPanel container) {
+        browser = new Browser();
+        browserView = new BrowserView(browser);
         browser.loadURL("http://www.google.com");
         container.add(browserView);
     }
 
-    public void dispose() {
-        browser.stop();
+    public void disposeInstance() {
         browser.dispose();
     }
 }

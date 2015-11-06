@@ -1,7 +1,7 @@
 package com.teamdev.samples;
 
 
-import com.teamdev.demo.RunSample;
+import com.teamdev.demo.DemoSample;
 import com.teamdev.jxbrowser.chromium.Browser;
 import com.teamdev.jxbrowser.chromium.Callback;
 import com.teamdev.jxbrowser.chromium.dom.By;
@@ -10,15 +10,15 @@ import com.teamdev.jxbrowser.chromium.dom.DOMFormControlElement;
 import com.teamdev.jxbrowser.chromium.swing.BrowserView;
 
 import javax.swing.*;
-import java.awt.*;
 
-public class LoginFacebookSample implements RunSample {
-    private final Browser browser = new Browser();
-    private final BrowserView browserView = new BrowserView(browser);
+public class LoginFacebookSample implements DemoSample {
+    private Browser browser;
+    private BrowserView browserView;
 
     @Override
     public void run(JPanel container) {
-        container.setLayout(new BorderLayout());
+        browser = new Browser();
+        browserView = new BrowserView(browser);
         container.add(browserView);
         // Load https://www.facebook.com/login.php and wait until web page is loaded completely.
         Browser.invokeAndWaitFinishLoadingMainFrame(browser, new Callback<Browser>() {
@@ -37,14 +37,13 @@ public class LoginFacebookSample implements RunSample {
         Browser.invokeAndWaitFinishLoadingMainFrame(browser, new Callback<Browser>() {
             @Override
             public void invoke(Browser browser) {
-                browser.getDocument().findElement(By.id("u_0_1")).click();
+                browser.getDocument().findElement(By.id("u_0_2")).click();
             }
         });
     }
 
     @Override
-    public void dispose() {
-        browser.stop();
+    public void disposeInstance() {
         browser.dispose();
     }
 }
