@@ -9,7 +9,7 @@ import java.io.PrintStream;
 
 public abstract class ConsoleDemoSample implements DemoSample {
     @Override
-    public  void run(JPanel container) {
+    public void run(JPanel container) {
         redirectOutPutStream(container);
     }
 
@@ -17,11 +17,11 @@ public abstract class ConsoleDemoSample implements DemoSample {
     public abstract void disposeInstance();
 
     private void redirectOutPutStream(JPanel container) {
-        final JTextArea textArea=new JTextArea();
-        OutputStream outputStream=new OutputStream() {
+        final JTextArea textArea = new JTextArea();
+        OutputStream outputStream = new OutputStream() {
             @Override
             public void write(int b) throws IOException {
-                textArea.append(String.valueOf((char)b));
+                textArea.append(String.valueOf((char) b));
             }
         };
         container.add(new JScrollPane(textArea), BorderLayout.PAGE_END);
