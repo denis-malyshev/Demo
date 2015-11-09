@@ -6,48 +6,56 @@ import java.lang.reflect.Method;
 
 public class SampleProvider {
 
-    private Class currentInstance;
+    private Class currentClass;
     private final JPanel container;
+    private Object instance;
     private boolean isExist;
 
     public SampleProvider(JPanel container) {
         this.container = container;
     }
 
-    private Class createInstanceByClassName(String className) {
+    private void loadClass(String className) {
         try {
-            return Class.forName("com.teamdev.samples." + className);
+            currentClass =Class.forName("com.teamdev.samples." + className);
         } catch (Exception e) {
             throw new IllegalArgumentException("No such class");
         }
     }
 
+    private void createInstance() {
+        try {
+            instance= currentClass.newInstance();
+            isExist = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void runInstance() {
         try {
-            Method method = currentInstance.getDeclaredMethod("run", JPanel.class);
+            Method method = currentClass.getDeclaredMethod("run", JPanel.class);
             method.setAccessible(true);
-            method.invoke(currentInstance.newInstance(), container);
+            method.invoke(instance, container);
         } catch (Exception e) {
             throw new IllegalArgumentException("No such method");
         }
     }
 
     public void invokeInstance(String instanceName) {
-        if(!isExist) {
-            currentInstance = createInstanceByClassName(instanceName);
-            isExist = true;
-            runInstance();
-        }
-        else
+        if (isExist)
             disposeInstance();
+        loadClass(instanceName);
+        createInstance();
+        runInstance();
     }
 
     public void disposeInstance() {
         try {
-            Method method = currentInstance.getDeclaredMethod("disposeInstance");
+            Method method = currentClass.getDeclaredMethod("disposeInstance");
             method.setAccessible(true);
-            method.invoke(currentInstance.newInstance());
-            isExist=false;
+            method.invoke(instance);
+            isExist = false;
         } catch (Exception e) {
             e.printStackTrace();
         }
