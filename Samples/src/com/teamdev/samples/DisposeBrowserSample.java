@@ -21,7 +21,6 @@ public class DisposeBrowserSample extends ConsoleDemoSample {
                 System.out.println("Browser is disposed.");
             }
         });
-        redirectOutPutStream(container);
         browser.dispose();
     }
 
@@ -29,8 +28,4 @@ public class DisposeBrowserSample extends ConsoleDemoSample {
     public void disposeInstance() {
     }
 
-    @Override
-    public void redirectOutPutStream(JPanel container) {
-        super.redirectOutPutStream(container);
-    }
 }

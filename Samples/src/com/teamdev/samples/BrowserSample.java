@@ -8,8 +8,8 @@ import javax.swing.*;
 
 public class BrowserSample implements DemoSample {
 
-    private  Browser browser;
-    private  BrowserView browserView;
+    private Browser browser;
+    private BrowserView browserView;
 
     public void run(JPanel container) {
         browser = new Browser();

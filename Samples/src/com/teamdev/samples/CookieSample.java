@@ -30,7 +30,6 @@ public class CookieSample extends ConsoleDemoSample {
                 ".google.com", "/", expirationTimeInMicroseconds, false, false);
 
         java.util.List<Cookie> cookies = cookieStorage.getAllCookies();
-        redirectOutPutStream(container);
         for (Cookie cookie : cookies) {
             System.out.println("cookie = " + cookie);
         }
@@ -41,8 +40,4 @@ public class CookieSample extends ConsoleDemoSample {
         browser.dispose();
     }
 
-    @Override
-    public void redirectOutPutStream(JPanel container) {
-        super.redirectOutPutStream(container);
-    }
 }

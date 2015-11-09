@@ -66,7 +66,7 @@ public final class DemoFrame {
             public void valueChanged(TreeSelectionEvent e) {
                 TreePath treePath = e.getPath();
                 for (Category category : categories) {
-                    for (SampleInfo sampleInfo : category.getSampleInfos()) {
+                    for (SampleInfo sampleInfo : category.getSampleInfo()) {
                         if (sampleInfo.getName().toString() == treePath.getLastPathComponent().toString()) {
                             preview.removeAll();
                             preview.revalidate();

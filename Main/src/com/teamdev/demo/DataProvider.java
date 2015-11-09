@@ -46,8 +46,8 @@ public final class DataProvider {
         for (int i = 0; i < categories.size(); i++) {
             Category category = categories.get(i);
             DefaultMutableTreeNode treeNode = new DefaultMutableTreeNode(category.getName());
-            for (int j = 0; j < category.getSampleInfos().size(); j++) {
-                DefaultMutableTreeNode node = new DefaultMutableTreeNode(category.getSampleInfos().get(j).getName());
+            for (int j = 0; j < category.getSampleInfo().size(); j++) {
+                DefaultMutableTreeNode node = new DefaultMutableTreeNode(category.getSampleInfo().get(j).getName());
                 treeNode.add(node);
             }
             treeRoot.add(treeNode);
