@@ -15,6 +15,7 @@ import javax.swing.*;
 public class DisposeBrowserSample extends ConsoleDemoSample {
     @Override
     public void run(JPanel container) {
+        super.run(container);
         Browser browser = new Browser();
         browser.addDisposeListener(new DisposeListener<Browser>() {
             public void onDisposed(DisposeEvent<Browser> event) {

@@ -69,10 +69,10 @@ public final class DataProvider {
         return rootTreeNode;
     }*/
 
-    public static String getSourceCodeFromTxt(String exampleName) {
+    public static String getSourceCode(String exampleName) {
         StringBuilder result =new StringBuilder("");
         try {
-            FileReader fileReader = new FileReader("Samples\\source code\\" + exampleName + ".txt");
+            FileReader fileReader = new FileReader("Samples\\src\\com\\teamdev\\samples\\" + exampleName + ".java");
             int ch;
             while ((ch = fileReader.read()) != -1) {
                 result.append((char) ch);

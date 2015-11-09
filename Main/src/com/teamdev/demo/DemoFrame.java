@@ -72,7 +72,7 @@ public final class DemoFrame {
                             preview.revalidate();
                             labelAboutExample.setText(sampleInfo.getDescription());
                             sampleProvider.invokeInstance(sampleInfo.getName());
-                            setSourceText(DataProvider.getSourceCodeFromTxt(sampleInfo.getName()));
+                            setSourceText(DataProvider.getSourceCode(sampleInfo.getName()));
                             javaHighlighter.highlightCode();
                             tabbedPane.setSelectedIndex(0);
                             tabbedPane.setVisible(true);

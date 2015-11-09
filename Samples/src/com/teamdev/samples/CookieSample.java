@@ -16,6 +16,7 @@ public class CookieSample extends ConsoleDemoSample {
 
     @Override
     public void run(JPanel container) {
+        super.run(container);
         browser = new Browser();
         browserView = new BrowserView(browser);
         container.add(browserView);
