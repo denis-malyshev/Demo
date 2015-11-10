@@ -33,6 +33,7 @@ public class ConsoleListenerSample  extends ConsoleDemoSample  {
     @Override
     public void disposeInstance() {
         browser.dispose();
+        System.setOut(System.out);
     }
 
 

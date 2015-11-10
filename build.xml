@@ -1,17 +1,17 @@
 <project name="build" basedir="." default="build">
-    <property name="dir.src" value="Main/src/com/teamdev/demo"/>
-    <property name="dir.lib" value="lib"/>
 
     <path id="classpath">
         <fileset dir="lib" includes="*/*.jar"/>
     </path>
 
     <target name="build">
-        <mkdir dir="Main/classes"/>
+        <mkdir dir="target/production/Main"/>
+        <mkdir dir="target/production/Samples"/>
         <mkdir dir="target"/>
-        <javac classpathref="classpath" destdir="Main/classes" srcdir="Main/src/com/teamdev/demo"/>
+        <javac classpathref="classpath" destdir="target/production/Main" srcdir="Main/src/com/teamdev/demo"/>
+        <javac classpathref="classpath" destdir="target/production/Samples" srcdir="Samples/src/com/teamdev/samples"/>
         <jar destfile="target/application.jar">
-            <fileset dir="Main/classes" includes="**/**"/>
+            <fileset dir="Main/production" includes="**/**"/>
         </jar>
     </target>
 

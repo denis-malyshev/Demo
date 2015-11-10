@@ -27,6 +27,7 @@ public class DisposeBrowserSample extends ConsoleDemoSample {
 
     @Override
     public void disposeInstance() {
+        System.setOut(System.out);
     }
 
 }
