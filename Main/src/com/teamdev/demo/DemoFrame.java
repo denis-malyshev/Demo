@@ -11,52 +11,33 @@ import java.util.ArrayList;
 
 public final class DemoFrame {
     private JFrame frame;
+    private JScrollPane leftContainer;
     private JPanel leftPanel;
     private JPanel rightContainer;
     private JPanel rightDownSubContainer;
     private final JLabel labelAboutExample = new JLabel("Click on example for showing");
     private JSplitPane mainContainer;
     private JTabbedPane tabbedPane;
-    private JScrollPane leftContainer;
     private JPanel preview;
     private JTextPane source;
     private JScrollPane sourceContainer;
-    private final JTree treeOfExample;
-    private final SampleProvider sampleProvider;
+    private JTree treeOfExample;
+    private SampleProvider sampleProvider;
+    private ArrayList<Category> categories;
+    private JavaHighlighter javaHighlighter;
 
     public DemoFrame() {
+        initialize();
+    }
+
+    private void initialize() {
         initializeLeftContainer();
         initializeTabbedPane();
         initializeRightContainer();
         initializeMainContainer();
         initializeDemoFrame();
-
-        sampleProvider = new SampleProvider(preview);
-        final JavaHighlighter javaHighlighter = new JavaHighlighter(source, sourceContainer);
-
-        final ArrayList<Category> categories = XmlParser.getCategories("data.xml");
-        treeOfExample = new JTree(DataProvider.createRootTreeNode(categories));
-        treeOfExample.setRootVisible(false);
-        treeOfExample.expandRow(0);
-        leftPanel.add(treeOfExample);
-        treeOfExample.addTreeSelectionListener(new TreeSelectionListener() {
-            @Override
-            public void valueChanged(TreeSelectionEvent e) {
-                TreePath treePath = e.getPath();
-                for (Category category : categories) {
-                    for (SampleInfo sampleInfo : category.getSampleInfo()) {
-                        if (sampleInfo.getName().toString() == treePath.getLastPathComponent().toString()) {
-                            updatePreview();
-                            updateTabbedPane();
-                            labelAboutExample.setText("<html>" + sampleInfo.getDescription() + "</html>");
-                            sampleProvider.invokeInstance(sampleInfo.getName());
-                            setSourceText(DataProvider.getSourceCode(sampleInfo.getName()));
-                            javaHighlighter.highlightCode();
-                        }
-                    }
-                }
-            }
-        });
+        initializeUtils();
+        initializeJTree();
     }
 
     private void setSourceText(String text) {
@@ -110,6 +91,38 @@ public final class DemoFrame {
         mainContainer = new JSplitPane();
         mainContainer.setLeftComponent(leftContainer);
         mainContainer.setRightComponent(rightContainer);
+    }
+
+    private void initializeJTree() {
+        categories = DataProvider.getCategories("data.xml");
+        treeOfExample = new JTree(DataProvider.createRootTreeNode(categories));
+        treeOfExample.setRootVisible(false);
+        treeOfExample.expandRow(0);
+        leftPanel.add(treeOfExample);
+
+        treeOfExample.addTreeSelectionListener(new TreeSelectionListener() {
+            @Override
+            public void valueChanged(TreeSelectionEvent e) {
+                TreePath treePath = e.getPath();
+                for (Category category : categories) {
+                    for (SampleInfo sampleInfo : category.getSampleInfo()) {
+                        if (sampleInfo.getName().toString() == treePath.getLastPathComponent().toString()) {
+                            updatePreview();
+                            updateTabbedPane();
+                            labelAboutExample.setText("<html>" + sampleInfo.getDescription() + "</html>");
+                            sampleProvider.invokeInstance(sampleInfo.getName());
+                            setSourceText(DataProvider.getSourceCode(sampleInfo.getName()));
+                            javaHighlighter.highlightCode();
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    private void initializeUtils() {
+        sampleProvider = new SampleProvider(preview);
+        javaHighlighter = new JavaHighlighter(source, sourceContainer);
     }
 
     private void updatePreview() {

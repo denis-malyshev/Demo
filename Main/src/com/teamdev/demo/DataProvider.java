@@ -2,10 +2,26 @@ package com.teamdev.demo;
 
 
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 import java.io.*;
 import java.util.ArrayList;
 
 public final class DataProvider {
+
+    public static ArrayList<Category> getCategories(String fileName) {
+        JAXBContext context;
+        Categories categories;
+        try {
+            context = JAXBContext.newInstance(Categories.class);
+            Unmarshaller unmarshaller = context.createUnmarshaller();
+            categories = (Categories) unmarshaller.unmarshal(new File(fileName));
+            return categories.getCategories();
+        } catch (JAXBException e) {
+            throw new IllegalArgumentException("No such file");
+        }
+    }
 
     public static DefaultMutableTreeNode createRootTreeNode(ArrayList<Category> categories) {
         DefaultMutableTreeNode treeRoot = new DefaultMutableTreeNode("Categories");
