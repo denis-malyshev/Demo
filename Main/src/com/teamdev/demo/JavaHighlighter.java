@@ -48,7 +48,7 @@ public class JavaHighlighter {
         StringBuilder charactersBuff = new StringBuilder("");
         StringBuilder commentsBuff = new StringBuilder("");
         for (String keyword : JAVA_KEYWORDS) {
-            keyWordsBuff.append(keyword+"\\W").append("|");
+            keyWordsBuff.append(keyword).append("\\W").append("|");
             functionsBuff.append(" [a-z]+\\(|");
         }
         keyWordsBuff.deleteCharAt(keyWordsBuff.length() - 1);

@@ -8,20 +8,18 @@ import javax.swing.text.*;
 import javax.swing.tree.TreePath;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public final class DemoFrame {
-    private JFrame frame;
     private JScrollPane leftContainer;
     private JPanel leftPanel;
     private JPanel rightContainer;
-    private JPanel rightDownSubContainer;
     private final JLabel labelAboutExample = new JLabel("Click on example for showing");
     private JSplitPane mainContainer;
     private JTabbedPane tabbedPane;
     private JPanel preview;
     private JTextPane source;
     private JScrollPane sourceContainer;
-    private JTree treeOfExample;
     private SampleProvider sampleProvider;
     private ArrayList<Category> categories;
     private JavaHighlighter javaHighlighter;
@@ -47,7 +45,7 @@ public final class DemoFrame {
 
     private void initializeDemoFrame() {
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-        frame = new JFrame();
+        JFrame frame = new JFrame();
         frame.setSize(800, 500);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -66,7 +64,7 @@ public final class DemoFrame {
         rightContainer = new JPanel();
         rightContainer.setLayout(new BorderLayout());
 
-        rightDownSubContainer = new JPanel();
+        final JPanel rightDownSubContainer = new JPanel();
         rightDownSubContainer.setLayout(new GridLayout());
         rightDownSubContainer.add(tabbedPane);
 
@@ -95,7 +93,7 @@ public final class DemoFrame {
 
     private void initializeJTree() {
         categories = DataProvider.getCategories("data.xml");
-        treeOfExample = new JTree(DataProvider.createRootTreeNode(categories));
+        JTree treeOfExample = new JTree(DataProvider.createRootTreeNode(categories));
         treeOfExample.setRootVisible(false);
         treeOfExample.expandRow(0);
         leftPanel.add(treeOfExample);
@@ -106,7 +104,7 @@ public final class DemoFrame {
                 TreePath treePath = e.getPath();
                 for (Category category : categories) {
                     for (SampleInfo sampleInfo : category.getSampleInfo()) {
-                        if (sampleInfo.getName().toString() == treePath.getLastPathComponent().toString()) {
+                        if (Objects.equals(sampleInfo.getName(), treePath.getLastPathComponent().toString())) {
                             updatePreview();
                             updateTabbedPane();
                             labelAboutExample.setText("<html>" + sampleInfo.getDescription() + "</html>");

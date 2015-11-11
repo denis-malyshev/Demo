@@ -2,8 +2,6 @@ package com.teamdev.demo;
 
 
 import javax.swing.*;
-import java.awt.*;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class SampleProvider {

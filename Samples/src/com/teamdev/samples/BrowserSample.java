@@ -9,11 +9,10 @@ import javax.swing.*;
 public class BrowserSample implements DemoSample {
 
     private Browser browser;
-    private BrowserView browserView;
 
     public void run(JPanel container) {
         browser = new Browser();
-        browserView = new BrowserView(browser);
+        BrowserView browserView = new BrowserView(browser);
         browser.loadURL("http://www.google.com");
         container.add(browserView);
     }

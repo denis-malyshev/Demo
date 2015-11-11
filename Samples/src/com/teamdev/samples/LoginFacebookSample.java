@@ -13,12 +13,11 @@ import javax.swing.*;
 
 public class LoginFacebookSample implements DemoSample {
     private Browser browser;
-    private BrowserView browserView;
 
     @Override
     public void run(JPanel container) {
         browser = new Browser();
-        browserView = new BrowserView(browser);
+        BrowserView browserView = new BrowserView(browser);
         container.add(browserView);
         // Load https://www.facebook.com/login.php and wait until web page is loaded completely.
         Browser.invokeAndWaitFinishLoadingMainFrame(browser, new Callback<Browser>() {

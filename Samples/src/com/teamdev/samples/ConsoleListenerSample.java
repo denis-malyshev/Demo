@@ -12,13 +12,12 @@ import javax.swing.*;
 public class ConsoleListenerSample  extends ConsoleDemoSample  {
 
     private Browser browser;
-    private BrowserView browserView;
 
     @Override
     public void run(JPanel container) {
         super.run(container);
         browser = new Browser();
-        browserView = new BrowserView(browser);
+        BrowserView browserView = new BrowserView(browser);
 
         container.add(browserView);
         browser.addConsoleListener(new ConsoleListener() {

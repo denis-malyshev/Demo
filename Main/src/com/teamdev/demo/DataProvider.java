@@ -25,8 +25,7 @@ public final class DataProvider {
 
     public static DefaultMutableTreeNode createRootTreeNode(ArrayList<Category> categories) {
         DefaultMutableTreeNode treeRoot = new DefaultMutableTreeNode("Categories");
-        for (int i = 0; i < categories.size(); i++) {
-            Category category = categories.get(i);
+        for (Category category : categories) {
             DefaultMutableTreeNode treeNode = new DefaultMutableTreeNode(category.getName());
             for (int j = 0; j < category.getSampleInfo().size(); j++) {
                 treeNode.add(new DefaultMutableTreeNode(category.getSampleInfo().get(j).getName()));
@@ -39,7 +38,7 @@ public final class DataProvider {
     public static String getSourceCode(String exampleName) {
         StringBuilder result = new StringBuilder("");
         try {
-            FileReader fileReader = new FileReader("target/src/com/teamdev/samples/" + exampleName + ".java");
+            FileReader fileReader = new FileReader("../src/com/teamdev/samples/" + exampleName + ".java");
             int ch;
             while ((ch = fileReader.read()) != -1) {
                 result.append((char) ch);
