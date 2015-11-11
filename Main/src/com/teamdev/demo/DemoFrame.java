@@ -7,7 +7,6 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.text.*;
 import javax.swing.tree.TreePath;
 import java.awt.*;
-import java.io.*;
 import java.util.ArrayList;
 
 public final class DemoFrame {
@@ -26,7 +25,7 @@ public final class DemoFrame {
     private final SampleProvider sampleProvider;
 
     public DemoFrame() {
-        sampleProvider=new SampleProvider(preview);
+        sampleProvider = new SampleProvider(preview);
         final JavaHighlighter javaHighlighter = new JavaHighlighter(source, sourceContainer);
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         frame = new JFrame();
@@ -56,7 +55,7 @@ public final class DemoFrame {
 
         frame.add(mainContainer);
 
-        final ArrayList<Category> categories = DataProvider.getCategoryFromFolders();
+        final ArrayList<Category> categories = CategoryParser.getCategories("data.xml");
         treeOfExample = new JTree(DataProvider.createRootTreeNode(categories));
         treeOfExample.setRootVisible(false);
         treeOfExample.expandRow(0);
@@ -95,12 +94,21 @@ public final class DemoFrame {
                 new DemoFrame();
             }
         });
-    }
+        /*ArrayList<SampleInfo> samples = new ArrayList<>();
+        samples.add(new SampleInfo("firsr samle", "some text"));
+        samples.add(new SampleInfo("second samle", "some2 text"));
+        samples.add(new SampleInfo("3 samle", "some3 text"));
 
-    public static void printOutStream(JTextArea textArea) {
-        ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
-        final PrintStream printStream = new PrintStream(byteArray);
-        System.setOut(printStream);
-        textArea.append(byteArray.toString());
+        Category category = new Category("first", samples);
+        ArrayList<SampleInfo> samples1 = new ArrayList<>();
+        samples1.add(new SampleInfo("4 samle", "some4 text"));
+        samples1.add(new SampleInfo("5", "some5 text"));
+        Category category1=new Category("second",samples1);
+        ArrayList<Category> categories = new ArrayList<>();
+        categories.add(category);
+        categories.add(category1);
+        Categories categories1=new Categories();
+        categories1.setCategories(categories);
+        CategoryParser.toXml(categories1);*/
     }
 }

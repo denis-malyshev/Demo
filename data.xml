@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="Cp1251" standalone="yes"?>
+<Categories>
+    <categories>
+        <name>first</name>
+        <Samples>
+            <sampleInfo>
+                <name>BrowserSample</name>
+                <description>some text</description>
+            </sampleInfo>
+            <sampleInfo>
+                <name>ConsoleListenerSample</name>
+                <description>some2 text</description>
+            </sampleInfo>
+            <sampleInfo>
+                <name>CookieSample</name>
+                <description>some3 text</description>
+            </sampleInfo>
+            <sampleInfo>
+                <name>DisposeBrowserSample</name>
+                <description>some3 text</description>
+            </sampleInfo>
+            <sampleInfo>
+                <name>LoginFacebookSample</name>
+                <description>some3 text</description>
+            </sampleInfo>
+        </Samples>
+    </categories>
+</Categories>
