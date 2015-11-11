@@ -18,6 +18,7 @@ public abstract class ConsoleDemoSample implements DemoSample {
 
     private void redirectOutPutStream(JPanel container) {
         final JTextArea textArea = new JTextArea();
+        textArea.setPreferredSize(new Dimension(container.getWidth(),container.getHeight()/4));
         OutputStream outputStream = new OutputStream() {
             @Override
             public void write(int b) throws IOException {

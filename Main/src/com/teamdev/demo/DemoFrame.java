@@ -55,11 +55,11 @@ public final class DemoFrame {
 
         frame.add(mainContainer);
 
-        final ArrayList<Category> categories = CategoryParser.getCategories("data.xml");
+        final ArrayList<Category> categories = XmlParser.getCategories("data.xml");
         treeOfExample = new JTree(DataProvider.createRootTreeNode(categories));
         treeOfExample.setRootVisible(false);
         treeOfExample.expandRow(0);
-        leftPanel.add(treeOfExample);
+        leftPanel.add(treeOfExample);tabbedPane.setVisible(true);
         treeOfExample.addTreeSelectionListener(new TreeSelectionListener() {
             @Override
             public void valueChanged(TreeSelectionEvent e) {
@@ -109,6 +109,6 @@ public final class DemoFrame {
         categories.add(category1);
         Categories categories1=new Categories();
         categories1.setCategories(categories);
-        CategoryParser.toXml(categories1);*/
+        XmlParser.toXml(categories1);*/
     }
 }
