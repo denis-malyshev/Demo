@@ -20,27 +20,6 @@ public final class DataProvider {
         return treeRoot;
     }
 
-    private ArrayList<DefaultMutableTreeNode> createTreeNodesFromCategories(ArrayList<Category> categories) {
-        final ArrayList<DefaultMutableTreeNode> categoriesNodes = new ArrayList<>();
-        for (Category category : categories) {
-            categoriesNodes.add(new DefaultMutableTreeNode(category.getName()));
-        }
-        return categoriesNodes;
-    }
-
-    private ArrayList<DefaultMutableTreeNode> createTreeNodeFromSamples(ArrayList<SampleInfo> samples) {
-        final ArrayList<DefaultMutableTreeNode> samplesNode = new ArrayList<>();
-        for (SampleInfo sample : samples) {
-            samplesNode.add(new DefaultMutableTreeNode(sample.getName()));
-        }
-        return samplesNode;
-    }
-
-    /*public DefaultMutableTreeNode createRootTreeNode(String name) {
-        DefaultMutableTreeNode root=new DefaultMutableTreeNode(name);
-        return root;
-    }*/
-
     public static String getSourceCode(String exampleName) {
         StringBuilder result = new StringBuilder("");
         try {

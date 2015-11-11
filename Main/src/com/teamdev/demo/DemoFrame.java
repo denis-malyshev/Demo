@@ -38,9 +38,9 @@ public final class DemoFrame {
         leftPanel.setMinimumSize(new Dimension(100, frame.getHeight()));
         leftPanel.setBackground(Color.white);
 
-        rightContainer.setLayout(new BoxLayout(rightContainer, BoxLayout.Y_AXIS));
-        rightContainer.add(labelAboutExample);
-        rightContainer.add(rightDownSubContainer);
+        rightContainer.setLayout(new BorderLayout());
+        rightContainer.add(labelAboutExample,BorderLayout.NORTH);
+        rightContainer.add(rightDownSubContainer,BorderLayout.CENTER);
 
         rightDownSubContainer.setLayout(new GridLayout());
         rightDownSubContainer.add(tabbedPane);
@@ -59,7 +59,7 @@ public final class DemoFrame {
         treeOfExample = new JTree(DataProvider.createRootTreeNode(categories));
         treeOfExample.setRootVisible(false);
         treeOfExample.expandRow(0);
-        leftPanel.add(treeOfExample);tabbedPane.setVisible(true);
+        leftPanel.add(treeOfExample);//tabbedPane.setVisible(true);
         treeOfExample.addTreeSelectionListener(new TreeSelectionListener() {
             @Override
             public void valueChanged(TreeSelectionEvent e) {
@@ -69,12 +69,12 @@ public final class DemoFrame {
                         if (sampleInfo.getName().toString() == treePath.getLastPathComponent().toString()) {
                             preview.removeAll();
                             preview.revalidate();
-                            labelAboutExample.setText(sampleInfo.getDescription());
+                            tabbedPane.setVisible(true);
+                            tabbedPane.setSelectedIndex(0);
+                            labelAboutExample.setText("<html>"+sampleInfo.getDescription()+"</html>");
                             sampleProvider.invokeInstance(sampleInfo.getName());
                             setSourceText(DataProvider.getSourceCode(sampleInfo.getName()));
                             javaHighlighter.highlightCode();
-                            tabbedPane.setSelectedIndex(0);
-                            tabbedPane.setVisible(true);
                         }
                     }
                 }
@@ -94,21 +94,5 @@ public final class DemoFrame {
                 new DemoFrame();
             }
         });
-        /*ArrayList<SampleInfo> samples = new ArrayList<>();
-        samples.add(new SampleInfo("firsr samle", "some text"));
-        samples.add(new SampleInfo("second samle", "some2 text"));
-        samples.add(new SampleInfo("3 samle", "some3 text"));
-
-        Category category = new Category("first", samples);
-        ArrayList<SampleInfo> samples1 = new ArrayList<>();
-        samples1.add(new SampleInfo("4 samle", "some4 text"));
-        samples1.add(new SampleInfo("5", "some5 text"));
-        Category category1=new Category("second",samples1);
-        ArrayList<Category> categories = new ArrayList<>();
-        categories.add(category);
-        categories.add(category1);
-        Categories categories1=new Categories();
-        categories1.setCategories(categories);
-        XmlParser.toXml(categories1);*/
     }
 }

@@ -2,6 +2,8 @@ package com.teamdev.demo;
 
 
 import javax.swing.*;
+import java.awt.*;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class SampleProvider {
@@ -34,11 +36,10 @@ public class SampleProvider {
 
     private void runInstance() {
         try {
-            Method method = currentClass.getDeclaredMethod("run", JPanel.class);
-            method.setAccessible(true);
+            Method method = currentClass.getMethod("run", JPanel.class);
             method.invoke(instance, container);
         } catch (Exception e) {
-            throw new IllegalArgumentException("No such method");
+            e.printStackTrace();
         }
     }
 
@@ -52,8 +53,7 @@ public class SampleProvider {
 
     public void disposeInstance() {
         try {
-            Method method = currentClass.getDeclaredMethod("disposeInstance");
-            method.setAccessible(true);
+            Method method = currentClass.getMethod("disposeInstance");
             method.invoke(instance);
             isExist = false;
         } catch (Exception e) {
