@@ -1,1 +1,0 @@
-Demonstrates how to login into Facebook account via login form and DOM API.

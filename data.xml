@@ -5,23 +5,33 @@
         <Samples>
             <sampleInfo>
                 <name>BrowserSample</name>
-                <description>some text</description>
+                <description>
+                    This sample demonstrates how to create Browser instance, embed it into Swing BrowserView container, display it in JFrame and
+                    navigate to the "www.google.com" web site.
+                </description>
             </sampleInfo>
             <sampleInfo>
                 <name>ConsoleListenerSample</name>
-                <description>some2 text</description>
+                <description>The sample demonstrates how to listen to console messages including
+                    JavaScript errors.
+                </description>
             </sampleInfo>
             <sampleInfo>
                 <name>CookieSample</name>
-                <description>some3 text</description>
+                <description>The sample demonstrates how to access CookieStorage instance to
+                    read all the available cookies.
+                </description>
             </sampleInfo>
             <sampleInfo>
                 <name>DisposeBrowserSample</name>
-                <description>some3 text</description>
+                <description>This sample demonstrates how to dispose Browser instance.
+                    Every Browser instance must be disposed before your Java
+                    application exit.
+                </description>
             </sampleInfo>
             <sampleInfo>
                 <name>LoginFacebookSample</name>
-                <description>some3 text</description>
+                <description>Demonstrates how to login into Facebook account via login form and DOM API.</description>
             </sampleInfo>
         </Samples>
     </categories>

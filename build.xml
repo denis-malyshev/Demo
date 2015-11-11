@@ -17,6 +17,10 @@
         <fileset dir="${target.lib}" includes="**/*.jar"/>
     </path>
 
+    <target name="clean">
+        <delete dir="${target}"/>
+    </target>
+
     <target name="prepare">
         <mkdir dir="${target}"/>
         <mkdir dir="${target.classes}"/>
@@ -34,6 +38,10 @@
         <copy todir="${target.src}">
             <fileset dir="${Samples.src}" includes="**/**"/>
         </copy>
+
+        <copy todir="${target.application}/">
+            <fileset file="data.xml"/>
+        </copy>
     </target>
 
     <target name="compile" depends="prepare">
@@ -42,14 +50,11 @@
 
     <target name="build" depends="compile">
         <jar destfile="${target.application}/run.jar">
-            <fileset dir="${target.classes}" includes="**/**"/>
+            <fileset dir="${target.classes}"  includes="**/**"/>
             <manifest>
                 <attribute name="Main-Class" value="com.teamdev.demo.DemoFrame"/>
-                <attribute name="Class-Path" value="${target.lib}"/>
+                <attribute name="Class-Path" value="../lib/jxbrowser-5.4.3.jar ../lib/jxbrowser-win-5.4.3.jar ../license.jar"/>
             </manifest>
         </jar>
-    </target>
-    <target name="run" depends="build">
-        <java jar="${target.application}/run.jar" fork="true"/>
     </target>
 </project>

@@ -1,1 +1,0 @@
-This sampleInfo demonstrates how to dispose Browser instance. Every Browser instance must be disposed before your Java application exit.
