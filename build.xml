@@ -51,6 +51,8 @@
     <target name="build" depends="compile">
         <jar destfile="${target.application}/run.jar">
             <fileset dir="${target.classes}"  includes="**/**"/>
+            <fileset dir="${target}" includes="src/**"/>
+            <fileset file="data.xml"/>
             <zipfileset file="teamdev.licenses" prefix="META-INF"/>
             <manifest>
                 <attribute name="Main-Class" value="com.teamdev.demo.DemoFrame"/>

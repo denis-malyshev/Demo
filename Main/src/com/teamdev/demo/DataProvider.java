@@ -6,11 +6,11 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.*;
-import java.util.ArrayList;
+import java.util.List;
 
 public final class DataProvider {
 
-    public static ArrayList<Category> getCategories(String fileName) {
+    public static List<Category> getCategories(String fileName) {
         JAXBContext context;
         Categories categories;
         try {
@@ -23,7 +23,7 @@ public final class DataProvider {
         }
     }
 
-    public static DefaultMutableTreeNode createRootTreeNode(ArrayList<Category> categories) {
+    public static DefaultMutableTreeNode createRootTreeNode(List<Category> categories) {
         DefaultMutableTreeNode treeRoot = new DefaultMutableTreeNode("Categories");
         for (Category category : categories) {
             DefaultMutableTreeNode treeNode = new DefaultMutableTreeNode(category.getName());
@@ -38,7 +38,7 @@ public final class DataProvider {
     public static String getSourceCode(String exampleName) {
         StringBuilder result = new StringBuilder("");
         try {
-            FileReader fileReader = new FileReader("../src/com/teamdev/samples/" + exampleName + ".java");
+            FileReader fileReader = new FileReader(exampleName + ".java");
             int ch;
             while ((ch = fileReader.read()) != -1) {
                 result.append((char) ch);

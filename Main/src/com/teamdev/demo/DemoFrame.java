@@ -7,10 +7,10 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.text.*;
 import javax.swing.tree.TreePath;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Objects;
+import java.util.*;
 
 public final class DemoFrame {
+
     private JScrollPane leftContainer;
     private JPanel leftPanel;
     private JPanel rightContainer;
@@ -21,7 +21,7 @@ public final class DemoFrame {
     private JTextPane source;
     private JScrollPane sourceContainer;
     private SampleProvider sampleProvider;
-    private ArrayList<Category> categories;
+    private java.util.List<Category> categories;
     private JavaHighlighter javaHighlighter;
 
     public DemoFrame() {
@@ -108,7 +108,7 @@ public final class DemoFrame {
                             updatePreview();
                             updateTabbedPane();
                             labelAboutExample.setText("<html>" + sampleInfo.getDescription() + "</html>");
-                            sampleProvider.invokeInstance(sampleInfo.getName());
+                            sampleProvider.runSample(sampleInfo.getName());
                             setSourceText(DataProvider.getSourceCode(sampleInfo.getName()));
                             javaHighlighter.highlightCode();
                         }

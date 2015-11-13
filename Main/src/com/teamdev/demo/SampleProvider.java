@@ -15,7 +15,15 @@ public class SampleProvider {
         this.container = container;
     }
 
+    public void runSample(String instanceName) {
+        loadClass(instanceName);
+        createInstance();
+        runInstance();
+    }
+
     private void loadClass(String className) {
+        if (isExist)
+            disposeInstance();
         try {
             currentClass =Class.forName("com.teamdev.samples." + className);
         } catch (Exception e) {
@@ -41,15 +49,7 @@ public class SampleProvider {
         }
     }
 
-    public void invokeInstance(String instanceName) {
-        if (isExist)
-            disposeInstance();
-        loadClass(instanceName);
-        createInstance();
-        runInstance();
-    }
-
-    public void disposeInstance() {
+    private void disposeInstance() {
         try {
             Method method = currentClass.getMethod("disposeInstance");
             method.invoke(instance);
