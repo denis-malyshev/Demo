@@ -14,7 +14,7 @@
     <property name="Samples.src" location="${Samples}/src"/>
 
     <path id="classpath">
-        <fileset dir="${target.lib}" includes="**/*.jar"/>
+        <fileset dir="${Main.lib}" includes="**/*.jar"/>
     </path>
 
     <target name="clean">
@@ -24,15 +24,10 @@
     <target name="prepare">
         <mkdir dir="${target}"/>
         <mkdir dir="${target.classes}"/>
-        <mkdir dir="${target.lib}"/>
         <mkdir dir="${target.application}"/>
 
         <copy todir="${target.src}">
             <fileset dir="${Main.src}" includes="**/**"/>
-        </copy>
-
-        <copy todir="${target.lib}">
-            <fileset dir="${Main.lib}"/>
         </copy>
 
         <copy todir="${target.src}">
@@ -41,6 +36,9 @@
 
         <copy todir="${target.application}/">
             <fileset file="data.xml"/>
+            <fileset dir="${Main}" includes="lib/**"/>
+            <fileset dir="${target}" includes="src/**"/>
+            <fileset file="run.bat"/>
         </copy>
     </target>
 
@@ -56,7 +54,7 @@
             <zipfileset file="teamdev.licenses" prefix="META-INF"/>
             <manifest>
                 <attribute name="Main-Class" value="com.teamdev.demo.DemoFrame"/>
-                <attribute name="Class-Path" value="../lib/jxbrowser-5.4.3.jar ../lib/jxbrowser-win-5.4.3.jar"/>
+                <attribute name="Class-Path" value="lib/jxbrowser-5.4.3.jar lib/jxbrowser-win-5.4.3.jar"/>
             </manifest>
         </jar>
     </target>

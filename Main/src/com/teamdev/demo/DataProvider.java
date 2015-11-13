@@ -3,14 +3,14 @@ package com.teamdev.demo;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.*;
 import java.util.List;
+import java.util.jar.JarFile;
 
 public final class DataProvider {
 
-    public static List<Category> getCategories(String fileName) {
+    public List<Category> getCategories(String fileName) {
         JAXBContext context;
         Categories categories;
         try {
@@ -18,12 +18,12 @@ public final class DataProvider {
             Unmarshaller unmarshaller = context.createUnmarshaller();
             categories = (Categories) unmarshaller.unmarshal(new File(fileName));
             return categories.getCategories();
-        } catch (JAXBException e) {
+        } catch (Exception e) {
             throw new IllegalArgumentException("No such file");
         }
     }
 
-    public static DefaultMutableTreeNode createRootTreeNode(List<Category> categories) {
+    public DefaultMutableTreeNode createRootTreeNode(List<Category> categories) {
         DefaultMutableTreeNode treeRoot = new DefaultMutableTreeNode("Categories");
         for (Category category : categories) {
             DefaultMutableTreeNode treeNode = new DefaultMutableTreeNode(category.getName());
@@ -35,10 +35,13 @@ public final class DataProvider {
         return treeRoot;
     }
 
-    public static String getSourceCode(String exampleName) {
+    public String getSourceCode(String exampleName) {
         StringBuilder result = new StringBuilder("");
         try {
-            FileReader fileReader = new FileReader(exampleName + ".java");
+            FileReader fileReader = new FileReader("src/com/teamdev/samples/"+exampleName + ".java");
+            JarFile jarFile=new JarFile("run.jar");
+            System.out.println(jarFile.getJarEntry("data.xml").getClass());
+            jarFile.close();
             int ch;
             while ((ch = fileReader.read()) != -1) {
                 result.append((char) ch);

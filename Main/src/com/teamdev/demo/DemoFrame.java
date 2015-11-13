@@ -92,8 +92,9 @@ public final class DemoFrame {
     }
 
     private void initializeJTree() {
-        categories = DataProvider.getCategories("data.xml");
-        JTree treeOfExample = new JTree(DataProvider.createRootTreeNode(categories));
+        DataProvider dataProvider = new DataProvider();
+        categories = dataProvider.getCategories("data.xml");
+        JTree treeOfExample = new JTree(dataProvider.createRootTreeNode(categories));
         treeOfExample.setRootVisible(false);
         treeOfExample.expandRow(0);
         leftPanel.add(treeOfExample);
@@ -109,7 +110,7 @@ public final class DemoFrame {
                             updateTabbedPane();
                             labelAboutExample.setText("<html>" + sampleInfo.getDescription() + "</html>");
                             sampleProvider.runSample(sampleInfo.getName());
-                            setSourceText(DataProvider.getSourceCode(sampleInfo.getName()));
+                            setSourceText(dataProvider.getSourceCode(sampleInfo.getName()));
                             javaHighlighter.highlightCode();
                         }
                     }
