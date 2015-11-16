@@ -56,6 +56,7 @@ public final class DemoFrame {
 
     private void initializeLeftContainer() {
         leftPanel = new JPanel();
+        leftPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         leftContainer = new JScrollPane(leftPanel);
         leftPanel.setBackground(Color.white);
     }

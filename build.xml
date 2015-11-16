@@ -36,7 +36,6 @@
 
         <copy todir="${target}">
             <fileset dir="${Main}" includes="lib/**"/>
-            <fileset file="data.xml"/>
         </copy>
 
         <copy todir="${target.application}/">
