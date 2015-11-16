@@ -9,13 +9,6 @@ import java.util.regex.Pattern;
 
 public class JavaHighlighter {
 
-    private static final Color DEFAULT_KEYWORD_COLOR = Color.blue;
-    private static final Color FUNCTIONS_NAME_COLOR = Color.orange;
-    private static final Color TEXT_FIELDS_COLOR =Color.green;
-    private static final Color NUMBERS_COLOR =Color.cyan;
-    private static final Color CONSTANTS_COLOR=Color.pink;
-    private static final Color COMMENTS_COLOR=Color.lightGray;
-
     private static String JAVA_KEYWORDS_REGEX;
     private static String FUNCTIONS_NAMES_REGEX;
     private static String TEXT_FIELDS_REGEX;
@@ -74,13 +67,12 @@ public class JavaHighlighter {
 
     public void highlightCode() {
         setLineNumbering();
-        highlight(JAVA_KEYWORDS_REGEX,DEFAULT_KEYWORD_COLOR,0,0);
-        highlight(NUMBERS_COLOR_REGEX,NUMBERS_COLOR,0,0);
-        highlight(FUNCTIONS_NAMES_REGEX,FUNCTIONS_NAME_COLOR,0,-1);
-        highlight(CONSTANTS_COLOR_REGEX,CONSTANTS_COLOR,0,0);
-        highlight(COMMENTS_COLOR_REGEX,COMMENTS_COLOR,0,0);
-        highlight(TEXT_FIELDS_REGEX,TEXT_FIELDS_COLOR,1,-2);
-        highlight(JAVA_KEYWORDS_REGEX,DEFAULT_KEYWORD_COLOR,0,0);
+        highlight(JAVA_KEYWORDS_REGEX,Color.blue,0,0);
+        highlight(NUMBERS_COLOR_REGEX,Color.cyan,0,0);
+        highlight(FUNCTIONS_NAMES_REGEX,Color.orange,0,-1);
+        highlight(CONSTANTS_COLOR_REGEX,Color.pink,0,0);
+        highlight(COMMENTS_COLOR_REGEX,Color.lightGray,0,0);
+        highlight(TEXT_FIELDS_REGEX,Color.green,1,-2);
     }
 
     private void setLineNumbering() {

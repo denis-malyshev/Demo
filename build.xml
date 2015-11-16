@@ -37,7 +37,6 @@
         <copy todir="${target.application}/">
             <fileset file="data.xml"/>
             <fileset dir="${Main}" includes="lib/**"/>
-            <fileset dir="${target}" includes="src/**"/>
             <fileset file="run.bat"/>
         </copy>
     </target>

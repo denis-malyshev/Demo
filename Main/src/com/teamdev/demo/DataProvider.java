@@ -1,12 +1,12 @@
 package com.teamdev.demo;
 
 
+
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 import java.io.*;
 import java.util.List;
-import java.util.jar.JarFile;
 
 public final class DataProvider {
 
@@ -38,15 +38,13 @@ public final class DataProvider {
     public String getSourceCode(String exampleName) {
         StringBuilder result = new StringBuilder("");
         try {
-            FileReader fileReader = new FileReader("src/com/teamdev/samples/"+exampleName + ".java");
-            JarFile jarFile=new JarFile("run.jar");
-            System.out.println(jarFile.getJarEntry("data.xml").getClass());
-            jarFile.close();
+            ClassLoader loader=getClass().getClassLoader();
+            InputStream inputStream=loader.getResourceAsStream("src/com/teamdev/samples/"+exampleName+".java");
             int ch;
-            while ((ch = fileReader.read()) != -1) {
+            while ((ch = inputStream.read()) != -1) {
                 result.append((char) ch);
             }
-            fileReader.close();
+            inputStream.close();
         } catch (Exception e) {
             throw new IllegalArgumentException("No such example: " + e);
         }
