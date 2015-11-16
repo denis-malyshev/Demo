@@ -14,12 +14,14 @@ public final class DataProvider {
         JAXBContext context;
         Categories categories;
         try {
+            ClassLoader loader=getClass().getClassLoader();
+            InputStream inputStream=loader.getResourceAsStream(fileName);
             context = JAXBContext.newInstance(Categories.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
-            categories = (Categories) unmarshaller.unmarshal(new File(fileName));
+            categories = (Categories) unmarshaller.unmarshal(inputStream);
             return categories.getCategories();
         } catch (Exception e) {
-            throw new IllegalArgumentException("No such file");
+            throw new IllegalArgumentException("No such file"+e);
         }
     }
 

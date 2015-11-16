@@ -34,10 +34,14 @@
             <fileset dir="${Samples.src}" includes="**/**"/>
         </copy>
 
-        <copy todir="${target.application}/">
-            <fileset file="data.xml"/>
+        <copy todir="${target}">
             <fileset dir="${Main}" includes="lib/**"/>
-            <fileset file="run.bat"/>
+            <fileset file="data.xml"/>
+        </copy>
+
+        <copy todir="${target.application}/">
+            <fileset file="jxbrowserdemo.bat"/>
+            <fileset file="jxbrowserdemo.sh"/>
         </copy>
     </target>
 
@@ -46,15 +50,17 @@
     </target>
 
     <target name="build" depends="compile">
-        <jar destfile="${target.application}/run.jar">
-            <fileset dir="${target.classes}"  includes="**/**"/>
+        <jar destfile="${target.application}/jxbrowserdemo.jar">
+            <fileset dir="${target.classes}" includes="**/**"/>
             <fileset dir="${target}" includes="src/**"/>
             <fileset file="data.xml"/>
             <zipfileset file="teamdev.licenses" prefix="META-INF"/>
             <manifest>
                 <attribute name="Main-Class" value="com.teamdev.demo.DemoFrame"/>
-                <attribute name="Class-Path" value="lib/jxbrowser-5.4.3.jar lib/jxbrowser-win-5.4.3.jar"/>
+                <attribute name="Class-Path" value="../lib/jxbrowser-5.4.3.jar ../lib/jxbrowser-win-5.4.3.jar"/>
             </manifest>
         </jar>
+        <delete dir="${target.classes}"/>
+        <delete dir="${target.src}"/>
     </target>
 </project>
