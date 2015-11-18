@@ -14,7 +14,7 @@ public final class DemoFrame {
     private JScrollPane leftContainer;
     private JPanel leftPanel;
     private JPanel rightContainer;
-    private final JLabel labelAboutExample = new JLabel("Click on example for showing");
+    private JLabel labelAboutExample;
     private JSplitPane mainContainer;
     private JTabbedPane tabbedPane;
     private JPanel preview;
@@ -25,17 +25,17 @@ public final class DemoFrame {
     private JavaHighlighter javaHighlighter;
 
     public DemoFrame() {
-        initialize();
+        init();
     }
 
-    private void initialize() {
-        initializeLeftContainer();
-        initializeTabbedPane();
-        initializeRightContainer();
-        initializeMainContainer();
-        initializeDemoFrame();
-        initializeUtils();
-        initializeJTree();
+    private void init() {
+        initLeftContainer();
+        initTabbedPane();
+        initRightContainer();
+        initMainContainer();
+        initDemoFrame();
+        initUtils();
+        initJTree();
     }
 
     private void setSourceText(String text) {
@@ -43,28 +43,29 @@ public final class DemoFrame {
         source.getDocument().putProperty(DefaultEditorKit.EndOfLineStringProperty, "\n");
     }
 
-    private void initializeDemoFrame() {
+    private void initDemoFrame() {
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         JFrame frame = new JFrame();
         frame.setSize(800, 500);
+        frame.setMinimumSize(new Dimension((int) dimension.getWidth() / 5, (int) dimension.getHeight() / 5));
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLocation((dimension.width - frame.getWidth()) / 2, (dimension.height - frame.getHeight()) / 2);
-        frame.setTitle("Demo");
+        frame.setTitle("JxBrowser Demo");
         frame.add(mainContainer);
     }
 
-    private void initializeLeftContainer() {
+    private void initLeftContainer() {
         leftPanel = new JPanel();
         leftPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         leftContainer = new JScrollPane(leftPanel);
         leftPanel.setBackground(Color.white);
     }
 
-    private void initializeRightContainer() {
+    private void initRightContainer() {
         rightContainer = new JPanel();
         rightContainer.setLayout(new BorderLayout());
-
+        labelAboutExample=new JLabel();
         final JPanel rightDownSubContainer = new JPanel();
         rightDownSubContainer.setLayout(new GridLayout());
         rightDownSubContainer.add(tabbedPane);
@@ -73,7 +74,7 @@ public final class DemoFrame {
         rightContainer.add(rightDownSubContainer, BorderLayout.CENTER);
     }
 
-    private void initializeTabbedPane() {
+    private void initTabbedPane() {
         preview = new JPanel();
         preview.setLayout(new BorderLayout());
 
@@ -86,20 +87,19 @@ public final class DemoFrame {
         tabbedPane.setVisible(false);
     }
 
-    private void initializeMainContainer() {
+    private void initMainContainer() {
         mainContainer = new JSplitPane();
         mainContainer.setLeftComponent(leftContainer);
         mainContainer.setRightComponent(rightContainer);
     }
 
-    private void initializeJTree() {
+    private void initJTree() {
         DataProvider dataProvider = new DataProvider();
         categories = dataProvider.getCategories("data.xml");
         JTree treeOfExample = new JTree(dataProvider.createRootTreeNode(categories));
         treeOfExample.setRootVisible(false);
         treeOfExample.expandRow(0);
         leftPanel.add(treeOfExample);
-
         treeOfExample.addTreeSelectionListener(new TreeSelectionListener() {
             @Override
             public void valueChanged(TreeSelectionEvent e) {
@@ -109,7 +109,7 @@ public final class DemoFrame {
                         if (Objects.equals(sampleInfo.getName(), treePath.getLastPathComponent().toString())) {
                             updatePreview();
                             updateTabbedPane();
-                            labelAboutExample.setText("<html>" + sampleInfo.getDescription() + "</html>");
+                            labelAboutExample.setText("<html>" + sampleInfo.getName() + " - " + sampleInfo.getDescription() + "</html>");
                             sampleProvider.runSample(sampleInfo.getName());
                             setSourceText(dataProvider.getSourceCode(sampleInfo.getName()));
                             javaHighlighter.highlightCode();
@@ -120,7 +120,7 @@ public final class DemoFrame {
         });
     }
 
-    private void initializeUtils() {
+    private void initUtils() {
         sampleProvider = new SampleProvider(preview);
         javaHighlighter = new JavaHighlighter(source, sourceContainer);
     }
