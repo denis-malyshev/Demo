@@ -45,6 +45,14 @@ public class BrowserSample implements DemoSample {
 
         public Toolbar() {
             addressBar=new JTextField("http://www.google.com");
+            addressBar.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyPressed(KeyEvent e) {
+                    super.keyPressed(e);
+                    if(e.getKeyCode()==10)
+                        browser.loadURL(addressBar.getText());
+                }
+            });
             initButtons();
             initActionPanel();
             setLayout(new GridBagLayout());
@@ -60,30 +68,26 @@ public class BrowserSample implements DemoSample {
             actionPanel.add(stopButton);
         }
 
-
         private void initButtons() {
-            backwardButton = new JButton();
-            backwardButton.setAction(new AbstractAction() {
+            backwardButton =new JButton(new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (browser.canGoBack())
                         browser.goBack();
                 }
             });
-            backwardButton.setText("«");
+            backwardButton.setText("back");
             backwardButton.setBorder(BorderFactory.createEmptyBorder());
-            forwardButton = new JButton();
-            forwardButton.setAction(new AbstractAction() {
+            forwardButton =new JButton(new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (browser.canGoForward())
                         browser.goForward();
                 }
             });
-            forwardButton.setText("»");
+            forwardButton.setText("next");
             forwardButton.setBorder(BorderFactory.createEmptyBorder());
-            refreshButton = new JButton();
-            refreshButton.setAction(new AbstractAction() {
+            refreshButton=new JButton(new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     browser.reload();
@@ -91,8 +95,7 @@ public class BrowserSample implements DemoSample {
             });
             refreshButton.setText("refresh");
             refreshButton.setBorder(BorderFactory.createEmptyBorder());
-            stopButton = new JButton();
-            stopButton.setAction(new AbstractAction() {
+            stopButton = new JButton(new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     browser.stop();

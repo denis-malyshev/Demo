@@ -89,6 +89,7 @@ public final class DemoFrame {
 
     private void initMainContainer() {
         mainContainer = new JSplitPane();
+        mainContainer.setDividerSize(5);
         mainContainer.setLeftComponent(leftContainer);
         mainContainer.setRightComponent(rightContainer);
     }

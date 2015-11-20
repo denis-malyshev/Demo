@@ -48,7 +48,7 @@
         <javac includeantruntime="no" srcdir="${target.src}" destdir="${target.classes}" classpathref="classpath"/>
     </target>
 
-    <target name="build" depends="compile">
+    <target name="build" depends="clean,compile">
         <jar destfile="${target.application}/jxbrowserdemo.jar">
             <fileset dir="${target.classes}" includes="**/**"/>
             <fileset dir="${target}" includes="src/**"/>

@@ -33,6 +33,10 @@
                 <name>LoginFacebookSample</name>
                 <description>Demonstrates how to login into Facebook account via login form and DOM API.</description>
             </sampleInfo>
+            <sampleInfo>
+                <name>JavaScriptSample</name>
+                <description></description>
+            </sampleInfo>
         </Samples>
     </categories>
 </Categories>
