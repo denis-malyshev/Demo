@@ -37,6 +37,10 @@
                 <name>JavaScriptSample</name>
                 <description></description>
             </sampleInfo>
+            <sampleInfo>
+                <name>LoadHTMLSample</name>
+                <description></description>
+            </sampleInfo>
         </Samples>
     </categories>
 </Categories>

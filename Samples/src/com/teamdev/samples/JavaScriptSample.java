@@ -3,7 +3,6 @@ package com.teamdev.samples;
 
 import com.teamdev.demo.DemoSample;
 import com.teamdev.jxbrowser.chromium.*;
-import com.teamdev.jxbrowser.chromium.internal.PrintDialogModel;
 import com.teamdev.jxbrowser.chromium.swing.BrowserView;
 import com.teamdev.jxbrowser.chromium.swing.DefaultDialogHandler;
 
