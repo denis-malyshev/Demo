@@ -44,6 +44,12 @@
                 <description>This sample demonstrates how to load custom HTML string into
                     Browser component and display it.</description>
             </sampleInfo>
+            <sampleInfo>
+                <name>LoadListenerSample</name>
+                <description>The sample demonstrates how to listen to different load events such as
+                    'start loading frame', 'finish loading frame', 'fail loading frame',
+                    'document loaded in frame' and 'document loaded in main frame'.</description>
+            </sampleInfo>
         </Samples>
     </categories>
 </Categories>
