@@ -11,6 +11,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * The sample demonstrates how to override default alert dialog. You
+ * can register your own DialogHandler where you can implement all
+ * the required JavaScript dialogs yourself.
+ */
 public class JavaScriptDialogsSample implements DemoSample {
 
     private Browser browser;

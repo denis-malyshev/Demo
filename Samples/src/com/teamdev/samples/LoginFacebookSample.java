@@ -11,6 +11,9 @@ import com.teamdev.jxbrowser.chromium.swing.BrowserView;
 
 import javax.swing.*;
 
+/**
+ * Demonstrates how to login into Facebook account via login form and DOM API.
+ */
 public class LoginFacebookSample implements DemoSample {
     private Browser browser;
 

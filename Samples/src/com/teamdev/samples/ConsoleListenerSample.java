@@ -9,6 +9,10 @@ import com.teamdev.jxbrowser.chromium.swing.BrowserView;
 
 import javax.swing.*;
 
+/**
+ * The sample demonstrates how to listen to console messages including
+ * JavaScript errors.
+ */
 public class ConsoleListenerSample  extends ConsoleDemoSample  {
 
     private Browser browser;

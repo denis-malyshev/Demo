@@ -9,6 +9,10 @@ import com.teamdev.jxbrowser.chromium.swing.BrowserView;
 
 import javax.swing.*;
 
+/**
+ * The sample demonstrates how to access CookieStorage instance to
+ * read all the available cookies.
+ */
 public class CookieSample extends ConsoleDemoSample {
 
     private Browser browser;

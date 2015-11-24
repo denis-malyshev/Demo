@@ -3,13 +3,16 @@ package com.teamdev.samples;
 
 import com.teamdev.demo.DemoSample;
 import com.teamdev.jxbrowser.chromium.Browser;
-import com.teamdev.jxbrowser.chromium.events.*;
 import com.teamdev.jxbrowser.chromium.swing.BrowserView;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
+/**
+ * This sample demonstrates how to load custom HTML string into
+ * Browser component and display it.
+ */
 public class LoadHTMLSample implements DemoSample {
     private Browser browser;
 
