@@ -76,8 +76,8 @@ public class BrowserSample implements DemoSample {
                         browser.goBack();
                 }
             });
-            backwardButton.setText("back");
-            backwardButton.setBorder(BorderFactory.createEmptyBorder());
+            backwardButton.setText("◄");
+            //backwardButton.setBorder(BorderFactory.createEmptyBorder());
             forwardButton =new JButton(new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -85,8 +85,8 @@ public class BrowserSample implements DemoSample {
                         browser.goForward();
                 }
             });
-            forwardButton.setText("next");
-            forwardButton.setBorder(BorderFactory.createEmptyBorder());
+            forwardButton.setText("►");
+            //forwardButton.setBorder(BorderFactory.createEmptyBorder());
             refreshButton=new JButton(new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -94,15 +94,15 @@ public class BrowserSample implements DemoSample {
                 }
             });
             refreshButton.setText("refresh");
-            refreshButton.setBorder(BorderFactory.createEmptyBorder());
+            //refreshButton.setBorder(BorderFactory.createEmptyBorder());
             stopButton = new JButton(new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     browser.stop();
                 }
             });
-            stopButton.setText("stop");
-            stopButton.setBorder(BorderFactory.createEmptyBorder());
+            stopButton.setText("■");
+            //stopButton.setBorder(BorderFactory.createEmptyBorder());
         }
     }
 }

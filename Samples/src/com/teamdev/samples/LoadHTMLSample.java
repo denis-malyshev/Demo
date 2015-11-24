@@ -3,6 +3,7 @@ package com.teamdev.samples;
 
 import com.teamdev.demo.DemoSample;
 import com.teamdev.jxbrowser.chromium.Browser;
+import com.teamdev.jxbrowser.chromium.events.*;
 import com.teamdev.jxbrowser.chromium.swing.BrowserView;
 
 import javax.swing.*;
@@ -14,13 +15,13 @@ public class LoadHTMLSample implements DemoSample {
 
     @Override
     public void run(JPanel container) {
-        browser=new Browser();
-        BrowserView browserView=new BrowserView(browser);
-        HTMLArea htmlArea=new HTMLArea();
+        browser = new Browser();
+        BrowserView browserView = new BrowserView(browser);
+        HTMLArea htmlArea = new HTMLArea();
         browser.loadHTML(htmlArea.htmlArea.getText());
         container.setLayout(new GridBagLayout());
-        container.add(browserView, new GridBagConstraints(0,0,1,1,1,1,GridBagConstraints.CENTER,GridBagConstraints.BOTH,new Insets(0,0,0,0),0,0));
-        container.add(htmlArea,new GridBagConstraints(0,1,1,1,1,1,GridBagConstraints.CENTER,GridBagConstraints.BOTH,new Insets(0,0,0,0),0,0));
+        container.add(browserView, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+        container.add(htmlArea, new GridBagConstraints(0, 1, 1, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
     }
 
     @Override
@@ -32,24 +33,53 @@ public class LoadHTMLSample implements DemoSample {
         private JTextArea htmlArea;
         private JScrollPane scrollPane;
         private JButton loadHTMLButton;
+        private JButton getHTMLButton;
+        private JButton loadGoogleComButton;
 
         public HTMLArea() {
-            htmlArea=new JTextArea("<html><body><h1>Load HTML Sample</h1></body></html>");
-            scrollPane=new JScrollPane(htmlArea);
+            htmlArea = new JTextArea("<html><body><h1>Load HTML Sample</h1></body></html>");
+            scrollPane = new JScrollPane(htmlArea);
             initLoadHTMLButton();
-            setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
-            add(scrollPane);
-            add(loadHTMLButton);
+            initGetHTMLButton();
+            initLoadGoogleComButton();
+            setLayout(new GridBagLayout());
+            add(scrollPane, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+            final JPanel buttonPanel = new JPanel();
+            buttonPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+            buttonPanel.add(loadHTMLButton);
+            buttonPanel.add(getHTMLButton);
+            buttonPanel.add(loadGoogleComButton);
+            add(buttonPanel, new GridBagConstraints(0, 1, 1, 1, 0, 0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
         }
 
         private void initLoadHTMLButton() {
-            loadHTMLButton=new JButton(new AbstractAction() {
+            loadHTMLButton = new JButton(new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     browser.loadHTML(htmlArea.getText());
                 }
             });
             loadHTMLButton.setText("Load html");
+        }
+
+        private void initGetHTMLButton() {
+            getHTMLButton = new JButton(new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    htmlArea.setText(browser.getHTML());
+                }
+            });
+            getHTMLButton.setText("Get html");
+        }
+
+        private void initLoadGoogleComButton() {
+            loadGoogleComButton=new JButton(new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    browser.loadURL("http://www.google.com");
+                }
+            });
+            loadGoogleComButton.setText("Load google.com");
         }
     }
 }
