@@ -34,12 +34,15 @@
                 <description>Demonstrates how to login into Facebook account via login form and DOM API.</description>
             </sampleInfo>
             <sampleInfo>
-                <name>JavaScriptSample</name>
-                <description></description>
+                <name>JavaScriptDialogsSample</name>
+                <description>The sample demonstrates how to override default alert dialog.
+                    You can register your own DialogHandler where you can implement
+                    all the required JavaScript dialogs yourself.</description>
             </sampleInfo>
             <sampleInfo>
                 <name>LoadHTMLSample</name>
-                <description></description>
+                <description>This sample demonstrates how to load custom HTML string into
+                    Browser component and display it.</description>
             </sampleInfo>
         </Samples>
     </categories>
