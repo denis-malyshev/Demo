@@ -7,6 +7,9 @@ import com.teamdev.jxbrowser.chromium.events.*;
 import com.teamdev.jxbrowser.chromium.swing.BrowserView;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 /**
  * The sample demonstrates how to listen to different load events such as
@@ -21,7 +24,23 @@ public class LoadListenerSample extends ConsoleDemoSample {
         super.run(container);
         browser = new Browser();
         BrowserView browserView = new BrowserView(browser);
-        container.add(browserView);
+        JTextField addressBar=new JTextField("http://google.com");
+        addressBar.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode()==10) {
+                    browser.loadURL(addressBar.getText());
+                    SwingUtilities.invokeLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            addressBar.setText(browser.getURL());
+                        }
+                    });
+                }
+            }
+        });
+        container.add(addressBar, BorderLayout.NORTH);
+        container.add(browserView,BorderLayout.CENTER);
         browser.addLoadListener(new LoadListener() {
             @Override
             public void onStartLoadingFrame(StartLoadingEvent event) {
@@ -54,7 +73,7 @@ public class LoadListenerSample extends ConsoleDemoSample {
 
             @Override
             public void onDocumentLoadedInFrame(FrameLoadEvent event) {
-                System.out.println("Frame document is loaded.");
+                System.out.println("FrameLoad: Frame ID: " + event.getFrameId() + ", Is Main Frame: " + event.isMainFrame());
             }
 
             @Override
