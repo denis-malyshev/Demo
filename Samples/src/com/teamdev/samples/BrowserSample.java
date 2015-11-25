@@ -20,9 +20,38 @@ public class BrowserSample implements DemoSample {
         browser.loadURL(toolbar.addressBar.getText());
         browser.addLoadListener(new LoadAdapter() {
             @Override
-            public void onFinishLoadingFrame(FinishLoadingEvent finishLoadingEvent) {
-                super.onFinishLoadingFrame(finishLoadingEvent);
+            public void onFinishLoadingFrame(FinishLoadingEvent event) {
+                super.onFinishLoadingFrame(event);
                 toolbar.addressBar.setText(browser.getURL().toString());
+                if (event.isMainFrame()) {
+                    SwingUtilities.invokeLater(new Runnable() {
+                        public void run() {
+                            toolbar.refreshButton.setEnabled(true);
+                            toolbar.stopButton.setEnabled(false);
+                            final boolean canGoForward = browser.canGoForward();
+                            final boolean canGoBack = browser.canGoBack();
+                            SwingUtilities.invokeLater(new Runnable() {
+                                public void run() {
+                                    toolbar.forwardButton.setEnabled(canGoForward);
+                                    toolbar.backwardButton.setEnabled(canGoBack);
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onStartLoadingFrame(StartLoadingEvent event) {
+                super.onStartLoadingFrame(event);
+                if (event.isMainFrame()) {
+                    SwingUtilities.invokeLater(new Runnable() {
+                        public void run() {
+                            toolbar.refreshButton.setEnabled(false);
+                            toolbar.stopButton.setEnabled(true);
+                        }
+                    });
+                }
             }
         });
         container.setLayout(new BorderLayout());
@@ -44,12 +73,12 @@ public class BrowserSample implements DemoSample {
         private JPanel actionPanel;
 
         public Toolbar() {
-            addressBar=new JTextField("http://www.google.com");
+            addressBar = new JTextField("http://www.google.com");
             addressBar.addKeyListener(new KeyAdapter() {
                 @Override
                 public void keyPressed(KeyEvent e) {
                     super.keyPressed(e);
-                    if(e.getKeyCode()==10)
+                    if (e.getKeyCode() == 10)
                         browser.loadURL(addressBar.getText());
                 }
             });
@@ -69,7 +98,7 @@ public class BrowserSample implements DemoSample {
         }
 
         private void initButtons() {
-            backwardButton =new JButton(new AbstractAction() {
+            backwardButton = new JButton(new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (browser.canGoBack())
@@ -77,15 +106,16 @@ public class BrowserSample implements DemoSample {
                 }
             });
             backwardButton.setText("◄");
-            forwardButton =new JButton(new AbstractAction() {
+            forwardButton = new JButton(new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (browser.canGoForward())
                         browser.goForward();
                 }
             });
-            forwardButton.setText("►");;
-            refreshButton=new JButton(new AbstractAction() {
+            forwardButton.setText("►");
+            ;
+            refreshButton = new JButton(new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     browser.reload();

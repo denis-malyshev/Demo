@@ -24,11 +24,11 @@ public class LoadListenerSample extends ConsoleDemoSample {
         super.run(container);
         browser = new Browser();
         BrowserView browserView = new BrowserView(browser);
-        JTextField addressBar=new JTextField("http://google.com");
+        JTextField addressBar = new JTextField("http://google.com");
         addressBar.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if(e.getKeyCode()==10) {
+                if (e.getKeyCode() == 10) {
                     browser.loadURL(addressBar.getText());
                     SwingUtilities.invokeLater(new Runnable() {
                         @Override
@@ -40,35 +40,31 @@ public class LoadListenerSample extends ConsoleDemoSample {
             }
         });
         container.add(addressBar, BorderLayout.NORTH);
-        container.add(browserView,BorderLayout.CENTER);
+        container.add(browserView, BorderLayout.CENTER);
         browser.addLoadListener(new LoadListener() {
             @Override
             public void onStartLoadingFrame(StartLoadingEvent event) {
-                if (event.isMainFrame()) {
-                    System.out.println("Main frame has started loading");
-                }
+                System.out.println("Frame has started loading: Frame ID: " + event.getFrameId()
+                        + ", Is Main Frame: " + event.isMainFrame());
             }
 
             @Override
             public void onProvisionalLoadingFrame(ProvisionalLoadingEvent event) {
-                if (event.isMainFrame()) {
-                    System.out.println("Provisional load was committed for a frame");
-                }
+                System.out.println("Provisional load was committed for a frame: Frame ID: "
+                        + event.getFrameId() + ", Is Main Frame: " + event.isMainFrame());
             }
 
             @Override
             public void onFinishLoadingFrame(FinishLoadingEvent event) {
-                if (event.isMainFrame()) {
-                    System.out.println("Main frame has finished loading");
-                }
+                System.out.println("Frame has finished loading: Frame ID: "
+                        + event.getFrameId() + ", Is Main Frame: " + event.isMainFrame());
             }
 
             @Override
             public void onFailLoadingFrame(FailLoadingEvent event) {
                 NetError errorCode = event.getErrorCode();
-                if (event.isMainFrame()) {
-                    System.out.println("Main frame has failed loading: " + errorCode);
-                }
+                System.out.println("Frame has failed loading: Frame ID: " + event.getFrameId()
+                        + ", Is Main Frame: " + event.isMainFrame() + ", errorCode: " + errorCode);
             }
 
             @Override
@@ -78,7 +74,7 @@ public class LoadListenerSample extends ConsoleDemoSample {
 
             @Override
             public void onDocumentLoadedInMainFrame(LoadEvent event) {
-                System.out.println("Main frame document is loaded.");
+                System.out.println("Frame document is loaded.");
             }
         });
         browser.loadURL("http://www.google.com");

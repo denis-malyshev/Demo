@@ -39,9 +39,9 @@ public class JavaScriptDialogsSample implements DemoSample {
 
     private class PreferenceBar extends JPanel {
 
-        private boolean alertEnabled=true;
-        private boolean promptEnabled=true;
-        private boolean confirmEnabled=true;
+        private boolean alertEnabled = true;
+        private boolean promptEnabled = true;
+        private boolean confirmEnabled = true;
 
         public PreferenceBar() {
             setDialogHandler();
