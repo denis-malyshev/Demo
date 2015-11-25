@@ -22,9 +22,20 @@ public class LoadHTMLSample implements DemoSample {
         BrowserView browserView = new BrowserView(browser);
         HTMLArea htmlArea = new HTMLArea();
         browser.loadHTML(htmlArea.htmlArea.getText());
-        container.setLayout(new GridBagLayout());
-        container.add(browserView, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
-        container.add(htmlArea, new GridBagConstraints(0, 1, 1, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+
+        final JPanel topPanel = new JPanel(new BorderLayout());
+        topPanel.add(browserView, BorderLayout.CENTER);
+
+        final JPanel bottomPanel = new JPanel(new BorderLayout());
+        bottomPanel.add(htmlArea, BorderLayout.CENTER);
+
+        final JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+        splitPane.add(topPanel, JSplitPane.TOP);
+        splitPane.add(bottomPanel, JSplitPane.BOTTOM);
+        splitPane.setResizeWeight(0.6);
+        splitPane.setDividerSize(5);
+
+        container.add(splitPane);
     }
 
     @Override
@@ -47,11 +58,13 @@ public class LoadHTMLSample implements DemoSample {
             initLoadGoogleComButton();
             setLayout(new GridBagLayout());
             add(scrollPane, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+
             final JPanel buttonPanel = new JPanel();
             buttonPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
             buttonPanel.add(loadHTMLButton);
             buttonPanel.add(getHTMLButton);
             buttonPanel.add(loadGoogleComButton);
+
             add(buttonPanel, new GridBagConstraints(0, 1, 1, 1, 0, 0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
         }
 
@@ -76,7 +89,7 @@ public class LoadHTMLSample implements DemoSample {
         }
 
         private void initLoadGoogleComButton() {
-            loadGoogleComButton=new JButton(new AbstractAction() {
+            loadGoogleComButton = new JButton(new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     browser.loadURL("http://www.google.com");
