@@ -6,7 +6,8 @@
             <sampleInfo>
                 <name>BrowserSample</name>
                 <description>
-                    This sample demonstrates how to create Browser instance, embed it into Swing BrowserView container, display it in JFrame and
+                    This sample demonstrates how to create Browser instance, embed it into Swing BrowserView container,
+                    display it in JFrame and
                     navigate to the "www.google.com" web site.
                 </description>
             </sampleInfo>
@@ -37,18 +38,25 @@
                 <name>JavaScriptDialogsSample</name>
                 <description>The sample demonstrates how to override default alert dialog.
                     You can register your own DialogHandler where you can implement
-                    all the required JavaScript dialogs yourself.</description>
+                    all the required JavaScript dialogs yourself.
+                </description>
             </sampleInfo>
             <sampleInfo>
                 <name>LoadHTMLSample</name>
-                <description>This sample demonstrates how to load custom HTML string into
-                    Browser component and display it.</description>
+                <description>To load HTML content from a string use Browser.loadHTML() method.
+                </description>
             </sampleInfo>
             <sampleInfo>
                 <name>LoadListenerSample</name>
                 <description>The sample demonstrates how to listen to different load events such as
                     'start loading frame', 'finish loading frame', 'fail loading frame',
-                    'document loaded in frame' and 'document loaded in main frame'.</description>
+                    'document loaded in frame' and 'document loaded in main frame'.
+                </description>
+            </sampleInfo>
+            <sampleInfo>
+                <name>JavaScriptSample</name>
+                <description>Ability to execute JavaScript code on the loaded web page is one of the main features of JxBrowser.
+                    To execute JavaScript code, first of all you need to make sure that web page is loaded completely.</description>
             </sampleInfo>
         </Samples>
     </categories>
