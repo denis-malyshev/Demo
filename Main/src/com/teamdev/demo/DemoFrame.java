@@ -65,7 +65,7 @@ public final class DemoFrame {
     private void initRightContainer() {
         rightContainer = new JPanel();
         rightContainer.setLayout(new BorderLayout());
-        labelAboutExample=new JLabel();
+        labelAboutExample = new JLabel();
         final JPanel rightDownSubContainer = new JPanel();
         rightDownSubContainer.setLayout(new GridLayout());
         rightDownSubContainer.add(tabbedPane);
@@ -88,10 +88,10 @@ public final class DemoFrame {
     }
 
     private void initMainContainer() {
-        mainContainer = new JSplitPane();
+        mainContainer = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
         mainContainer.setDividerSize(5);
-        mainContainer.setLeftComponent(leftContainer);
-        mainContainer.setRightComponent(rightContainer);
+        mainContainer.add(leftContainer, JSplitPane.LEFT);
+        mainContainer.add(rightContainer, JSplitPane.RIGHT);
     }
 
     private void initJTree() {

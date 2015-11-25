@@ -55,8 +55,10 @@
             </sampleInfo>
             <sampleInfo>
                 <name>JavaScriptSample</name>
-                <description>Ability to execute JavaScript code on the loaded web page is one of the main features of JxBrowser.
-                    To execute JavaScript code, first of all you need to make sure that web page is loaded completely.</description>
+                <description>Ability to execute JavaScript code on the loaded web page is one of the main features of
+                    JxBrowser.
+                    To execute JavaScript code, first of all you need to make sure that web page is loaded completely.
+                </description>
             </sampleInfo>
         </Samples>
     </categories>

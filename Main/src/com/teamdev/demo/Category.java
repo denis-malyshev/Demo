@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlType;
 import java.util.List;
 
 @XmlRootElement
-@XmlType(propOrder ={"name","sampleInfo"})
+@XmlType(propOrder = {"name", "sampleInfo"})
 public class Category {
     @XmlElement
     private String name;

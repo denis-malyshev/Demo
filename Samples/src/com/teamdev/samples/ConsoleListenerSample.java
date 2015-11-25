@@ -13,7 +13,7 @@ import javax.swing.*;
  * The sample demonstrates how to listen to console messages including
  * JavaScript errors.
  */
-public class ConsoleListenerSample  extends ConsoleDemoSample  {
+public class ConsoleListenerSample extends ConsoleDemoSample {
 
     private Browser browser;
 

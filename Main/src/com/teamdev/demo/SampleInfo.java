@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(propOrder ={"name","description"})
+@XmlType(propOrder = {"name", "description"})
 public class SampleInfo {
     @XmlElement
     private String name;

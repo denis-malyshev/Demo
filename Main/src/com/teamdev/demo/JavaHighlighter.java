@@ -39,16 +39,17 @@ public class JavaHighlighter {
         }
         keyWordsBuff.deleteCharAt(keyWordsBuff.length() - 1);
         functionsBuff.deleteCharAt(functionsBuff.length() - 1);
-        textFieldsBuff.append("\\(\".+\"\\)");
+        textFieldsBuff.append("\".+\"");
         numbersBuff.append("[0-9]");
-        constantsBuff.append("([^a-z]+[A-Z]{3,}[^a-z]+)|_[A-Z]+_");
+//        constantsBuff.append("([^a-z]+[A-Z]{3,}[^a-z]+)|_[A-Z]+_");
+        constantsBuff.append("(_*[A-Z]{3,}_*)|_[A-Z]+_");
         commentsBuff.append("//.+");
         JAVA_KEYWORDS_REGEX = keyWordsBuff.toString();
         FUNCTIONS_NAMES_REGEX = functionsBuff.toString();
-        TEXT_FIELDS_REGEX =textFieldsBuff.toString();
-        NUMBERS_COLOR_REGEX =numbersBuff.toString();
-        CONSTANTS_COLOR_REGEX=constantsBuff.toString();
-        COMMENTS_COLOR_REGEX=commentsBuff.toString();
+        TEXT_FIELDS_REGEX = textFieldsBuff.toString();
+        NUMBERS_COLOR_REGEX = numbersBuff.toString();
+        CONSTANTS_COLOR_REGEX = constantsBuff.toString();
+        COMMENTS_COLOR_REGEX = commentsBuff.toString();
     }
 
     private final JTextPane jTextPane;
@@ -56,9 +57,9 @@ public class JavaHighlighter {
     private final JTextPane lines;
 
     public JavaHighlighter(JTextPane jTextPane, JScrollPane jScrollPane) {
-        this.lines=new JTextPane();
+        this.lines = new JTextPane();
         this.jTextPane = jTextPane;
-        this.jScrollPane=jScrollPane;
+        this.jScrollPane = jScrollPane;
         this.jTextPane.setEditable(false);
         lines.setBackground(Color.lightGray);
         lines.setEditable(false);
@@ -67,20 +68,20 @@ public class JavaHighlighter {
 
     public void highlightCode() {
         setLineNumbering();
-        highlight(JAVA_KEYWORDS_REGEX,Color.blue,0,0);
-        highlight(NUMBERS_COLOR_REGEX,Color.cyan,0,0);
-        highlight(FUNCTIONS_NAMES_REGEX,Color.orange,0,-1);
-        highlight(CONSTANTS_COLOR_REGEX,Color.pink,0,0);
-        highlight(COMMENTS_COLOR_REGEX,Color.lightGray,0,0);
-        highlight(TEXT_FIELDS_REGEX,Color.green,1,-2);
+        highlight(JAVA_KEYWORDS_REGEX, Color.blue, 0, 0);
+        highlight(NUMBERS_COLOR_REGEX, Color.cyan, 0, 0);
+        highlight(FUNCTIONS_NAMES_REGEX, Color.orange, 0, -1);
+        highlight(CONSTANTS_COLOR_REGEX, Color.pink, 0, 0);
+        highlight(COMMENTS_COLOR_REGEX, Color.lightGray, 0, 0);
+        highlight(TEXT_FIELDS_REGEX, Color.green, 0, 0);
     }
 
     private void setLineNumbering() {
-        int caretPosition=jTextPane.getCaretPosition()+1;
-        Element root=jTextPane.getDocument().getDefaultRootElement();
-        String text="";
-        for(int i=1;i<=root.getElementIndex(caretPosition);i++) {
-            text+=(i + System.getProperty("line.separator"));
+        int caretPosition = jTextPane.getCaretPosition() + 1;
+        Element root = jTextPane.getDocument().getDefaultRootElement();
+        String text = "";
+        for (int i = 1; i <= root.getElementIndex(caretPosition); i++) {
+            text += (i + System.getProperty("line.separator"));
         }
         lines.setText(text);
         jScrollPane.getViewport().add(jTextPane);
@@ -95,11 +96,11 @@ public class JavaHighlighter {
     }
 
 
-    private void highlight(String regex,Color color,int offsetStart,int offsetEnd) {
+    private void highlight(String regex, Color color, int offsetStart, int offsetEnd) {
         Pattern pattern = Pattern.compile(regex);
         Matcher match = pattern.matcher(this.jTextPane.getText());
         while (match.find())
-            updateTextColor(match.start()+offsetStart, match.end() - match.start()+offsetEnd, color);
+            updateTextColor(match.start() + offsetStart, match.end() - match.start() + offsetEnd, color);
     }
 }
 

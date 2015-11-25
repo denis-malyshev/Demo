@@ -25,7 +25,7 @@ public class SampleProvider {
         if (isExist)
             disposeInstance();
         try {
-            currentClass =Class.forName("com.teamdev.samples." + className);
+            currentClass = Class.forName("com.teamdev.samples." + className);
         } catch (Exception e) {
             throw new IllegalArgumentException("No such class");
         }
@@ -33,7 +33,7 @@ public class SampleProvider {
 
     private void createInstance() {
         try {
-            instance= currentClass.newInstance();
+            instance = currentClass.newInstance();
             isExist = true;
         } catch (Exception e) {
             e.printStackTrace();
