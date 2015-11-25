@@ -38,13 +38,17 @@ public class JavaScriptSample implements DemoSample {
         topPanel.setLayout(new BorderLayout());
         topPanel.add(addressBar, BorderLayout.NORTH);
         topPanel.add(browserView, BorderLayout.CENTER);
+
         final JPanel bottomPanel = new JPanel();
         bottomPanel.setLayout(new BorderLayout());
         bottomPanel.add(jsConsole, BorderLayout.CENTER);
-        JSplitPane splitPane = new JSplitPane();
-        splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
-        splitPane.setTopComponent(topPanel);
-        splitPane.setBottomComponent(bottomPanel);
+
+        final JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+        splitPane.add(topPanel, JSplitPane.TOP);
+        splitPane.add(bottomPanel, JSplitPane.BOTTOM);
+        splitPane.setResizeWeight(0.8);
+        splitPane.setDividerSize(5);
+
         container.add(splitPane);
         browser.loadURL(addressBar.getText());
     }
@@ -62,7 +66,9 @@ public class JavaScriptSample implements DemoSample {
         public JSConsole() {
             initComponents();
             setLayout(new BorderLayout());
-            add(new JScrollPane(consolePanel), BorderLayout.CENTER);
+            final JScrollPane consoleContainer = new JScrollPane(consolePanel);
+            consoleContainer.setBorder(BorderFactory.createEmptyBorder());
+            add(consoleContainer, BorderLayout.CENTER);
             add(jsCodeArea, BorderLayout.SOUTH);
         }
 
@@ -94,10 +100,26 @@ public class JavaScriptSample implements DemoSample {
                         final String script = jsCodeArea.getText();
                         jsCodeArea.setText("");
                         JSValue jsValue = browser.executeJavaScriptAndReturnValue(script);
-                        console.append(jsValue.toString() + "\n");
+                        console.append(jsValueToPresentation(jsValue) + "\n");
                     }
                 }
             });
+        }
+
+        private String jsValueToPresentation(JSValue jsValue) {
+            if (jsValue.isNumber())
+                return "numberValue = " + jsValue.getNumber();
+            if (jsValue.isBoolean())
+                return "booleanValue = " + jsValue.getBoolean();
+            if (jsValue.isNull())
+                return "null";
+            if (jsValue.isUndefined())
+                return "property is undefined";
+            if (jsValue.isString())
+                return "stringValue = '" + jsValue.getString() + "'";
+            if (jsValue.isObject())
+                return "object";
+            return jsValue.toString();
         }
     }
 }
