@@ -42,7 +42,7 @@ public class JavaHighlighter {
         textFieldsBuff.append("\".+\"");
         numbersBuff.append("[0-9]");
 //        constantsBuff.append("([^a-z]+[A-Z]{3,}[^a-z]+)|_[A-Z]+_");
-        constantsBuff.append("(_*[A-Z]{3,}_*)|_[A-Z]+_");
+        constantsBuff.append("(_*[A-Z]{3,}[^a-z]+_*)|_[A-Z]+_");
         commentsBuff.append("//.+");
         JAVA_KEYWORDS_REGEX = keyWordsBuff.toString();
         FUNCTIONS_NAMES_REGEX = functionsBuff.toString();

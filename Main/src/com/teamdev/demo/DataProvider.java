@@ -1,7 +1,6 @@
 package com.teamdev.demo;
 
 
-
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
@@ -14,14 +13,22 @@ public final class DataProvider {
         JAXBContext context;
         Categories categories;
         try {
-            ClassLoader loader=getClass().getClassLoader();
-            InputStream inputStream=loader.getResourceAsStream(fileName);
+            ClassLoader loader = getClass().getClassLoader();
+            InputStream inputStream = loader.getResourceAsStream(fileName);
             context = JAXBContext.newInstance(Categories.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
             categories = (Categories) unmarshaller.unmarshal(inputStream);
             return categories.getCategories();
         } catch (Exception e) {
-            throw new IllegalArgumentException("No such file"+e);
+            try {
+                File xmlFile=new File(fileName);
+                context = JAXBContext.newInstance(Categories.class);
+                Unmarshaller unmarshaller = context.createUnmarshaller();
+                categories = (Categories) unmarshaller.unmarshal(xmlFile);
+                return categories.getCategories();
+            } catch (Exception ex) {
+                throw new IllegalArgumentException("No such file" + ex);
+            }
         }
     }
 
@@ -40,15 +47,25 @@ public final class DataProvider {
     public String getSourceCode(String exampleName) {
         StringBuilder result = new StringBuilder("");
         try {
-            ClassLoader loader=getClass().getClassLoader();
-            InputStream inputStream=loader.getResourceAsStream("src/com/teamdev/samples/"+exampleName+".java");
+            ClassLoader loader = getClass().getClassLoader();
+            InputStream inputStream = loader.getResourceAsStream("src/com/teamdev/samples/" + exampleName + ".java");
             int ch;
             while ((ch = inputStream.read()) != -1) {
                 result.append((char) ch);
             }
             inputStream.close();
         } catch (Exception e) {
-            throw new IllegalArgumentException("No such example: " + e);
+            try {
+                FileReader reader=new FileReader("./Samples/src/com/teamdev/samples/" + exampleName + ".java");
+                int ch;
+                while ((ch = reader.read()) != -1) {
+                    result.append((char) ch);
+                }
+                reader.close();
+
+            } catch (Exception ex) {
+                throw new IllegalArgumentException("No such example: " + ex);
+            }
         }
         return result.toString();
     }
