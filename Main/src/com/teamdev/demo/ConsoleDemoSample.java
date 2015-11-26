@@ -18,8 +18,9 @@ public abstract class ConsoleDemoSample implements DemoSample {
 
     private void redirectOutPutStream(JPanel container) {
         final JTextArea textArea = new JTextArea();
-        final JScrollPane scrollPane = new JScrollPane(textArea);
+        final JScrollPane scrollPane=new JScrollPane(textArea);
         textArea.setRows(10);
+        textArea.setEditable(false);
         OutputStream outputStream = new OutputStream() {
             @Override
             public void write(int b) throws IOException {

@@ -1,7 +1,7 @@
 package com.teamdev.samples;
 
 
-import com.teamdev.demo.ConsoleDemoSample;
+import com.teamdev.demo.DemoSample;
 import com.teamdev.jxbrowser.chromium.Browser;
 import com.teamdev.jxbrowser.chromium.events.*;
 import com.teamdev.jxbrowser.chromium.swing.BrowserView;
@@ -16,15 +16,15 @@ import java.awt.event.KeyEvent;
  * 'start loading frame', 'finish loading frame', 'fail loading frame',
  * 'document loaded in frame' and 'document loaded in main frame'.
  */
-public class LoadListenerSample extends ConsoleDemoSample {
+public class LoadListenerSample implements DemoSample {
     private Browser browser;
 
     @Override
     public void run(JPanel container) {
-        super.run(container);
         browser = new Browser();
         BrowserView browserView = new BrowserView(browser);
         JTextField addressBar = new JTextField("http://google.com");
+        JTextArea console = new JTextArea();
         addressBar.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -39,42 +39,54 @@ public class LoadListenerSample extends ConsoleDemoSample {
                 }
             }
         });
-        container.add(addressBar, BorderLayout.NORTH);
-        container.add(browserView, BorderLayout.CENTER);
+        final JPanel topPanel = new JPanel(new BorderLayout());
+        topPanel.add(addressBar, BorderLayout.NORTH);
+        topPanel.add(browserView, BorderLayout.CENTER);
+        final JPanel bottomPanel = new JPanel(new BorderLayout());
+        bottomPanel.add(new JScrollPane(console),BorderLayout.CENTER);
+
+        final JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+        splitPane.add(topPanel, JSplitPane.TOP);
+        splitPane.add(bottomPanel, JSplitPane.BOTTOM);
+        splitPane.setResizeWeight(0.8);
+        splitPane.setDividerSize(5);
+
+        container.add(splitPane);
+
         browser.addLoadListener(new LoadListener() {
             @Override
             public void onStartLoadingFrame(StartLoadingEvent event) {
-                System.out.println("Frame has started loading: Frame ID: " + event.getFrameId()
-                        + ", Is Main Frame: " + event.isMainFrame());
+                console.append("Frame has started loading: Frame ID: " + event.getFrameId()
+                        + ", Is Main Frame: " + event.isMainFrame() + "\n");
             }
 
             @Override
             public void onProvisionalLoadingFrame(ProvisionalLoadingEvent event) {
-                System.out.println("Provisional load was committed for a frame: Frame ID: "
-                        + event.getFrameId() + ", Is Main Frame: " + event.isMainFrame());
+                console.append("Provisional load was committed for a frame: Frame ID: "
+                        + event.getFrameId() + ", Is Main Frame: " + event.isMainFrame() + "\n");
             }
 
             @Override
             public void onFinishLoadingFrame(FinishLoadingEvent event) {
-                System.out.println("Frame has finished loading: Frame ID: "
-                        + event.getFrameId() + ", Is Main Frame: " + event.isMainFrame());
+                console.append("Frame has finished loading: Frame ID: "
+                        + event.getFrameId() + ", Is Main Frame: " + event.isMainFrame() + "\n");
             }
 
             @Override
             public void onFailLoadingFrame(FailLoadingEvent event) {
                 NetError errorCode = event.getErrorCode();
-                System.out.println("Frame has failed loading: Frame ID: " + event.getFrameId()
-                        + ", Is Main Frame: " + event.isMainFrame() + ", errorCode: " + errorCode);
+                console.append("Frame has failed loading: Frame ID: " + event.getFrameId()
+                        + ", Is Main Frame: " + event.isMainFrame() + ", errorCode: " + errorCode + "\n");
             }
 
             @Override
             public void onDocumentLoadedInFrame(FrameLoadEvent event) {
-                System.out.println("FrameLoad: Frame ID: " + event.getFrameId() + ", Is Main Frame: " + event.isMainFrame());
+                console.append("FrameLoad: Frame ID: " + event.getFrameId() + ", Is Main Frame: " + event.isMainFrame() + "\n");
             }
 
             @Override
             public void onDocumentLoadedInMainFrame(LoadEvent event) {
-                System.out.println("Frame document is loaded.");
+                console.append("Frame document is loaded." + "\n");
             }
         });
         browser.loadURL("http://www.google.com");
@@ -83,6 +95,5 @@ public class LoadListenerSample extends ConsoleDemoSample {
     @Override
     public void disposeInstance() {
         browser.dispose();
-        System.setOut(System.out);
     }
 }
