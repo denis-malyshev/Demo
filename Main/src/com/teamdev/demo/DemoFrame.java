@@ -1,13 +1,9 @@
 package com.teamdev.demo;
 
 
-import com.sun.javaws.IconUtil;
-
 import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-import javax.swing.plaf.IconUIResource;
-import javax.swing.plaf.TreeUI;
 import javax.swing.text.*;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreePath;
@@ -19,7 +15,7 @@ public final class DemoFrame {
     private JScrollPane leftContainer;
     private JPanel leftPanel;
     private JPanel rightContainer;
-    private JLabel labelAboutExample;
+    private JLabel labelAboutSample;
     private JSplitPane mainContainer;
     private JTabbedPane tabbedPane;
     private JPanel preview;
@@ -70,12 +66,14 @@ public final class DemoFrame {
     private void initRightContainer() {
         rightContainer = new JPanel();
         rightContainer.setLayout(new BorderLayout());
-        labelAboutExample = new JLabel();
+        labelAboutSample = new JLabel();
+        labelAboutSample.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
         final JPanel rightDownSubContainer = new JPanel();
         rightDownSubContainer.setLayout(new GridLayout());
         rightDownSubContainer.add(tabbedPane);
 
-        rightContainer.add(labelAboutExample, BorderLayout.NORTH);
+        rightContainer.add(labelAboutSample, BorderLayout.NORTH);
         rightContainer.add(rightDownSubContainer, BorderLayout.CENTER);
     }
 
@@ -102,11 +100,10 @@ public final class DemoFrame {
     private void initJTree() {
         DataProvider dataProvider = new DataProvider();
         categories = dataProvider.getCategories("data.xml");
+
         JTree treeOfExample = new JTree(dataProvider.createRootTreeNode(categories));
-        treeOfExample.setRootVisible(false);
-        treeOfExample.expandRow(0);
-        DefaultTreeCellRenderer renderer= (DefaultTreeCellRenderer) treeOfExample.getCellRenderer();
-        renderer.setLeafIcon(null);
+        setupJTree(treeOfExample);
+
         leftPanel.add(treeOfExample);
         treeOfExample.addTreeSelectionListener(new TreeSelectionListener() {
             @Override
@@ -117,7 +114,7 @@ public final class DemoFrame {
                         if (Objects.equals(sampleInfo.getName(), treePath.getLastPathComponent().toString())) {
                             updatePreview();
                             updateTabbedPane();
-                            labelAboutExample.setText("<html>" + sampleInfo.getName() + " - " + sampleInfo.getDescription() + "</html>");
+                            updateLabelAboutSample(sampleInfo.getName(), sampleInfo.getDescription());
                             sampleProvider.runSample(sampleInfo.getName());
                             setSourceText(dataProvider.getSourceCode(sampleInfo.getName()));
                             javaHighlighter.highlightCode();
@@ -126,6 +123,21 @@ public final class DemoFrame {
                 }
             }
         });
+    }
+
+    private void updateLabelAboutSample(String sampleName, String sampleDescription) {
+        labelAboutSample.setText("<html><h4>" + sampleName + "</h4>" + sampleDescription + "</html>");
+    }
+
+    private void setupJTree(JTree jTree) {
+        jTree.setRootVisible(false);
+        jTree.expandRow(0);
+
+        DefaultTreeCellRenderer renderer = (DefaultTreeCellRenderer) jTree.getCellRenderer();
+        renderer.setLeafIcon(null);
+        renderer.setIcon(null);
+        renderer.setOpenIcon(null);
+        renderer.setClosedIcon(null);
     }
 
     private void initUtils() {

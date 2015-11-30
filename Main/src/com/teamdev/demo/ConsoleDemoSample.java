@@ -21,6 +21,7 @@ public abstract class ConsoleDemoSample implements DemoSample {
         final JScrollPane scrollPane=new JScrollPane(textArea);
         textArea.setRows(10);
         textArea.setEditable(false);
+        textArea.setFont(new Font("Consolas", Font.PLAIN, 12));
         OutputStream outputStream = new OutputStream() {
             @Override
             public void write(int b) throws IOException {

@@ -88,11 +88,13 @@ public class JavaScriptSample implements DemoSample {
 
         private void initConsole() {
             console = new JTextArea();
+            console.setFont(new Font("Consolas", Font.PLAIN, 12));
             console.setEditable(false);
         }
 
         private void initJSCodeArea() {
             jsCodeArea = new JTextField();
+            jsCodeArea.setFont(new Font("Consolas", Font.PLAIN, 12));
             jsCodeArea.addKeyListener(new KeyAdapter() {
                 @Override
                 public void keyPressed(KeyEvent e) {

@@ -52,6 +52,7 @@ public class LoadHTMLSample implements DemoSample {
 
         public HTMLArea() {
             htmlArea = new JTextArea("<html><body><h1>Load HTML Sample</h1></body></html>");
+            htmlArea.setFont(new Font("Consolas", Font.PLAIN, 12));
             scrollPane = new JScrollPane(htmlArea);
             initLoadHTMLButton();
             initGetHTMLButton();

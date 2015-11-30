@@ -25,6 +25,7 @@ public class LoadListenerSample implements DemoSample {
         BrowserView browserView = new BrowserView(browser);
         JTextField addressBar = new JTextField("http://google.com");
         JTextArea console = new JTextArea();
+        console.setFont(new Font("Consolas", Font.PLAIN, 12));
         addressBar.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -43,7 +44,7 @@ public class LoadListenerSample implements DemoSample {
         topPanel.add(addressBar, BorderLayout.NORTH);
         topPanel.add(browserView, BorderLayout.CENTER);
         final JPanel bottomPanel = new JPanel(new BorderLayout());
-        bottomPanel.add(new JScrollPane(console),BorderLayout.CENTER);
+        bottomPanel.add(new JScrollPane(console), BorderLayout.CENTER);
 
         final JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
         splitPane.add(topPanel, JSplitPane.TOP);

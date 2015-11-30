@@ -15,6 +15,7 @@ public class JavaHighlighter {
     private static String NUMBERS_COLOR_REGEX;
     private static String CONSTANTS_COLOR_REGEX;
     private static String COMMENTS_COLOR_REGEX;
+    private static String OVERRIDE_COLOR_REGEX;
 
     private static final String[] JAVA_KEYWORDS = new String[]{"abstract",
             "assert", "boolean", "break", "byte", "case", "catch", "char",
@@ -29,26 +30,19 @@ public class JavaHighlighter {
     static {
         StringBuilder keyWordsBuff = new StringBuilder("");
         StringBuilder functionsBuff = new StringBuilder("");
-        StringBuilder textFieldsBuff = new StringBuilder("");
-        StringBuilder numbersBuff = new StringBuilder("");
-        StringBuilder constantsBuff = new StringBuilder("");
-        StringBuilder commentsBuff = new StringBuilder("");
         for (String keyword : JAVA_KEYWORDS) {
             keyWordsBuff.append(keyword).append("\\W").append("|");
             functionsBuff.append(keyword).append(" [a-z]+[A-Za-z]+\\(|");
         }
         keyWordsBuff.deleteCharAt(keyWordsBuff.length() - 1);
         functionsBuff.deleteCharAt(functionsBuff.length() - 1);
-        textFieldsBuff.append("\".+\"");
-        numbersBuff.append("[0-9]");
-        constantsBuff.append("( [A-Z]{2,} =)|(.[A-Z]{2,}_[A-Z]{2,}[,;\\)]{1})|(\\.[A-Z]{2,}[,;\\)]{1})");
-        commentsBuff.append("//.+");
         JAVA_KEYWORDS_REGEX = keyWordsBuff.toString();
         FUNCTIONS_NAMES_REGEX = functionsBuff.toString();
-        TEXT_FIELDS_REGEX = textFieldsBuff.toString();
-        NUMBERS_COLOR_REGEX = numbersBuff.toString();
-        CONSTANTS_COLOR_REGEX = constantsBuff.toString();
-        COMMENTS_COLOR_REGEX = commentsBuff.toString();
+        TEXT_FIELDS_REGEX = "\".+\"";
+        NUMBERS_COLOR_REGEX = "[0-9]";
+        CONSTANTS_COLOR_REGEX = "( [A-Z]{2,} =)|(.[A-Z]{2,}_[A-Z]{2,}[,;\\)]{1})|(\\.[A-Z]{2,}[,;\\)]{1})";
+        COMMENTS_COLOR_REGEX = "//.+";
+        OVERRIDE_COLOR_REGEX = "@Override";
     }
 
     private final JTextPane jTextPane;
@@ -60,6 +54,7 @@ public class JavaHighlighter {
         this.jTextPane = jTextPane;
         this.jScrollPane = jScrollPane;
         this.jTextPane.setEditable(false);
+        this.jTextPane.setFont(new Font("Consolas", Font.PLAIN, 12));
         lines.setBackground(Color.lightGray);
         lines.setEditable(false);
         lines.setFont(jTextPane.getFont());
@@ -67,12 +62,13 @@ public class JavaHighlighter {
 
     public void highlightCode() {
         setLineNumbering();
-        highlight(FUNCTIONS_NAMES_REGEX, Color.orange, 0, -1);
+        highlight(FUNCTIONS_NAMES_REGEX, Color.decode("#D2691E"), 0, -1);
         highlight(JAVA_KEYWORDS_REGEX, Color.blue, 0, 0);
-        highlight(NUMBERS_COLOR_REGEX, Color.cyan, 0, 0);
-        highlight(CONSTANTS_COLOR_REGEX, Color.pink, 1, -2);
-        highlight(COMMENTS_COLOR_REGEX, Color.lightGray, 0, 0);
-        highlight(TEXT_FIELDS_REGEX, Color.green, 0, 0);
+        highlight(NUMBERS_COLOR_REGEX, Color.decode("#1E90FF"), 0, 0);
+        highlight(CONSTANTS_COLOR_REGEX, Color.decode("#C71585"), 1, -2);
+        highlight(COMMENTS_COLOR_REGEX, Color.decode("#A9A9A9"), 0, 0);
+        highlight(TEXT_FIELDS_REGEX, Color.decode("#228B22"), 0, 0);
+        highlight(OVERRIDE_COLOR_REGEX, Color.decode("#FFA500"), 0, 0);
     }
 
     private void setLineNumbering() {
