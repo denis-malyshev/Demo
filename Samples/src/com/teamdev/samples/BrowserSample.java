@@ -85,8 +85,10 @@ public class BrowserSample implements DemoSample {
             initButtons();
             initActionPanel();
             setLayout(new GridBagLayout());
-            add(actionPanel, new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-            add(addressBar, new GridBagConstraints(1, 0, 1, 1, 1, 1, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 5));
+            add(actionPanel, new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.WEST,
+                    GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+            add(addressBar, new GridBagConstraints(1, 0, 1, 1, 1, 1, GridBagConstraints.WEST,
+                    GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 5));
         }
 
         private void initActionPanel() {
@@ -105,7 +107,7 @@ public class BrowserSample implements DemoSample {
                         browser.goBack();
                 }
             });
-            backwardButton.setText("◄");
+            backwardButton.setText("backward");
             forwardButton = new JButton(new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -113,8 +115,7 @@ public class BrowserSample implements DemoSample {
                         browser.goForward();
                 }
             });
-            forwardButton.setText("►");
-            ;
+            forwardButton.setText("forward");
             refreshButton = new JButton(new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -128,7 +129,7 @@ public class BrowserSample implements DemoSample {
                     browser.stop();
                 }
             });
-            stopButton.setText("■");
+            stopButton.setText("stop");
         }
     }
 }

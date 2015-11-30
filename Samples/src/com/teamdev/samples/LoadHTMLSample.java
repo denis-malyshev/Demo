@@ -58,7 +58,8 @@ public class LoadHTMLSample implements DemoSample {
             initGetHTMLButton();
             initLoadGoogleComButton();
             setLayout(new GridBagLayout());
-            add(scrollPane, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+            add(scrollPane, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.CENTER,
+                    GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 
             final JPanel buttonPanel = new JPanel();
             buttonPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -66,7 +67,8 @@ public class LoadHTMLSample implements DemoSample {
             buttonPanel.add(getHTMLButton);
             buttonPanel.add(loadGoogleComButton);
 
-            add(buttonPanel, new GridBagConstraints(0, 1, 1, 1, 0, 0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+            add(buttonPanel, new GridBagConstraints(0, 1, 1, 1, 0, 0, GridBagConstraints.WEST,
+                    GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
         }
 
         private void initLoadHTMLButton() {

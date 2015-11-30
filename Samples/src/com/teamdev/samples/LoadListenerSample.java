@@ -82,7 +82,8 @@ public class LoadListenerSample implements DemoSample {
 
             @Override
             public void onDocumentLoadedInFrame(FrameLoadEvent event) {
-                console.append("FrameLoad: Frame ID: " + event.getFrameId() + ", Is Main Frame: " + event.isMainFrame() + "\n");
+                console.append("FrameLoad: Frame ID: " + event.getFrameId()
+                        + ", Is Main Frame: " + event.isMainFrame() + "\n");
             }
 
             @Override
