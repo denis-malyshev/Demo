@@ -1,10 +1,15 @@
 package com.teamdev.demo;
 
 
+import com.sun.javaws.IconUtil;
+
 import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.plaf.IconUIResource;
+import javax.swing.plaf.TreeUI;
 import javax.swing.text.*;
+import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreePath;
 import java.awt.*;
 import java.util.*;
@@ -100,6 +105,8 @@ public final class DemoFrame {
         JTree treeOfExample = new JTree(dataProvider.createRootTreeNode(categories));
         treeOfExample.setRootVisible(false);
         treeOfExample.expandRow(0);
+        DefaultTreeCellRenderer renderer= (DefaultTreeCellRenderer) treeOfExample.getCellRenderer();
+        renderer.setLeafIcon(null);
         leftPanel.add(treeOfExample);
         treeOfExample.addTreeSelectionListener(new TreeSelectionListener() {
             @Override
@@ -136,8 +143,9 @@ public final class DemoFrame {
         tabbedPane.setSelectedIndex(0);
     }
 
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
+    public static void main(String[] args) throws Exception {
+        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
                 new DemoFrame();
