@@ -35,14 +35,13 @@ public class JavaHighlighter {
         StringBuilder commentsBuff = new StringBuilder("");
         for (String keyword : JAVA_KEYWORDS) {
             keyWordsBuff.append(keyword).append("\\W").append("|");
-            functionsBuff.append(" [a-z]+\\(|");
+            functionsBuff.append(keyword).append(" [a-z]+[A-Za-z]+\\(|");
         }
         keyWordsBuff.deleteCharAt(keyWordsBuff.length() - 1);
         functionsBuff.deleteCharAt(functionsBuff.length() - 1);
         textFieldsBuff.append("\".+\"");
         numbersBuff.append("[0-9]");
-//        constantsBuff.append("([^a-z]+[A-Z]{3,}[^a-z]+)|_[A-Z]+_");
-        constantsBuff.append("(_*[A-Z]{3,}[^a-z]+_*)|_[A-Z]+_");
+        constantsBuff.append("( [A-Z]{2,} =)|(.[A-Z]{2,}_[A-Z]{2,}[,;\\)]{1})|(\\.[A-Z]{2,}[,;\\)]{1})");
         commentsBuff.append("//.+");
         JAVA_KEYWORDS_REGEX = keyWordsBuff.toString();
         FUNCTIONS_NAMES_REGEX = functionsBuff.toString();
@@ -68,10 +67,10 @@ public class JavaHighlighter {
 
     public void highlightCode() {
         setLineNumbering();
+        highlight(FUNCTIONS_NAMES_REGEX, Color.orange, 0, -1);
         highlight(JAVA_KEYWORDS_REGEX, Color.blue, 0, 0);
         highlight(NUMBERS_COLOR_REGEX, Color.cyan, 0, 0);
-        highlight(FUNCTIONS_NAMES_REGEX, Color.orange, 0, -1);
-        highlight(CONSTANTS_COLOR_REGEX, Color.pink, 0, 0);
+        highlight(CONSTANTS_COLOR_REGEX, Color.pink, 1, -2);
         highlight(COMMENTS_COLOR_REGEX, Color.lightGray, 0, 0);
         highlight(TEXT_FIELDS_REGEX, Color.green, 0, 0);
     }
