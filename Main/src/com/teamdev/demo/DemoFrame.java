@@ -1,14 +1,16 @@
 package com.teamdev.demo;
 
 
+import com.teamdev.demo.provider.DataProvider;
+import com.teamdev.demo.provider.SampleProvider;
+import com.teamdev.demo.provider.ViewProvider;
+
 import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.text.*;
 import javax.swing.tree.DefaultTreeCellRenderer;
-import javax.swing.tree.TreePath;
 import java.awt.*;
-import java.util.*;
 
 public final class DemoFrame {
 
@@ -22,14 +24,14 @@ public final class DemoFrame {
     private JTextPane source;
     private JScrollPane sourceContainer;
     private SampleProvider sampleProvider;
-    private java.util.List<Category> categories;
     private JavaHighlighter javaHighlighter;
+    private boolean isPreview;
 
     public DemoFrame() {
-        init();
+        initFrame();
     }
 
-    private void init() {
+    private void initFrame() {
         initLeftContainer();
         initTabbedPane();
         initRightContainer();
@@ -69,12 +71,7 @@ public final class DemoFrame {
         labelAboutSample = new JLabel();
         labelAboutSample.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        final JPanel rightDownSubContainer = new JPanel();
-        rightDownSubContainer.setLayout(new GridLayout());
-        rightDownSubContainer.add(tabbedPane);
-
-        rightContainer.add(labelAboutSample, BorderLayout.NORTH);
-        rightContainer.add(rightDownSubContainer, BorderLayout.CENTER);
+        rightContainer.add(new JLabel("<html><h1>Click on the sample in left side for preview</h1></html>"));
     }
 
     private void initTabbedPane() {
@@ -98,31 +95,52 @@ public final class DemoFrame {
     }
 
     private void initJTree() {
-        DataProvider dataProvider = new DataProvider();
-        categories = dataProvider.getCategories("data.xml");
-
-        JTree treeOfExample = new JTree(dataProvider.createRootTreeNode(categories));
+        final ViewProvider viewProvider = new ViewProvider("data.xml");
+        JTree treeOfExample = new JTree(viewProvider.getRootNode());
         setupJTree(treeOfExample);
-
-        leftPanel.add(treeOfExample);
         treeOfExample.addTreeSelectionListener(new TreeSelectionListener() {
             @Override
             public void valueChanged(TreeSelectionEvent e) {
-                TreePath treePath = e.getPath();
-                for (Category category : categories) {
-                    for (SampleInfo sampleInfo : category.getSampleInfo()) {
-                        if (Objects.equals(sampleInfo.getName(), treePath.getLastPathComponent().toString())) {
-                            updatePreview();
-                            updateTabbedPane();
-                            updateLabelAboutSample(sampleInfo.getName(), sampleInfo.getDescription());
-                            sampleProvider.runSample(sampleInfo.getName());
-                            setSourceText(dataProvider.getSourceCode(sampleInfo.getName()));
-                            javaHighlighter.highlightCode();
-                        }
+                if (e.getPath().getPathCount() > 2) {
+                    if(!isPreview) {
+                        clearRightContainer();
+                        fillRightContainer();
+                        isPreview=true;
                     }
+                    String sampleName = e.getPath().getLastPathComponent().toString();
+                    showSample(viewProvider.getSample(sampleName));
+                } else {
+                    isPreview=false;
+                    clearRightContainer();
+                    rightContainer.add(new JLabel("<html><h1>Click on the sample in left side for preview</h1></html>"));
                 }
             }
         });
+        leftPanel.add(treeOfExample);
+    }
+
+    private void clearRightContainer() {
+        rightContainer.removeAll();
+        rightContainer.updateUI();
+    }
+
+    private void fillRightContainer() {
+        final JPanel rightDownSubContainer = new JPanel();
+        rightDownSubContainer.setLayout(new GridLayout());
+        rightDownSubContainer.add(tabbedPane);
+
+        rightContainer.add(labelAboutSample, BorderLayout.NORTH);
+        rightContainer.add(rightDownSubContainer, BorderLayout.CENTER);
+    }
+
+    private void showSample(SampleInfo sampleInfo) {
+        DataProvider dataProvider = new DataProvider();
+        updatePreview();
+        updateTabbedPane();
+        updateLabelAboutSample(sampleInfo.getName(), sampleInfo.getDescription());
+        sampleProvider.runSample(sampleInfo.getName());
+        setSourceText(dataProvider.getSourceCode(sampleInfo.getName()));
+        javaHighlighter.highlightCode();
     }
 
     private void updateLabelAboutSample(String sampleName, String sampleDescription) {

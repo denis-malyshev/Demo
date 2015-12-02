@@ -1,5 +1,8 @@
-package com.teamdev.demo;
+package com.teamdev.demo.provider;
 
+
+import com.teamdev.demo.Categories;
+import com.teamdev.demo.Category;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.xml.bind.JAXBContext;

@@ -1,4 +1,4 @@
-package com.teamdev.demo;
+package com.teamdev.demo.provider;
 
 
 import javax.swing.*;
