@@ -55,7 +55,7 @@
             <fileset file="data.xml"/>
             <zipfileset file="teamdev.licenses" prefix="META-INF"/>
             <manifest>
-                <attribute name="Main-Class" value="com.teamdev.demo.DemoFrame"/>
+                <attribute name="Main-Class" value="com.teamdev.demo.gui.Demo"/>
                 <attribute name="Class-Path" value="../lib/jxbrowser-5.4.3.jar ../lib/jxbrowser-win-5.4.3.jar"/>
             </manifest>
         </jar>
