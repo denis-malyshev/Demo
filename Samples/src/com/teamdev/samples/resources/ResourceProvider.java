@@ -10,11 +10,11 @@ import java.util.jar.JarFile;
 public class ResourceProvider {
 
     public static String getFilePath(String fileName) {
-        final File tempDir = new File(".temp");
-        tempDir.mkdir();
-        final String tempFileName = ".temp/" + fileName;
-        final File file = new File(tempFileName);
+        makeTempDir();
+        final String tempFilePath = ".temp/" + fileName;
+        File file = new File(tempFilePath);
         final String jarName = "jxbrowserdemo.jar";
+        final StringBuilder filePath = new StringBuilder();
         try {
             JarFile jarFile = new JarFile(jarName);
             JarEntry jarEntry = jarFile.getJarEntry("src/com/teamdev/samples/resources/" + fileName);
@@ -25,10 +25,20 @@ public class ResourceProvider {
             }
             outputStream.close();
             inputStream.close();
+            filePath.append(ResourceProvider.class.getProtectionDomain().getCodeSource().getLocation().toString().replace(jarName, tempFilePath));
         } catch (IOException e) {
-            e.printStackTrace();
+            try {
+                file = new File("Samples/src/com/teamdev/samples/resources/" + fileName);
+                filePath.append(file.getCanonicalPath().toString());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
-        final String filePath = ResourceProvider.class.getProtectionDomain().getCodeSource().getLocation().toString().replace(jarName, tempFileName);
-        return filePath;
+        return filePath.toString();
+    }
+
+    private static void makeTempDir() {
+        final File tempDir = new File(".temp");
+        tempDir.mkdir();
     }
 }
