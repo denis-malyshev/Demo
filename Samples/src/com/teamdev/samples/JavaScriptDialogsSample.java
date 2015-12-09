@@ -2,16 +2,18 @@ package com.teamdev.samples;
 
 
 import com.teamdev.demo.DemoSample;
-import com.teamdev.jxbrowser.chromium.*;
+import com.teamdev.jxbrowser.chromium.Browser;
+import com.teamdev.jxbrowser.chromium.CloseStatus;
+import com.teamdev.jxbrowser.chromium.DialogParams;
+import com.teamdev.jxbrowser.chromium.PromptDialogParams;
 import com.teamdev.jxbrowser.chromium.swing.BrowserView;
 import com.teamdev.jxbrowser.chromium.swing.DefaultDialogHandler;
-import com.teamdev.samples.resources.Resources;
+import com.teamdev.samples.resources.ResourceProvider;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.URL;
 
 /**
  * The sample demonstrates how to override default alert dialog. You
@@ -27,9 +29,8 @@ public class JavaScriptDialogsSample implements DemoSample {
     public void run(JPanel container) {
         browser = new Browser();
         browserView = new BrowserView(browser);
-        Resources resources=new Resources();
-        String url= resources.getHTML("javaScriptDialogs.html");
-        browser.loadHTML(url);
+        final String filePath = ResourceProvider.getFilePath("javaScriptDialogs.html");
+        browser.loadURL(filePath);
         PreferenceBar preferenceBar = new PreferenceBar();
         container.setLayout(new BorderLayout());
         container.add(preferenceBar, BorderLayout.NORTH);

@@ -7,7 +7,6 @@ import java.awt.*;
 
 public class Demo extends JFrame {
 
-    private JSplitPane mainContainer;
     private final RightContainer rightContainer = new RightContainer();
     private final JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
     private final Tree treeOfExamples = new Tree(new ViewProvider("data.xml"), rightContainer);
@@ -26,7 +25,7 @@ public class Demo extends JFrame {
     }
 
     private void initMainContainer() {
-        mainContainer = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+        final JSplitPane mainContainer = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
         mainContainer.setDividerSize(5);
         mainContainer.setResizeWeight(0.2);
         mainContainer.add(createLeftContainer(), JSplitPane.LEFT);
@@ -36,7 +35,7 @@ public class Demo extends JFrame {
     }
 
     private JScrollPane createLeftContainer() {
-        JScrollPane leftContainer = new JScrollPane(leftPanel);
+        final JScrollPane leftContainer = new JScrollPane(leftPanel);
         leftPanel.add(treeOfExamples);
         leftPanel.setBackground(Color.white);
         return leftContainer;

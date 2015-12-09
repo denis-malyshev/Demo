@@ -5,12 +5,14 @@ import com.teamdev.demo.provider.DataProvider;
 import com.teamdev.demo.provider.ViewProvider;
 
 import javax.swing.*;
+import javax.swing.event.TreeExpansionEvent;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.event.TreeWillExpandListener;
 import javax.swing.text.Position;
 import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.ExpandVetoException;
 import javax.swing.tree.TreePath;
-import java.awt.*;
 
 public class Tree extends JTree {
 
@@ -33,6 +35,18 @@ public class Tree extends JTree {
         renderer.setClosedIcon(null);
 
         addSelectionListener();
+
+        addTreeWillExpandListener(new TreeWillExpandListener() {
+            @Override
+            public void treeWillExpand(TreeExpansionEvent event) throws ExpandVetoException {
+
+            }
+
+            @Override
+            public void treeWillCollapse(TreeExpansionEvent event) throws ExpandVetoException {
+                setExpandedState(event.getPath(), false);
+            }
+        });
     }
 
     public void showDefaultSample(String sampleName) {

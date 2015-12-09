@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScriptSample</title>
+    <script type="text/javascript">
+        function callAlert() {
+            alert("Hello!");
+        }
+
+        function callPrompt() {
+            alert("Hello "+prompt("Please enter your name", "")+"!");
+        }
+        function callConfirm() {
+            if(confirm("Press a button"))
+                alert("You pressed OK!");
+            else
+                alert("You pressed Cancel!");
+        }
+    </script>
+</head>
+<body>
+<div>
+    <button id="btnAlert" onclick="callAlert()">
+        alert
+    </button>
+</div>
+<div>
+    <button id="btnPrompt" onclick="callPrompt()">
+        prompt
+    </button>
+</div>
+<div>
+    <button id="btnConfirm" onclick="callConfirm()">
+        confirm
+    </button>
+</div>
+</body>
+</html>
