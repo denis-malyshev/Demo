@@ -7,13 +7,19 @@ import java.awt.*;
 
 public class Demo extends JFrame {
 
-    private final RightContainer rightContainer = new RightContainer();
-    private final JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-    private final Tree treeOfExamples = new Tree(new ViewProvider("data.xml"), rightContainer);
+    public static final String DEFAULT_SAMPLE_NAME = "BrowserSample";
+    private final RightContainer rightContainer;
+    private final JPanel leftPanel;
+    private final Tree treeOfExamples;
     private final String startSampleName;
 
     public Demo(String sampleName) {
+        rightContainer = new RightContainer();
+        leftPanel = new JPanel(new BorderLayout());
+        treeOfExamples = new Tree(new ViewProvider("data.xml"), rightContainer);
+
         this.startSampleName = sampleName;
+
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         setSize(800, 500);
         setMinimumSize(new Dimension((int) dimension.getWidth() / 5, (int) dimension.getHeight() / 5));
@@ -25,9 +31,9 @@ public class Demo extends JFrame {
     }
 
     private void initMainContainer() {
-        final JSplitPane mainContainer = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+        JSplitPane mainContainer = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
         mainContainer.setDividerSize(5);
-        mainContainer.setResizeWeight(0.2);
+        mainContainer.setResizeWeight(0.25);
         mainContainer.add(createLeftContainer(), JSplitPane.LEFT);
         mainContainer.add(rightContainer, JSplitPane.RIGHT);
         add(mainContainer);
@@ -35,10 +41,11 @@ public class Demo extends JFrame {
     }
 
     private JScrollPane createLeftContainer() {
-        final JScrollPane leftContainer = new JScrollPane(leftPanel);
-        leftPanel.add(treeOfExamples);
+        leftPanel.add(treeOfExamples, BorderLayout.CENTER);
         leftPanel.setBackground(Color.white);
-        return leftContainer;
+        JScrollPane scrollPane = new JScrollPane(leftPanel);
+        scrollPane.setMinimumSize(new Dimension(150, 200));
+        return scrollPane;
     }
 
     public static void main(String[] args) throws Exception {
@@ -46,7 +53,7 @@ public class Demo extends JFrame {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                final String startSampleName = args.length > 0 ? args[0] : "BrowserSample";
+                String startSampleName = args.length > 0 ? args[0] : DEFAULT_SAMPLE_NAME;
                 new Demo(startSampleName);
             }
         });

@@ -10,14 +10,14 @@ import java.awt.*;
 
 public class RightContainer extends JPanel {
 
-    private final Tab tabbedPane;
+    private final SampleTabbedPane tabbedPane;
     private final JLabel labelAboutSample;
     private final JavaHighlighter javaHighlighter;
     private final SampleProvider sampleProvider;
 
     public RightContainer() {
         setLayout(new BorderLayout());
-        tabbedPane = new Tab();
+        tabbedPane = new SampleTabbedPane();
         sampleProvider = new SampleProvider(tabbedPane.getPreview());
         javaHighlighter = new JavaHighlighter(tabbedPane.getSource(), tabbedPane.getSourceContainer());
         labelAboutSample = new JLabel();
@@ -28,8 +28,8 @@ public class RightContainer extends JPanel {
 
     public void showSample(SampleInfo sample, String sourceCode) {
         updateComponents();
-        final String sampleName = sample.getName();
-        final String description = sample.getDescription();
+        String sampleName = sample.getName();
+        String description = sample.getDescription();
         updateLabelAboutSample(sampleName, description);
         sampleProvider.runSample(sampleName);
         setSourceText(sourceCode);
@@ -42,7 +42,7 @@ public class RightContainer extends JPanel {
     }
 
     private void updateComponents() {
-        final JPanel preview = tabbedPane.getPreview();
+        JPanel preview = tabbedPane.getPreview();
         preview.removeAll();
         preview.revalidate();
         clear();
@@ -51,7 +51,8 @@ public class RightContainer extends JPanel {
 
     private void clear() {
         removeAll();
-        updateUI();
+        validate();
+        repaint();
     }
 
     private void fill() {
@@ -60,7 +61,7 @@ public class RightContainer extends JPanel {
     }
 
     private void setSourceText(String text) {
-        final JTextPane source = tabbedPane.getSource();
+        JTextPane source = tabbedPane.getSource();
         source.setText(text);
         source.getDocument().putProperty(DefaultEditorKit.EndOfLineStringProperty, "\n");
     }

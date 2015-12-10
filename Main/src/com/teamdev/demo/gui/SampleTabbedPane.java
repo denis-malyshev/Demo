@@ -5,14 +5,19 @@ import com.teamdev.demo.provider.SampleProvider;
 import javax.swing.*;
 import java.awt.*;
 
-public class Tab extends JTabbedPane {
+public class SampleTabbedPane extends JTabbedPane {
 
-    private final JPanel preview = new JPanel(new BorderLayout());
-    private final JTextPane source = new JTextPane();
-    private final JScrollPane sourceContainer = new JScrollPane(source);
-    private final SampleProvider sampleProvider = new SampleProvider(preview);
+    private final JPanel preview;
+    private final JTextPane source;
+    private final JScrollPane sourceContainer;
+    private final SampleProvider sampleProvider;
 
-    public Tab() {
+    public SampleTabbedPane() {
+        preview = new JPanel(new BorderLayout());
+        source = new JTextPane();
+        sourceContainer = new JScrollPane(source);
+        sampleProvider = new SampleProvider(preview);
+
         setVisible(true);
         addTab("Preview", preview);
         addTab("Source", sourceContainer);

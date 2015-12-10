@@ -12,10 +12,10 @@ public class JavaHighlighter {
     private static String JAVA_KEYWORDS_REGEX;
     private static String FUNCTIONS_NAMES_REGEX;
     private static String TEXT_FIELDS_REGEX;
-    private static String NUMBERS_COLOR_REGEX;
-    private static String CONSTANTS_COLOR_REGEX;
-    private static String COMMENTS_COLOR_REGEX;
-    private static String OVERRIDE_COLOR_REGEX;
+    private static String NUMBERS_REGEX;
+    private static String CONSTANTS_REGEX;
+    private static String COMMENTS_REGEX;
+    private static String OVERRIDE_REGEX;
 
     private static final String[] JAVA_KEYWORDS = new String[]{"abstract",
             "assert", "boolean", "break", "byte", "case", "catch", "char",
@@ -39,10 +39,10 @@ public class JavaHighlighter {
         JAVA_KEYWORDS_REGEX = keyWordsBuff.toString();
         FUNCTIONS_NAMES_REGEX = functionsBuff.toString();
         TEXT_FIELDS_REGEX = "\".+\"";
-        NUMBERS_COLOR_REGEX = "[0-9]";
-        CONSTANTS_COLOR_REGEX = "( [A-Z]{2,} =)|(.[A-Z]{2,}_[A-Z]{2,}[,;\\)]{1})|(\\.[A-Z]{2,}[,;\\)]{1})";
-        COMMENTS_COLOR_REGEX = "//.+";
-        OVERRIDE_COLOR_REGEX = "@Override";
+        NUMBERS_REGEX = "[0-9]";
+        CONSTANTS_REGEX = "( [A-Z]{2,} =)|(.[A-Z]{2,}_[A-Z]{2,}[,;\\)]{1})|(\\.[A-Z]{2,}[,;\\)]{1})";
+        COMMENTS_REGEX = "//.+";
+        OVERRIDE_REGEX = "@Override";
     }
 
     private final JTextPane jTextPane;
@@ -64,11 +64,11 @@ public class JavaHighlighter {
         setLineNumbering();
         highlight(FUNCTIONS_NAMES_REGEX, Color.decode("#D2691E"), 0, -1);
         highlight(JAVA_KEYWORDS_REGEX, Color.blue, 0, 0);
-        highlight(NUMBERS_COLOR_REGEX, Color.decode("#1E90FF"), 0, 0);
-        highlight(CONSTANTS_COLOR_REGEX, Color.decode("#C71585"), 1, -2);
-        highlight(COMMENTS_COLOR_REGEX, Color.decode("#A9A9A9"), 0, 0);
+        highlight(NUMBERS_REGEX, Color.decode("#1E90FF"), 0, 0);
+        highlight(CONSTANTS_REGEX, Color.decode("#C71585"), 1, -2);
+        highlight(COMMENTS_REGEX, Color.decode("#A9A9A9"), 0, 0);
         highlight(TEXT_FIELDS_REGEX, Color.decode("#228B22"), 0, 0);
-        highlight(OVERRIDE_COLOR_REGEX, Color.decode("#FFA500"), 0, 0);
+        highlight(OVERRIDE_REGEX, Color.decode("#FFA500"), 0, 0);
     }
 
     private void setLineNumbering() {

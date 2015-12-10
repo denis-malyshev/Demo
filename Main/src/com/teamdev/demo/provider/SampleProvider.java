@@ -40,6 +40,7 @@ public class SampleProvider {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private void runInstance() {
         try {
             Method method = currentClass.getMethod("run", JPanel.class);
@@ -49,6 +50,7 @@ public class SampleProvider {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private void disposeInstance() {
         try {
             Method method = currentClass.getMethod("disposeInstance");

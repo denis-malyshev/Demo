@@ -7,7 +7,9 @@ import com.teamdev.demo.Category;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
-import java.io.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.InputStream;
 import java.util.List;
 
 public final class DataProvider {
@@ -24,7 +26,7 @@ public final class DataProvider {
             return categories.getCategories();
         } catch (Exception e) {
             try {
-                File xmlFile=new File(fileName);
+                File xmlFile = new File(fileName);
                 context = JAXBContext.newInstance(Categories.class);
                 Unmarshaller unmarshaller = context.createUnmarshaller();
                 categories = (Categories) unmarshaller.unmarshal(xmlFile);
@@ -59,7 +61,7 @@ public final class DataProvider {
             inputStream.close();
         } catch (Exception e) {
             try {
-                FileReader reader=new FileReader("./Samples/src/com/teamdev/samples/" + exampleName + ".java");
+                FileReader reader = new FileReader("./Samples/src/com/teamdev/samples/" + exampleName + ".java");
                 int ch;
                 while ((ch = reader.read()) != -1) {
                     result.append((char) ch);

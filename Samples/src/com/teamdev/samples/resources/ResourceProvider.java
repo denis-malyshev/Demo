@@ -10,14 +10,30 @@ import java.util.jar.JarFile;
 public class ResourceProvider {
 
     public static String getFilePath(String fileName) {
-        makeTempDir();
-        final String tempFilePath = ".temp/" + fileName;
-        File file = new File(tempFilePath);
+        File file = new File("Samples/src/com/teamdev/samples/resources/" + fileName);
+        if (file.exists())
+            try {
+                return file.getCanonicalPath();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        final String dirName = "temp";
+        final String tempFilePath = dirName + "/" + fileName;
         final String jarName = "jxbrowserdemo.jar";
-        final StringBuilder filePath = new StringBuilder();
+        makeTempDir(dirName);
+        file = new File(tempFilePath);
+        extractFileInTempDir(file);
+        final String filePath = ResourceProvider.class.getProtectionDomain().getCodeSource().getLocation().toString().replace(jarName, tempFilePath);
+        return filePath;
+    }
+
+    private static void extractFileInTempDir(File file) {
+        final String tempFilePath = "temp/" + file.getName();
+        file = new File(tempFilePath);
+        final String jarName = "jxbrowserdemo.jar";
         try {
             JarFile jarFile = new JarFile(jarName);
-            JarEntry jarEntry = jarFile.getJarEntry("src/com/teamdev/samples/resources/" + fileName);
+            JarEntry jarEntry = jarFile.getJarEntry("src/com/teamdev/samples/resources/" + file.getName());
             InputStream inputStream = jarFile.getInputStream(jarEntry);
             FileOutputStream outputStream = new FileOutputStream(file);
             while (inputStream.available() > 0) {
@@ -25,20 +41,13 @@ public class ResourceProvider {
             }
             outputStream.close();
             inputStream.close();
-            filePath.append(ResourceProvider.class.getProtectionDomain().getCodeSource().getLocation().toString().replace(jarName, tempFilePath));
         } catch (IOException e) {
-            try {
-                file = new File("Samples/src/com/teamdev/samples/resources/" + fileName);
-                filePath.append(file.getCanonicalPath().toString());
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
+            e.printStackTrace();
         }
-        return filePath.toString();
     }
 
-    private static void makeTempDir() {
-        final File tempDir = new File(".temp");
-        tempDir.mkdir();
+    private static boolean makeTempDir(String dirName) {
+        final File tempDir = new File(dirName);
+        return tempDir.mkdir();
     }
 }

@@ -29,7 +29,7 @@ public class JavaScriptDialogsSample implements DemoSample {
     public void run(JPanel container) {
         browser = new Browser();
         browserView = new BrowserView(browser);
-        final String filePath = ResourceProvider.getFilePath("javaScriptDialogs.html");
+        String filePath = ResourceProvider.getFilePath("javaScriptDialogs.html");
         browser.loadURL(filePath);
         PreferenceBar preferenceBar = new PreferenceBar();
         container.setLayout(new BorderLayout());

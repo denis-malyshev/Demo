@@ -26,6 +26,10 @@ public class ViewProvider {
         return samples.get(sampleName);
     }
 
+    public boolean hasSample(String sampleName) {
+        return samples.containsKey(sampleName);
+    }
+
     public DefaultMutableTreeNode getRootNode() {
         return rootNode;
     }

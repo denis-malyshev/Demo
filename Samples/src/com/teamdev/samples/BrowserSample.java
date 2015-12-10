@@ -22,7 +22,7 @@ public class BrowserSample implements DemoSample {
             @Override
             public void onFinishLoadingFrame(FinishLoadingEvent event) {
                 super.onFinishLoadingFrame(event);
-                toolbar.addressBar.setText(browser.getURL().toString());
+                toolbar.addressBar.setText(browser.getURL());
                 if (event.isMainFrame()) {
                     SwingUtilities.invokeLater(new Runnable() {
                         public void run() {

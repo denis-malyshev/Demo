@@ -4,6 +4,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import java.util.ArrayList;
 import java.util.List;
 
 @XmlRootElement
@@ -21,7 +22,7 @@ public class Category {
 
     public Category(String name, List<SampleInfo> sampleInfo) {
         this.name = name;
-        this.sampleInfo = sampleInfo;
+        this.sampleInfo = new ArrayList<>(sampleInfo);
     }
 
     public String getName() {
@@ -29,6 +30,6 @@ public class Category {
     }
 
     public List<SampleInfo> getSampleInfo() {
-        return sampleInfo;
+        return new ArrayList<>(sampleInfo);
     }
 }

@@ -18,7 +18,7 @@ public abstract class ConsoleDemoSample implements DemoSample {
 
     private void redirectOutPutStream(JPanel container) {
         final JTextArea textArea = new JTextArea();
-        final JScrollPane scrollPane=new JScrollPane(textArea);
+        final JScrollPane scrollPane = new JScrollPane(textArea);
         textArea.setRows(10);
         textArea.setEditable(false);
         textArea.setFont(new Font("Consolas", Font.PLAIN, 12));

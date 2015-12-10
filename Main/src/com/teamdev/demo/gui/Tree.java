@@ -17,13 +17,14 @@ import javax.swing.tree.TreePath;
 public class Tree extends JTree {
 
     private final ViewProvider viewProvider;
-    private final DataProvider dataProvider = new DataProvider();
+    private final DataProvider dataProvider;
     private final RightContainer rightContainer;
 
     public Tree(ViewProvider viewProvider, RightContainer rightContainer) {
         super(viewProvider.getRootNode());
         this.viewProvider = viewProvider;
         this.rightContainer = rightContainer;
+        this.dataProvider = new DataProvider();
 
         setRootVisible(false);
         expandRow(0);
@@ -50,11 +51,11 @@ public class Tree extends JTree {
     }
 
     public void showDefaultSample(String sampleName) {
-        sampleName = viewProvider.getSample(sampleName) != null ? sampleName : "BrowserSample";
-        final SampleInfo sample = viewProvider.getSample(sampleName);
-        final String sourceCode = dataProvider.getSourceCode(sampleName);
+        String validatedSampleName = viewProvider.hasSample(sampleName) ? sampleName : Demo.DEFAULT_SAMPLE_NAME;
+        SampleInfo sample = viewProvider.getSample(validatedSampleName);
+        String sourceCode = dataProvider.getSourceCode(validatedSampleName);
         rightContainer.showSample(sample, sourceCode);
-        TreePath treePath = getNextMatch(sampleName, 0, Position.Bias.Forward);
+        TreePath treePath = getNextMatch(validatedSampleName, 0, Position.Bias.Forward);
         setSelectionPath(treePath);
     }
 
@@ -63,9 +64,9 @@ public class Tree extends JTree {
             @Override
             public void valueChanged(TreeSelectionEvent e) {
                 if (e.getPath().getPathCount() == 3) {
-                    final String sampleName = e.getPath().getLastPathComponent().toString();
-                    final SampleInfo sample = viewProvider.getSample(sampleName);
-                    final String sourceCode = dataProvider.getSourceCode(sampleName);
+                    String sampleName = e.getPath().getLastPathComponent().toString();
+                    SampleInfo sample = viewProvider.getSample(sampleName);
+                    String sourceCode = dataProvider.getSourceCode(sampleName);
                     rightContainer.showSample(sample, sourceCode);
                 } else {
                     rightContainer.showDefaultLabel();
