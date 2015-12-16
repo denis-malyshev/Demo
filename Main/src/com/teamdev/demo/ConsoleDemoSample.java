@@ -2,33 +2,10 @@ package com.teamdev.demo;
 
 
 import javax.swing.*;
-import java.awt.*;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
 
-public abstract class ConsoleDemoSample implements DemoSample {
-    @Override
-    public void run(JPanel container) {
-        redirectOutPutStream(container);
-    }
+public interface ConsoleDemoSample {
 
-    @Override
-    public abstract void disposeInstance();
+    void run(JComponent container);
 
-    private void redirectOutPutStream(JPanel container) {
-        final JTextArea textArea = new JTextArea();
-        final JScrollPane scrollPane = new JScrollPane(textArea);
-        textArea.setRows(10);
-        textArea.setEditable(false);
-        textArea.setFont(new Font("Consolas", Font.PLAIN, 12));
-        OutputStream outputStream = new OutputStream() {
-            @Override
-            public void write(int b) throws IOException {
-                textArea.append(String.valueOf((char) b));
-            }
-        };
-        container.add(scrollPane, BorderLayout.PAGE_END);
-        System.setOut(new PrintStream(outputStream));
-    }
+    void disposeInstance();
 }

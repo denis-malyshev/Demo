@@ -1,24 +1,33 @@
 package com.teamdev.demo.provider;
 
 
+import com.teamdev.demo.ConsoleDemoSample;
+
 import javax.swing.*;
 import java.lang.reflect.Method;
 
 public class SampleProvider {
 
     private Class currentClass;
-    private final JPanel container;
     private Object instance;
     private boolean isExist;
 
-    public SampleProvider(JPanel container) {
-        this.container = container;
-    }
-
-    public void runSample(String instanceName) {
+    public void runSample(String instanceName, JComponent container) {
         loadClass(instanceName);
         createInstance();
-        runInstance();
+        runInstance(container);
+    }
+
+    public boolean isConsoleSample(String sampleName) {
+        try {
+            Object type = Class.forName("com.teamdev.samples." + sampleName).newInstance();
+            if(type instanceof ConsoleDemoSample) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     private void loadClass(String className) {
@@ -41,9 +50,9 @@ public class SampleProvider {
     }
 
     @SuppressWarnings("unchecked")
-    private void runInstance() {
+    private void runInstance(JComponent container) {
         try {
-            Method method = currentClass.getMethod("run", JPanel.class);
+            Method method = currentClass.getMethod("run", JComponent.class);
             method.invoke(instance, container);
         } catch (Exception e) {
             e.printStackTrace();

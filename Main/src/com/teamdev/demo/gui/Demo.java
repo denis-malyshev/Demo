@@ -33,7 +33,7 @@ public class Demo extends JFrame {
     private void initMainContainer() {
         JSplitPane mainContainer = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
         mainContainer.setDividerSize(5);
-        mainContainer.setResizeWeight(0.25);
+        mainContainer.setResizeWeight(0);
         mainContainer.add(createLeftContainer(), JSplitPane.LEFT);
         mainContainer.add(rightContainer, JSplitPane.RIGHT);
         add(mainContainer);

@@ -5,7 +5,7 @@ import javax.swing.*;
 
 public interface DemoSample {
 
-    void run(JPanel container);
+    void run(JComponent container);
 
     void disposeInstance();
 }
