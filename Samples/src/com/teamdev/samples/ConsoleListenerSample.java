@@ -35,7 +35,6 @@ public class ConsoleListenerSample implements ConsoleDemoSample {
     @Override
     public void disposeInstance() {
         browser.dispose();
-        System.setOut(System.out);
     }
 
 

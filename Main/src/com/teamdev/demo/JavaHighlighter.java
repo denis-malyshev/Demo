@@ -74,11 +74,11 @@ public class JavaHighlighter {
     private void setLineNumbering() {
         int caretPosition = jTextPane.getCaretPosition() + 1;
         Element root = jTextPane.getDocument().getDefaultRootElement();
-        String text = "";
+        StringBuilder text = new StringBuilder();
         for (int i = 1; i <= root.getElementIndex(caretPosition); i++) {
-            text += (i + System.getProperty("line.separator"));
+            text.append(i).append(System.getProperty("line.separator"));
         }
-        lines.setText(text);
+        lines.setText(text.toString());
         jScrollPane.getViewport().add(jTextPane);
         jScrollPane.setRowHeaderView(lines);
     }

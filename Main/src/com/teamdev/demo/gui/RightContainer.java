@@ -64,6 +64,8 @@ public class RightContainer extends JPanel {
     public void showDefaultLabel() {
         clear();
         add(new JLabel("<html><h1>Click on the sample in left side for preview</h1></html>"));
+        validate();
+        repaint();
     }
 
     private boolean isConsoleSample(String sampleName) {
