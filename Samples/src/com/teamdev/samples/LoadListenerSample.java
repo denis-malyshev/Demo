@@ -20,7 +20,7 @@ public class LoadListenerSample implements DemoSample {
     private Browser browser;
 
     @Override
-    public void run(JPanel container) {
+    public void run(JComponent container) {
         browser = new Browser();
         BrowserView browserView = new BrowserView(browser);
         JTextField addressBar = new JTextField("http://google.com");
@@ -40,13 +40,15 @@ public class LoadListenerSample implements DemoSample {
                 }
             }
         });
-        final JPanel topPanel = new JPanel(new BorderLayout());
+
+        JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.add(addressBar, BorderLayout.NORTH);
         topPanel.add(browserView, BorderLayout.CENTER);
-        final JPanel bottomPanel = new JPanel(new BorderLayout());
+
+        JPanel bottomPanel = new JPanel(new BorderLayout());
         bottomPanel.add(new JScrollPane(console), BorderLayout.CENTER);
 
-        final JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+        JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
         splitPane.add(topPanel, JSplitPane.TOP);
         splitPane.add(bottomPanel, JSplitPane.BOTTOM);
         splitPane.setResizeWeight(0.8);

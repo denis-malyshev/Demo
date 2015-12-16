@@ -12,10 +12,9 @@ import javax.swing.*;
  * Every Browser instance must be disposed before your Java
  * application exit.
  */
-public class DisposeBrowserSample extends ConsoleDemoSample {
+public class DisposeBrowserSample implements ConsoleDemoSample {
     @Override
-    public void run(JPanel container) {
-        super.run(container);
+    public void run(JComponent container) {
         Browser browser = new Browser();
         browser.addDisposeListener(new DisposeListener<Browser>() {
             public void onDisposed(DisposeEvent<Browser> event) {

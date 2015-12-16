@@ -13,7 +13,7 @@ public class BrowserSample implements DemoSample {
 
     private Browser browser;
 
-    public void run(JPanel container) {
+    public void run(JComponent container) {
         browser = new Browser();
         BrowserView browserView = new BrowserView(browser);
         Toolbar toolbar = new Toolbar();
@@ -69,7 +69,7 @@ public class BrowserSample implements DemoSample {
         private JButton forwardButton;
         private JButton refreshButton;
         private JButton stopButton;
-        private JTextField addressBar;
+        private final JTextField addressBar;
         private JPanel actionPanel;
 
         public Toolbar() {

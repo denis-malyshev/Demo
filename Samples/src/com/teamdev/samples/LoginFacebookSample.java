@@ -18,7 +18,7 @@ public class LoginFacebookSample implements DemoSample {
     private Browser browser;
 
     @Override
-    public void run(JPanel container) {
+    public void run(JComponent container) {
         browser = new Browser();
         BrowserView browserView = new BrowserView(browser);
         container.add(browserView);

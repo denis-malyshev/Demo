@@ -13,13 +13,12 @@ import javax.swing.*;
  * The sample demonstrates how to access CookieStorage instance to
  * read all the available cookies.
  */
-public class CookieSample extends ConsoleDemoSample {
+public class CookieSample implements ConsoleDemoSample {
 
     private Browser browser;
 
     @Override
-    public void run(JPanel container) {
-        super.run(container);
+    public void run(JComponent container) {
         browser = new Browser();
         BrowserView browserView = new BrowserView(browser);
         container.add(browserView);

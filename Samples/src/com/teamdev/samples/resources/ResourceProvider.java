@@ -17,20 +17,20 @@ public class ResourceProvider {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        final String dirName = "temp";
-        final String tempFilePath = dirName + "/" + fileName;
-        final String jarName = "jxbrowserdemo.jar";
+        String dirName = "temp";
+        String tempFilePath = dirName + "/" + fileName;
+        String jarName = "jxbrowserdemo.jar";
         makeTempDir(dirName);
         file = new File(tempFilePath);
         extractFileInTempDir(file);
-        final String filePath = ResourceProvider.class.getProtectionDomain().getCodeSource().getLocation().toString().replace(jarName, tempFilePath);
+        String filePath = ResourceProvider.class.getProtectionDomain().getCodeSource().getLocation().toString().replace(jarName, tempFilePath);
         return filePath;
     }
 
     private static void extractFileInTempDir(File file) {
-        final String tempFilePath = "temp/" + file.getName();
+        String tempFilePath = "temp/" + file.getName();
         file = new File(tempFilePath);
-        final String jarName = "jxbrowserdemo.jar";
+        String jarName = "jxbrowserdemo.jar";
         try {
             JarFile jarFile = new JarFile(jarName);
             JarEntry jarEntry = jarFile.getJarEntry("src/com/teamdev/samples/resources/" + file.getName());
@@ -47,7 +47,7 @@ public class ResourceProvider {
     }
 
     private static boolean makeTempDir(String dirName) {
-        final File tempDir = new File(dirName);
+        File tempDir = new File(dirName);
         return tempDir.mkdir();
     }
 }

@@ -15,7 +15,7 @@ public class JavaScriptSample implements DemoSample {
     private Browser browser;
 
     @Override
-    public void run(JPanel container) {
+    public void run(JComponent container) {
         browser = new Browser();
         BrowserView browserView = new BrowserView(browser);
         JSConsole jsConsole = new JSConsole();
@@ -34,16 +34,17 @@ public class JavaScriptSample implements DemoSample {
                 }
             }
         });
-        final JPanel topPanel = new JPanel();
+
+        JPanel topPanel = new JPanel();
         topPanel.setLayout(new BorderLayout());
         topPanel.add(addressBar, BorderLayout.NORTH);
         topPanel.add(browserView, BorderLayout.CENTER);
 
-        final JPanel bottomPanel = new JPanel();
+        JPanel bottomPanel = new JPanel();
         bottomPanel.setLayout(new BorderLayout());
         bottomPanel.add(jsConsole, BorderLayout.CENTER);
 
-        final JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+        JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
         splitPane.add(topPanel, JSplitPane.TOP);
         splitPane.add(bottomPanel, JSplitPane.BOTTOM);
         splitPane.setResizeWeight(0.8);
@@ -66,7 +67,8 @@ public class JavaScriptSample implements DemoSample {
         public JSConsole() {
             initComponents();
             setLayout(new BorderLayout());
-            final JScrollPane consoleContainer = new JScrollPane(consolePanel);
+
+            JScrollPane consoleContainer = new JScrollPane(consolePanel);
             consoleContainer.setBorder(BorderFactory.createEmptyBorder());
             add(consoleContainer, BorderLayout.CENTER);
             add(jsCodeArea, BorderLayout.SOUTH);
@@ -110,15 +112,15 @@ public class JavaScriptSample implements DemoSample {
 
         private String jsValueToPresentation(JSValue jsValue) {
             if (jsValue.isNumber())
-                return "numberValue = " + jsValue.getNumber();
+                return jsValue.getNumber() + "";
             if (jsValue.isBoolean())
-                return "booleanValue = " + jsValue.getBoolean();
+                return jsValue.getBoolean() + "";
             if (jsValue.isNull())
                 return "null";
             if (jsValue.isUndefined())
                 return "property is undefined";
             if (jsValue.isString())
-                return "stringValue = '" + jsValue.getString() + "'";
+                return jsValue.getString();
             if (jsValue.isObject())
                 return "object";
             return jsValue.toString();

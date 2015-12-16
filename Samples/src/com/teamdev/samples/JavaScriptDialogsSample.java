@@ -26,7 +26,7 @@ public class JavaScriptDialogsSample implements DemoSample {
     private BrowserView browserView;
 
     @Override
-    public void run(JPanel container) {
+    public void run(JComponent container) {
         browser = new Browser();
         browserView = new BrowserView(browser);
         String filePath = ResourceProvider.getFilePath("javaScriptDialogs.html");

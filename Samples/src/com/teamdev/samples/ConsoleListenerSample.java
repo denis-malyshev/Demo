@@ -13,13 +13,12 @@ import javax.swing.*;
  * The sample demonstrates how to listen to console messages including
  * JavaScript errors.
  */
-public class ConsoleListenerSample extends ConsoleDemoSample {
+public class ConsoleListenerSample implements ConsoleDemoSample {
 
     private Browser browser;
 
     @Override
-    public void run(JPanel container) {
-        super.run(container);
+    public void run(JComponent container) {
         browser = new Browser();
         BrowserView browserView = new BrowserView(browser);
 

@@ -17,19 +17,19 @@ public class LoadHTMLSample implements DemoSample {
     private Browser browser;
 
     @Override
-    public void run(JPanel container) {
+    public void run(JComponent container) {
         browser = new Browser();
         BrowserView browserView = new BrowserView(browser);
         HTMLArea htmlArea = new HTMLArea();
         browser.loadHTML(htmlArea.htmlArea.getText());
 
-        final JPanel topPanel = new JPanel(new BorderLayout());
+        JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.add(browserView, BorderLayout.CENTER);
 
-        final JPanel bottomPanel = new JPanel(new BorderLayout());
+        JPanel bottomPanel = new JPanel(new BorderLayout());
         bottomPanel.add(htmlArea, BorderLayout.CENTER);
 
-        final JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+        JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
         splitPane.add(topPanel, JSplitPane.TOP);
         splitPane.add(bottomPanel, JSplitPane.BOTTOM);
         splitPane.setResizeWeight(0.6);
@@ -44,8 +44,8 @@ public class LoadHTMLSample implements DemoSample {
     }
 
     private class HTMLArea extends JPanel {
-        private JTextArea htmlArea;
-        private JScrollPane scrollPane;
+        private final JTextArea htmlArea;
+        private final JScrollPane scrollPane;
         private JButton loadHTMLButton;
         private JButton getHTMLButton;
         private JButton loadGoogleComButton;
@@ -61,7 +61,7 @@ public class LoadHTMLSample implements DemoSample {
             add(scrollPane, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.CENTER,
                     GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 
-            final JPanel buttonPanel = new JPanel();
+            JPanel buttonPanel = new JPanel();
             buttonPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
             buttonPanel.add(loadHTMLButton);
             buttonPanel.add(getHTMLButton);
